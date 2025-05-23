@@ -51,6 +51,19 @@ function initProgressBar() {
         // Position milestone
         milestone.style.left = milestonePosition + '%';
 
+        // Add click functionality to milestone
+        milestone.addEventListener('click', function (e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+        });
+
+        // Close milestone when clicking elsewhere
+        document.addEventListener('click', function (e) {
+            if (!milestone.contains(e.target)) {
+                milestone.classList.remove('active');
+            }
+        });
+
         // Animate progress bar on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
