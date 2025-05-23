@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloatnet Initiative - Road to Statelessness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="ethereum-icon">⟐</span>
+                Bloatnet
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="floating-particles"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="bloatnet_initiative.png" alt="Road to Statelessness" class="hero-main-image">
+            </div>
+            <div class="hero-text">
+                <h1>Bloatnet Initiative</h1>
+                <p class="hero-subtitle">Advancing Ethereum's scalability through experimental blockchain parameters</p>
+                <div class="hero-description">
+                    <p>Bloatnet is an ambitious effort to create a new Ethereum-like chain with altered parameters that
+                        enable greater throughput through bigger gas limits and smaller slot times.</p>
+                </div>
+
+                <!-- Scroll Arrow -->
+                <div class="scroll-arrow">
+                    <div class="arrow-container">
+                        <span class="arrow-text">Explore Progress</span>
+                        <div class="arrow-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+        <div class="container">
+            <h2>Initiative Progress</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="20"></div>
+                    <div class="milestone" data-position="20">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-content">
+                            <h4>Research Milestone</h4>
+                            <p>Network bloating and state-bloat attacks/weaknesses identification</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-labels">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Objectives -->
+    <section class="objectives">
+        <div class="container">
+            <h2>Core Objectives</h2>
+            <div class="objectives-grid">
+                <div class="objective-card" data-number="1">
+                    <div class="card-header">
+                        <span class="card-number">1</span>
+                        <h3>Critical State Growth Monitoring</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Know when state growth becomes a critical issue → prioritize
+                            statelessness</p>
+                        <div class="card-details">
+                            <p>Understand the exact thresholds where state bloat begins to impact network performance
+                                and client synchronization. This critical monitoring helps us prioritize statelessness
+                                implementation before the network experiences malfunctions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="objective-card" data-number="2">
+                    <div class="card-header">
+                        <span class="card-number">2</span>
+                        <h3>Massive State Testnet Data</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Gather extensive performance data with high gas limits</p>
+                        <div class="card-details">
+                            <p>Collect comprehensive performance metrics in a controlled testnet environment with
+                                significantly higher gas limits. This data provides insights into network behavior under
+                                extreme load conditions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="objective-card" data-number="3">
+                    <div class="card-header">
+                        <span class="card-number">3</span>
+                        <h3>Path to EIP-7938</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Understand when and how clients will struggle with state growth</p>
+                        <div class="card-details">
+                            <p>Clear the implementation path for EIP-7938, which proposes incremental gas-limit upgrades
+                                over time. By identifying obstacles and safe thresholds, we ensure smooth implementation
+                                of this critical scalability improvement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join the Initiative</h2>
+            <p>Help us gather critical data for Ethereum's scaling future</p>
+            <a href="metrics.html" class="cta-button">Explore Metrics →</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+    <!-- Test Script to verify JS is working -->
+    <script>
+        // Simple direct scroll function
+        function scrollToProgress() {
+            const progressSection = document.querySelector('.progress-section');
+
+            if (progressSection) {
+                progressSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Wait for DOM to be ready and add the event listener
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(() => {
+                const scrollArrow = document.querySelector('.scroll-arrow');
+
+                if (scrollArrow) {
+                    scrollArrow.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        scrollToProgress();
+                    });
+
+                    // Also add to all child elements
+                    const arrowText = scrollArrow.querySelector('.arrow-text');
+                    const arrowIcon = scrollArrow.querySelector('.arrow-icon');
+                    const arrowContainer = scrollArrow.querySelector('.arrow-container');
+
+                    [arrowText, arrowIcon, arrowContainer].forEach(element => {
+                        if (element) {
+                            element.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                scrollToProgress();
+                            });
+                        }
+                    });
+                }
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrics & Data Collection - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="metrics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="ethereum-icon">⟐</span>
+                Bloatnet
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link active">Metrics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="metrics-header">
+        <div class="container">
+            <h1>Data Collection & Metrics</h1>
+            <p class="header-subtitle">Critical performance indicators and research data points for the Bloatnet
+                initiative</p>
+        </div>
+    </section>
+
+    <!-- Metrics Grid -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="metrics-grid">
+
+                <!-- Core Infrastructure Metrics -->
+                <div class="metric-card" data-category="infrastructure">
+                    <div class="metric-header">
+                        <div class="team-badge">Core Dev Team</div>
+                        <h3>Block Processing Time</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Measuring the time required to process blocks under increased gas limits. Critical for
+                            understanding the scalability boundaries and identifying bottlenecks in block execution.
+                        </p>
+                        <div class="metric-priority">High Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="networking">
+                    <div class="metric-header">
+                        <div class="team-badge">Networking Team</div>
+                        <h3>Peer Synchronization Performance</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Tracking how quickly new nodes can sync with the network as state size grows. Essential for
+                            maintaining network accessibility and preventing client abandonment.
+                        </p>
+                        <div class="metric-priority">Critical</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="storage">
+                    <div class="metric-header">
+                        <div class="team-badge">Research Team</div>
+                        <h3>State Growth Rate Analysis</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Comprehensive tracking of state database growth patterns under various gas limit
+                            configurations. Fundamental for predicting when statelessness becomes critical.
+                        </p>
+                        <div class="metric-priority">Critical</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="performance">
+                    <div class="metric-header">
+                        <div class="team-badge">Performance Team</div>
+                        <h3>Memory Usage Patterns</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Monitoring RAM consumption across different client implementations during high-throughput
+                            scenarios. Key for hardware requirement forecasting.
+                        </p>
+                        <div class="metric-priority">High Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="security">
+                    <div class="metric-header">
+                        <div class="team-badge">Security Research</div>
+                        <h3>Attack Vector Vulnerability</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Identifying potential attack vectors that become viable with increased gas limits, including
+                            state bloat attacks and resource exhaustion scenarios.
+                        </p>
+                        <div class="metric-priority">Critical</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="user-experience">
+                    <div class="metric-header">
+                        <div class="team-badge">UX Research</div>
+                        <h3>Transaction Confirmation Times</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Real-world transaction processing speeds under various network loads. Important for
+                            maintaining user experience as throughput increases.
+                        </p>
+                        <div class="metric-priority">Medium Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="economics">
+                    <div class="metric-header">
+                        <div class="team-badge">Economics Team</div>
+                        <h3>Gas Price Dynamics</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Analyzing how gas pricing mechanisms behave under altered parameters. Critical for EIP-7938
+                            economic modeling and fee market stability.
+                        </p>
+                        <div class="metric-priority">High Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="infrastructure">
+                    <div class="metric-header">
+                        <div class="team-badge">DevOps Team</div>
+                        <h3>Node Operator Resource Usage</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for
+                            running full nodes under increased load.
+                        </p>
+                        <div class="metric-priority">High Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="consensus">
+                    <div class="metric-header">
+                        <div class="team-badge">Consensus Team</div>
+                        <h3>Finality & Reorganization Rates</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Tracking block finality times and chain reorganization frequency under stress conditions.
+                            Essential for network stability assessment.
+                        </p>
+                        <div class="metric-priority">Critical</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="scalability">
+                    <div class="metric-header">
+                        <div class="team-badge">Scalability Research</div>
+                        <h3>Throughput Scaling Limits</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Identifying the theoretical and practical limits of transaction throughput before network
+                            degradation occurs. Crucial for safe gas limit recommendations.
+                        </p>
+                        <div class="metric-priority">Critical</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="client-diversity">
+                    <div class="metric-header">
+                        <div class="team-badge">Client Teams</div>
+                        <h3>Multi-Client Performance Comparison</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Comparing performance characteristics across different Ethereum client implementations under
+                            identical high-load conditions.
+                        </p>
+                        <div class="metric-priority">Medium Priority</div>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-category="analytics">
+                    <div class="metric-header">
+                        <div class="team-badge">Analytics Team</div>
+                        <h3>Real-time Network Health Monitoring</h3>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Continuous monitoring of network health indicators including peer connectivity, block
+                            propagation times, and overall network resilience.
+                        </p>
+                        <div class="metric-priority">High Priority</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Controls -->
+    <section class="filter-section">
+        <div class="container">
+            <h3>Filter by Category</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Metrics</button>
+                <button class="filter-btn" data-filter="infrastructure">Infrastructure</button>
+                <button class="filter-btn" data-filter="networking">Networking</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="performance">Performance</button>
+                <button class="filter-btn" data-filter="consensus">Consensus</button>
+                <button class="filter-btn" data-filter="economics">Economics</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Contribute to Research</h2>
+            <p>Help us gather critical data for Ethereum's scaling future</p>
+            <a href="index.html" class="cta-button">← Back to Home</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="metrics.js"></script>
+</body>
+
+</html>
