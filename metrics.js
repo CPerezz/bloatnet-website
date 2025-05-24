@@ -1,13 +1,199 @@
-// Metrics page specific functionality
+// Metrics page functionality with enhanced features
 document.addEventListener('DOMContentLoaded', function () {
-    initMetricsFiltering();
-    initMetricsAnimations();
+    initMetricsPage();
 });
 
-// Initialize filtering functionality
+function initMetricsPage() {
+    initTitleAnimations();
+    initMetricsFiltering();
+    initSeeMoreFunctionality();
+    initInteractiveHeader();
+    initEmbeddedFormLoader();
+    initMetricsAnimations();
+
+    // Initialize collision system after shapes are loaded
+    setTimeout(() => {
+        initEthereumCollisionSystem();
+    }, 1000);
+}
+
+// Title animation effects
+function initTitleAnimations() {
+    const title = document.querySelector('.animated-title');
+    const subtitle = document.querySelector('.animated-subtitle');
+
+    // Add entrance animations (CSS handles the animations, this adds interaction)
+    if (title) {
+        title.addEventListener('animationend', () => {
+            title.classList.add('animation-complete');
+        });
+    }
+
+    if (subtitle) {
+        subtitle.addEventListener('animationend', () => {
+            subtitle.classList.add('animation-complete');
+        });
+    }
+}
+
+// Interactive header functionality
+function initInteractiveHeader() {
+    const header = document.querySelector('.metrics-header');
+    const collaborationOverlay = document.querySelector('.collaboration-overlay');
+
+    if (header && collaborationOverlay) {
+        // Click to scroll to form
+        header.addEventListener('click', function () {
+            const formSection = document.querySelector('.request-metric-section');
+            if (formSection) {
+                // Add click feedback
+                collaborationOverlay.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    collaborationOverlay.style.transform = 'scale(1)';
+                }, 150);
+
+                // Smooth scroll to form
+                formSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Add emphasis to form after scroll
+                setTimeout(() => {
+                    const formContainer = document.querySelector('.request-form-container');
+                    if (formContainer) {
+                        formContainer.style.transform = 'scale(1.02)';
+                        formContainer.style.boxShadow = '0 20px 60px rgba(30, 215, 154, 0.3)';
+
+                        setTimeout(() => {
+                            formContainer.style.transform = 'scale(1)';
+                            formContainer.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.1)';
+                        }, 1000);
+                    }
+                }, 800);
+            }
+        });
+
+        // Add keyboard accessibility
+        header.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
+            }
+        });
+
+        // Make header focusable
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('role', 'button');
+        header.setAttribute('aria-label', 'Click to navigate to metric request form');
+    }
+}
+
+// Embedded form loader functionality
+function initEmbeddedFormLoader() {
+    const iframe = document.querySelector('.embedded-form-container iframe');
+    const loadingOverlay = document.querySelector('.form-loading-overlay');
+
+    if (iframe && loadingOverlay) {
+        // Create global function for iframe onload
+        window.hideFormLoader = function () {
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                loadingOverlay.style.transform = 'scale(0.9)';
+                iframe.classList.add('loaded');
+
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000); // Small delay to ensure form is fully loaded
+        };
+
+        // Fallback timeout in case onload doesn't fire
+        setTimeout(() => {
+            if (loadingOverlay.style.display !== 'none') {
+                window.hideFormLoader();
+            }
+        }, 5000);
+
+        // Add loading animation enhancement
+        const spinner = document.querySelector('.loading-spinner');
+        if (spinner) {
+            // Add random color shifts to the spinner
+            setInterval(() => {
+                const hue = Math.random() * 60 + 120; // Green range
+                spinner.style.borderTopColor = `hsl(${hue}, 70%, 50%)`;
+            }, 1000);
+        }
+    }
+}
+
+// See More functionality
+function initSeeMoreFunctionality() {
+    const seeMoreBtn = document.getElementById('see-more-btn');
+    const loadMoreCards = document.querySelectorAll('.loadmore-card');
+    let currentlyShown = 4; // Number of initial cards shown
+    let isLoading = false;
+
+    if (seeMoreBtn) {
+        seeMoreBtn.addEventListener('click', function () {
+            if (isLoading) return;
+
+            isLoading = true;
+            seeMoreBtn.classList.add('loading');
+            seeMoreBtn.disabled = true;
+
+            // Show loading state
+            const btnText = seeMoreBtn.querySelector('.see-more-text');
+            const originalText = btnText.textContent;
+            btnText.textContent = 'Loading...';
+
+            // Simulate loading delay for better UX
+            setTimeout(() => {
+                showMoreMetrics(loadMoreCards, currentlyShown);
+
+                // Update button state
+                isLoading = false;
+                seeMoreBtn.classList.remove('loading');
+                seeMoreBtn.disabled = false;
+
+                // Check if all cards are shown
+                const hiddenCards = document.querySelectorAll('.loadmore-card[style*="display: none"]');
+                if (hiddenCards.length === 0) {
+                    seeMoreBtn.style.display = 'none';
+                } else {
+                    btnText.textContent = originalText;
+                }
+
+                currentlyShown += 4; // Update counter for next batch
+            }, 800);
+        });
+    }
+}
+
+function showMoreMetrics(cards, startIndex) {
+    const cardsToShow = Array.from(cards).slice(0, 4); // Show 4 more cards
+
+    cardsToShow.forEach((card, index) => {
+        if (card.style.display === 'none') {
+            setTimeout(() => {
+                card.style.display = 'block';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.9)';
+
+                // Trigger animation
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 50);
+            }, index * 150);
+        }
+    });
+}
+
+// Updated filtering functionality
 function initMetricsFiltering() {
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const metricCards = document.querySelectorAll('.metric-card');
 
     filterButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -17,92 +203,92 @@ function initMetricsFiltering() {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Filter cards
-            filterCards(filter, metricCards);
+            // Filter cards (including both initial and loadmore cards)
+            filterCards(filter);
         });
     });
 }
 
-// Filter cards with animation
-function filterCards(filter, cards) {
-    cards.forEach((card, index) => {
+function filterCards(filter) {
+    const allCards = document.querySelectorAll('.metric-card');
+
+    allCards.forEach((card, index) => {
         const category = card.getAttribute('data-category');
         const shouldShow = filter === 'all' || category === filter;
 
         if (shouldShow) {
             // Show card with staggered animation
             setTimeout(() => {
-                card.classList.remove('hidden');
-                card.classList.add('visible');
                 card.style.display = 'block';
-            }, index * 50);
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) scale(0.9)';
+
+                setTimeout(() => {
+                    card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 50);
+            }, index * 100);
         } else {
             // Hide card
-            card.classList.add('hidden');
-            card.classList.remove('visible');
+            card.style.transition = 'all 0.3s ease';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(-20px) scale(0.8)';
             setTimeout(() => {
-                if (card.classList.contains('hidden')) {
-                    card.style.display = 'none';
-                }
+                card.style.display = 'none';
             }, 300);
         }
     });
+
+    // Update see more button visibility based on filter
+    updateSeeMoreButton(filter);
 }
 
-// Initialize metrics-specific animations
+function updateSeeMoreButton(filter) {
+    const seeMoreBtn = document.getElementById('see-more-btn');
+    const loadMoreCards = document.querySelectorAll('.loadmore-card');
+
+    if (filter === 'all') {
+        // Check if there are hidden cards to show
+        const hiddenCards = Array.from(loadMoreCards).filter(card =>
+            card.style.display === 'none'
+        );
+        seeMoreBtn.style.display = hiddenCards.length > 0 ? 'flex' : 'none';
+    } else {
+        // Hide see more button when filtering
+        seeMoreBtn.style.display = 'none';
+    }
+}
+
+// Enhanced animations and interactions
 function initMetricsAnimations() {
-    // Enhanced card hover effects
     const metricCards = document.querySelectorAll('.metric-card');
 
     metricCards.forEach(card => {
-        // Add shimmer effect on hover
+        // Enhanced hover effects
         card.addEventListener('mouseenter', function () {
-            const teamBadge = card.querySelector('.team-badge');
-            if (teamBadge) {
-                teamBadge.style.transform = 'scale(1.05)';
-                teamBadge.style.boxShadow = '0 6px 20px rgba(30, 215, 154, 0.4)';
+            const requesterBadge = card.querySelector('.requester-badge');
+            if (requesterBadge) {
+                requesterBadge.style.transform = 'scale(1.05)';
+                requesterBadge.style.boxShadow = '0 6px 20px rgba(30, 215, 154, 0.4)';
             }
         });
 
         card.addEventListener('mouseleave', function () {
-            const teamBadge = card.querySelector('.team-badge');
-            if (teamBadge) {
-                teamBadge.style.transform = 'scale(1)';
-                teamBadge.style.boxShadow = '0 4px 15px rgba(30, 215, 154, 0.2)';
+            const requesterBadge = card.querySelector('.requester-badge');
+            if (requesterBadge) {
+                requesterBadge.style.transform = 'scale(1)';
+                requesterBadge.style.boxShadow = '0 4px 15px rgba(30, 215, 154, 0.2)';
             }
         });
 
-        // Add click interaction
-        card.addEventListener('click', function () {
-            // Create expanding circle effect
-            const rect = card.getBoundingClientRect();
-            const circle = document.createElement('div');
-            const size = Math.max(rect.width, rect.height) * 1.5;
-
-            circle.style.cssText = `
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                width: ${size}px;
-                height: ${size}px;
-                margin-left: ${-size / 2}px;
-                margin-top: ${-size / 2}px;
-                border-radius: 50%;
-                background: rgba(159, 255, 224, 0.1);
-                pointer-events: none;
-                transform: scale(0);
-                animation: expandCircle 0.6s ease-out;
-                z-index: 1;
-            `;
-
-            card.style.position = 'relative';
-            card.appendChild(circle);
-
-            setTimeout(() => circle.remove(), 600);
+        // Click interaction with ripple effect
+        card.addEventListener('click', function (e) {
+            createRippleEffect(e, card);
         });
     });
 
-    // Intersection Observer for cards animation on scroll
+    // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -113,33 +299,103 @@ function initMetricsAnimations() {
     }, { threshold: 0.1 });
 
     metricCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
         observer.observe(card);
     });
 
-    // Filter buttons hover effect
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('mouseenter', function () {
-            if (!this.classList.contains('active')) {
-                this.style.background = 'rgba(30, 215, 154, 0.3)';
-            }
-        });
+    // Add parallax effect to header particles
+    initParallaxParticles();
+}
 
-        button.addEventListener('mouseleave', function () {
-            if (!this.classList.contains('active')) {
-                this.style.background = 'rgba(13, 183, 175, 0.2)';
-            }
+function initParallaxParticles() {
+    const particles = document.querySelectorAll('.particle');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+
+        particles.forEach((particle, index) => {
+            const speed = (index + 1) * 0.2;
+            particle.style.transform = `translateY(${rate * speed}px)`;
         });
     });
 }
 
-// Add CSS animations dynamically
-const metricsStyle = document.createElement('style');
-metricsStyle.textContent = `
-    @keyframes expandCircle {
+function createRippleEffect(event, element) {
+    const rect = element.getBoundingClientRect();
+    const circle = document.createElement('div');
+    const size = Math.max(rect.width, rect.height) * 1.5;
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    circle.style.cssText = `
+        position: absolute;
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 50%;
+        background: rgba(30, 215, 154, 0.1);
+        pointer-events: none;
+        transform: scale(0);
+        animation: ripple 0.6s ease-out;
+        z-index: 1;
+    `;
+
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+    element.appendChild(circle);
+
+    setTimeout(() => circle.remove(), 600);
+}
+
+// Global functions for external access
+window.searchBloatnetMetrics = function (searchTerm) {
+    const cards = document.querySelectorAll('.metric-card');
+    const term = searchTerm.toLowerCase();
+
+    cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('.metric-description').textContent.toLowerCase();
+        const requester = card.querySelector('.requester-badge').textContent.toLowerCase();
+
+        const matches = title.includes(term) || description.includes(term) || requester.includes(term);
+
+        if (matches || term === '') {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+        } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(-20px) scale(0.8)';
+            setTimeout(() => {
+                if (card.style.opacity === '0') {
+                    card.style.display = 'none';
+                }
+            }, 300);
+        }
+    });
+};
+
+// Utility function to scroll to form (can be called externally)
+window.scrollToBloatnetForm = function () {
+    const formSection = document.querySelector('.request-metric-section');
+    if (formSection) {
+        formSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+};
+
+// Add dynamic CSS for animations
+const dynamicStyles = document.createElement('style');
+dynamicStyles.textContent = `
+    @keyframes ripple {
         0% {
             transform: scale(0);
-            opacity: 0.5;
+            opacity: 1;
         }
         100% {
             transform: scale(1);
@@ -147,73 +403,206 @@ metricsStyle.textContent = `
         }
     }
     
-    @keyframes cardPulse {
-        0%, 100% {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        50% {
-            box-shadow: 0 25px 50px rgba(30, 215, 154, 0.3);
-        }
-    }
-    
-    .metric-card.pulse {
-        animation: cardPulse 2s ease-in-out infinite;
-    }
-    
     .metric-card {
         transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    .filter-btn {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    .see-more-btn.loading .see-more-arrow {
+        animation: loadingPulse 1s infinite;
+    }
+    
+    @keyframes loadingPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    .metrics-header:focus {
+        outline: 2px solid #1ed79a;
+        outline-offset: 4px;
+    }
+    
+    .metrics-header:focus:not(:focus-visible) {
+        outline: none;
+    }
+    
+    .request-form-container {
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 `;
-document.head.appendChild(metricsStyle);
 
-// Utility function to count visible cards
-function countVisibleCards() {
-    const visibleCards = document.querySelectorAll('.metric-card.visible').length;
-    console.log(`Showing ${visibleCards} metrics`);
-    return visibleCards;
-}
+document.head.appendChild(dynamicStyles);
 
-// Utility function to highlight cards by priority
-function highlightCriticalMetrics() {
-    const criticalCards = document.querySelectorAll('.metric-card');
-    criticalCards.forEach(card => {
-        const priority = card.querySelector('.metric-priority');
-        if (priority && priority.textContent.includes('Critical')) {
-            card.classList.add('pulse');
-        }
+// Ethereum Shape Collision Detection System
+function initEthereumCollisionSystem() {
+    const shapes = document.querySelectorAll('.ethereum-shape');
+    const collisionDistance = 120; // Distance threshold for collision
+    const collisionCooldown = 2000; // Cooldown period in milliseconds
+    const collisionTracker = new Map();
+
+    // Initialize collision tracker
+    shapes.forEach((shape, index) => {
+        collisionTracker.set(index, {
+            lastCollision: 0,
+            element: shape
+        });
     });
-}
 
-// Auto-highlight critical metrics after 3 seconds
-setTimeout(highlightCriticalMetrics, 3000);
+    function getShapePosition(shape) {
+        const rect = shape.getBoundingClientRect();
+        const containerRect = shape.closest('.metrics-header').getBoundingClientRect();
 
-// Search functionality (if needed in the future)
-function searchMetrics(searchTerm) {
-    const cards = document.querySelectorAll('.metric-card');
-    const term = searchTerm.toLowerCase();
+        return {
+            x: rect.left + rect.width / 2 - containerRect.left,
+            y: rect.top + rect.height / 2 - containerRect.top,
+            element: shape
+        };
+    }
 
-    cards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const description = card.querySelector('.metric-description').textContent.toLowerCase();
-        const team = card.querySelector('.team-badge').textContent.toLowerCase();
+    function calculateDistance(pos1, pos2) {
+        const dx = pos1.x - pos2.x;
+        const dy = pos1.y - pos2.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
-        const matches = title.includes(term) || description.includes(term) || team.includes(term);
+    function triggerCollisionEffect(shape1, shape2) {
+        const now = Date.now();
+        const effects = ['collision-glow', 'collision-pulse', 'collision-rainbow'];
 
-        if (matches) {
-            card.style.display = 'block';
-            card.classList.add('visible');
-            card.classList.remove('hidden');
-        } else {
-            card.style.display = 'none';
-            card.classList.add('hidden');
-            card.classList.remove('visible');
+        // Random effect selection
+        const effect1 = effects[Math.floor(Math.random() * effects.length)];
+        const effect2 = effects[Math.floor(Math.random() * effects.length)];
+
+        // Apply effects
+        shape1.classList.add(effect1);
+        shape2.classList.add(effect2);
+
+        // Create collision particles
+        createCollisionParticles(getShapePosition(shape1), getShapePosition(shape2));
+
+        // Remove effects after animation
+        setTimeout(() => {
+            shape1.classList.remove(effect1);
+            shape2.classList.remove(effect2);
+        }, 1000);
+
+        // Play collision sound (optional - can be uncommented if you add audio)
+        // playCollisionSound();
+    }
+
+    function createCollisionParticles(pos1, pos2) {
+        const midPoint = {
+            x: (pos1.x + pos2.x) / 2,
+            y: (pos1.y + pos2.y) / 2
+        };
+
+        const container = document.querySelector('.metrics-header');
+        const particleCount = 8;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'collision-particle';
+
+            const angle = (i / particleCount) * 2 * Math.PI;
+            const velocity = 150 + Math.random() * 100;
+            const endX = midPoint.x + Math.cos(angle) * velocity;
+            const endY = midPoint.y + Math.sin(angle) * velocity;
+
+            particle.style.cssText = `
+                position: absolute;
+                left: ${midPoint.x}px;
+                top: ${midPoint.y}px;
+                width: 8px;
+                height: 8px;
+                background: radial-gradient(circle, #FFD700, #FF6B35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 100;
+                box-shadow: 0 0 15px #FFD700;
+                animation: particleExplosion 0.8s ease-out forwards;
+                transform: translate(-50%, -50%);
+            `;
+
+            // Add CSS keyframes for particle animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes particleExplosion {
+                    0% {
+                        transform: translate(-50%, -50%) scale(1);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${endX - midPoint.x}px, ${endY - midPoint.y}px) scale(0);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            container.appendChild(particle);
+
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+                if (style.parentNode) {
+                    style.parentNode.removeChild(style);
+                }
+            }, 800);
         }
-    });
+    }
+
+    function checkCollisions() {
+        const now = Date.now();
+        const positions = Array.from(shapes).map(getShapePosition);
+
+        for (let i = 0; i < positions.length; i++) {
+            for (let j = i + 1; j < positions.length; j++) {
+                const distance = calculateDistance(positions[i], positions[j]);
+
+                if (distance < collisionDistance) {
+                    const shape1Data = collisionTracker.get(i);
+                    const shape2Data = collisionTracker.get(j);
+
+                    // Check cooldown period
+                    if (now - shape1Data.lastCollision > collisionCooldown &&
+                        now - shape2Data.lastCollision > collisionCooldown) {
+
+                        triggerCollisionEffect(positions[i].element, positions[j].element);
+
+                        // Update last collision time
+                        shape1Data.lastCollision = now;
+                        shape2Data.lastCollision = now;
+                    }
+                }
+            }
+        }
+    }
+
+    // Run collision detection at 60fps
+    setInterval(checkCollisions, 16);
 }
 
-// Make search function globally available
-window.searchBloatnetMetrics = searchMetrics; 
+// Optional: Add collision sound effect
+function playCollisionSound() {
+    // Create audio context for web audio API
+    if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+        const audioContext = new (AudioContext || webkitAudioContext)();
+
+        // Create a simple collision sound
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+    }
+} 

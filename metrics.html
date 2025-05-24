@@ -27,23 +27,60 @@
     </nav>
 
     <!-- Header Section -->
-    <section class="metrics-header">
+    <section class="metrics-header interactive-header">
         <div class="container">
-            <h1>Data Collection & Metrics</h1>
-            <p class="header-subtitle">Critical performance indicators and research data points for the Bloatnet
-                initiative</p>
+            <div class="header-content">
+                <h1 class="animated-title">Data Collection & Metrics</h1>
+                <p class="header-subtitle animated-subtitle">
+                    Critical performance indicators and research data points for the Bloatnet initiative.
+                    This is a collection of data points requested by researchers, core devs, client teams and
+                    individuals.
+                </p>
+
+                <!-- Interactive Overlay -->
+                <div class="collaboration-overlay">
+                    <div class="collaboration-content">
+                        <div class="collaboration-icon">🤝</div>
+                        <h3 class="collaboration-text">Collaborate with Ethereum's research actively!</h3>
+                        <div class="collaboration-arrow">↓</div>
+                        <p class="collaboration-subtitle">Click to contribute your ideas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Solarpunk Shapes -->
+        <div class="solarpunk-shapes">
+            <div class="ethereum-shape ethereum-float-1"></div>
+            <div class="ethereum-shape ethereum-float-2"></div>
+            <div class="ethereum-shape ethereum-orbit-1"></div>
+            <div class="ethereum-shape ethereum-bounce-1"></div>
+            <div class="ethereum-shape ethereum-wave-1"></div>
+            <div class="ethereum-shape ethereum-spiral-1"></div>
+            <div class="ethereum-shape ethereum-float-1"></div>
+            <div class="ethereum-shape ethereum-float-2"></div>
+            <div class="ethereum-shape ethereum-orbit-1"></div>
+        </div>
+
+        <!-- Animated Background Elements -->
+        <div class="header-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
     </section>
 
     <!-- Metrics Grid -->
     <section class="metrics-section">
         <div class="container">
-            <div class="metrics-grid">
+            <div class="metrics-grid" id="metrics-grid">
 
-                <!-- Core Infrastructure Metrics -->
-                <div class="metric-card" data-category="infrastructure">
+                <!-- Initial batch of metrics (will be shown immediately) -->
+                <div class="metric-card initial-card" data-category="infrastructure">
                     <div class="metric-header">
-                        <div class="team-badge">Core Dev Team</div>
+                        <div class="requester-badge">Core Dev Team</div>
                         <h3>Block Processing Time</h3>
                     </div>
                     <div class="metric-content">
@@ -51,13 +88,12 @@
                             Measuring the time required to process blocks under increased gas limits. Critical for
                             understanding the scalability boundaries and identifying bottlenecks in block execution.
                         </p>
-                        <div class="metric-priority">High Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="networking">
+                <div class="metric-card initial-card" data-category="networking">
                     <div class="metric-header">
-                        <div class="team-badge">Networking Team</div>
+                        <div class="requester-badge">Alex K. - Networking Team</div>
                         <h3>Peer Synchronization Performance</h3>
                     </div>
                     <div class="metric-content">
@@ -65,13 +101,12 @@
                             Tracking how quickly new nodes can sync with the network as state size grows. Essential for
                             maintaining network accessibility and preventing client abandonment.
                         </p>
-                        <div class="metric-priority">Critical</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="storage">
+                <div class="metric-card initial-card" data-category="storage">
                     <div class="metric-header">
-                        <div class="team-badge">Research Team</div>
+                        <div class="requester-badge">Dr. Sarah Chen - Research Team</div>
                         <h3>State Growth Rate Analysis</h3>
                     </div>
                     <div class="metric-content">
@@ -79,13 +114,12 @@
                             Comprehensive tracking of state database growth patterns under various gas limit
                             configurations. Fundamental for predicting when statelessness becomes critical.
                         </p>
-                        <div class="metric-priority">Critical</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="performance">
+                <div class="metric-card initial-card" data-category="performance">
                     <div class="metric-header">
-                        <div class="team-badge">Performance Team</div>
+                        <div class="requester-badge">Performance Team</div>
                         <h3>Memory Usage Patterns</h3>
                     </div>
                     <div class="metric-content">
@@ -93,13 +127,13 @@
                             Monitoring RAM consumption across different client implementations during high-throughput
                             scenarios. Key for hardware requirement forecasting.
                         </p>
-                        <div class="metric-priority">High Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="security">
+                <!-- Additional metrics (will be loaded via "see more") -->
+                <div class="metric-card loadmore-card" data-category="security" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Security Research</div>
+                        <div class="requester-badge">Marcus R. - Security Research</div>
                         <h3>Attack Vector Vulnerability</h3>
                     </div>
                     <div class="metric-content">
@@ -107,13 +141,12 @@
                             Identifying potential attack vectors that become viable with increased gas limits, including
                             state bloat attacks and resource exhaustion scenarios.
                         </p>
-                        <div class="metric-priority">Critical</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="user-experience">
+                <div class="metric-card loadmore-card" data-category="user-experience" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">UX Research</div>
+                        <div class="requester-badge">UX Research Team</div>
                         <h3>Transaction Confirmation Times</h3>
                     </div>
                     <div class="metric-content">
@@ -121,13 +154,12 @@
                             Real-world transaction processing speeds under various network loads. Important for
                             maintaining user experience as throughput increases.
                         </p>
-                        <div class="metric-priority">Medium Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="economics">
+                <div class="metric-card loadmore-card" data-category="economics" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Economics Team</div>
+                        <div class="requester-badge">Dr. James Liu - Economics Team</div>
                         <h3>Gas Price Dynamics</h3>
                     </div>
                     <div class="metric-content">
@@ -135,13 +167,12 @@
                             Analyzing how gas pricing mechanisms behave under altered parameters. Critical for EIP-7938
                             economic modeling and fee market stability.
                         </p>
-                        <div class="metric-priority">High Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="infrastructure">
+                <div class="metric-card loadmore-card" data-category="infrastructure" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">DevOps Team</div>
+                        <div class="requester-badge">DevOps Team</div>
                         <h3>Node Operator Resource Usage</h3>
                     </div>
                     <div class="metric-content">
@@ -149,13 +180,12 @@
                             Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for
                             running full nodes under increased load.
                         </p>
-                        <div class="metric-priority">High Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="consensus">
+                <div class="metric-card loadmore-card" data-category="consensus" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Consensus Team</div>
+                        <div class="requester-badge">Elena M. - Consensus Team</div>
                         <h3>Finality & Reorganization Rates</h3>
                     </div>
                     <div class="metric-content">
@@ -163,13 +193,12 @@
                             Tracking block finality times and chain reorganization frequency under stress conditions.
                             Essential for network stability assessment.
                         </p>
-                        <div class="metric-priority">Critical</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="scalability">
+                <div class="metric-card loadmore-card" data-category="scalability" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Scalability Research</div>
+                        <div class="requester-badge">Scalability Research</div>
                         <h3>Throughput Scaling Limits</h3>
                     </div>
                     <div class="metric-content">
@@ -177,13 +206,12 @@
                             Identifying the theoretical and practical limits of transaction throughput before network
                             degradation occurs. Crucial for safe gas limit recommendations.
                         </p>
-                        <div class="metric-priority">Critical</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="client-diversity">
+                <div class="metric-card loadmore-card" data-category="client-diversity" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Client Teams</div>
+                        <div class="requester-badge">Client Teams Collective</div>
                         <h3>Multi-Client Performance Comparison</h3>
                     </div>
                     <div class="metric-content">
@@ -191,13 +219,12 @@
                             Comparing performance characteristics across different Ethereum client implementations under
                             identical high-load conditions.
                         </p>
-                        <div class="metric-priority">Medium Priority</div>
                     </div>
                 </div>
 
-                <div class="metric-card" data-category="analytics">
+                <div class="metric-card loadmore-card" data-category="analytics" style="display: none;">
                     <div class="metric-header">
-                        <div class="team-badge">Analytics Team</div>
+                        <div class="requester-badge">Thomas K. - Analytics Team</div>
                         <h3>Real-time Network Health Monitoring</h3>
                     </div>
                     <div class="metric-content">
@@ -205,10 +232,17 @@
                             Continuous monitoring of network health indicators including peer connectivity, block
                             propagation times, and overall network resilience.
                         </p>
-                        <div class="metric-priority">High Priority</div>
                     </div>
                 </div>
 
+            </div>
+
+            <!-- See More Button -->
+            <div class="see-more-container">
+                <button id="see-more-btn" class="see-more-btn">
+                    <span class="see-more-text">See More Metrics</span>
+                    <span class="see-more-arrow">▼</span>
+                </button>
             </div>
         </div>
     </section>
@@ -225,6 +259,31 @@
                 <button class="filter-btn" data-filter="performance">Performance</button>
                 <button class="filter-btn" data-filter="consensus">Consensus</button>
                 <button class="filter-btn" data-filter="economics">Economics</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request New Metric Section -->
+    <section class="request-metric-section">
+        <div class="container">
+            <div class="request-form-container">
+                <h2>Request a New Metric</h2>
+                <p class="form-description">Help us identify additional data points that are crucial for the Bloatnet
+                    initiative</p>
+
+                <!-- Embedded Google Form -->
+                <div class="embedded-form-container">
+                    <div class="form-loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <p>Loading collaborative form...</p>
+                    </div>
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdeTVr45HVTdhdpzDff8plocH7wJbtozNaHXN-L45OfSkrKBQ/viewform?embedded=true"
+                        width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" loading="lazy"
+                        onload="hideFormLoader()">
+                        Loading…
+                    </iframe>
+                </div>
             </div>
         </div>
     </section>

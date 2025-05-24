@@ -1,7 +1,7 @@
 /* Attack Vectors Page Styles */
 
 .attacks-header {
-    background: linear-gradient(135deg, #2a5a2a 0%, #1a4a1a 100%);
+    background: linear-gradient(135deg, #1a4d3a 0%, #2d8a47 25%, #0f7b4c 50%, #1e6b47 75%, #0d4d2a 100%);
     padding: 120px 0 80px;
     position: relative;
     overflow: hidden;
@@ -15,9 +15,276 @@
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 20%, rgba(46, 125, 50, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.2) 0%, transparent 50%);
+        radial-gradient(circle at 15% 25%, rgba(26, 188, 156, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(46, 204, 113, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 65% 85%, rgba(39, 174, 96, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 25% 75%, rgba(22, 160, 133, 0.3) 0%, transparent 55%);
     pointer-events: none;
+    transition: all 0.6s ease;
+}
+
+/* 3D Ethereum Attack Shapes */
+.attack-ethereum-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.attack-ethereum-shape {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    text-shadow:
+        0 0 20px rgba(255, 107, 107, 0.8),
+        0 0 40px rgba(255, 87, 87, 0.6),
+        0 0 60px rgba(255, 69, 69, 0.4);
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.3), rgba(255, 87, 87, 0.1));
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.attack-ethereum-shape::before {
+    content: '⟐';
+    position: absolute;
+    font-size: 2rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 15px rgba(255, 107, 107, 0.7));
+}
+
+/* Attack-specific collision effects */
+.attack-ethereum-shape.collision-attack {
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.9), rgba(139, 0, 0, 0.6));
+    color: #FF0000;
+    text-shadow:
+        0 0 30px rgba(255, 0, 0, 1),
+        0 0 60px rgba(139, 0, 0, 0.8),
+        0 0 90px rgba(178, 34, 34, 0.6);
+    transform: scale(1.4) rotateY(360deg);
+    box-shadow:
+        0 0 50px rgba(255, 0, 0, 0.9),
+        0 0 100px rgba(139, 0, 0, 0.7);
+}
+
+.attack-ethereum-shape.collision-defense {
+    background: radial-gradient(circle, rgba(0, 255, 127, 0.9), rgba(0, 128, 64, 0.6));
+    color: #00FF7F;
+    text-shadow:
+        0 0 30px rgba(0, 255, 127, 1),
+        0 0 60px rgba(0, 128, 64, 0.8),
+        0 0 90px rgba(46, 139, 87, 0.6);
+    transform: scale(1.3) rotateX(180deg);
+    box-shadow:
+        0 0 40px rgba(0, 255, 127, 0.8),
+        0 0 80px rgba(0, 128, 64, 0.6);
+}
+
+.attack-ethereum-shape.collision-warning {
+    background: radial-gradient(circle, rgba(255, 165, 0, 0.9), rgba(255, 140, 0, 0.6));
+    color: #FFA500;
+    animation: warningFlash 0.8s ease-in-out;
+}
+
+@keyframes warningFlash {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    25% {
+        transform: scale(1.2) rotateZ(90deg);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5) rotateZ(180deg);
+        opacity: 0.6;
+    }
+
+    75% {
+        transform: scale(1.3) rotateZ(270deg);
+        opacity: 0.9;
+    }
+}
+
+/* Attack Pattern Animations */
+.attack-swarm {
+    animation: attackSwarm 10s infinite;
+}
+
+@keyframes attackSwarm {
+
+    0%,
+    100% {
+        transform: translate3d(5%, 10%, 0) rotateX(0deg) rotateY(0deg);
+    }
+
+    20% {
+        transform: translate3d(30%, 25%, 30px) rotateX(72deg) rotateY(144deg);
+    }
+
+    40% {
+        transform: translate3d(70%, 15%, -20px) rotateX(144deg) rotateY(288deg);
+    }
+
+    60% {
+        transform: translate3d(85%, 70%, 40px) rotateX(216deg) rotateY(432deg);
+    }
+
+    80% {
+        transform: translate3d(40%, 85%, -10px) rotateX(288deg) rotateY(576deg);
+    }
+}
+
+.attack-stealth {
+    animation: attackStealth 16s infinite;
+}
+
+@keyframes attackStealth {
+
+    0%,
+    100% {
+        transform: translate3d(95%, 5%, 0) rotateY(0deg);
+        opacity: 0.8;
+    }
+
+    25% {
+        transform: translate3d(10%, 30%, 50px) rotateY(90deg);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translate3d(20%, 90%, 0) rotateY(180deg);
+        opacity: 0.1;
+    }
+
+    75% {
+        transform: translate3d(80%, 60%, -30px) rotateY(270deg);
+        opacity: 0.6;
+    }
+}
+
+.attack-bombardment {
+    animation: attackBombardment 6s infinite;
+}
+
+@keyframes attackBombardment {
+    0% {
+        transform: translate3d(50%, -10%, 0) rotateZ(0deg) scale(0.5);
+    }
+
+    20% {
+        transform: translate3d(45%, 20%, 20px) rotateZ(72deg) scale(1);
+    }
+
+    40% {
+        transform: translate3d(55%, 50%, 0) rotateZ(144deg) scale(1.3);
+    }
+
+    60% {
+        transform: translate3d(40%, 80%, -15px) rotateZ(216deg) scale(1.1);
+    }
+
+    80% {
+        transform: translate3d(60%, 95%, 10px) rotateZ(288deg) scale(0.8);
+    }
+
+    100% {
+        transform: translate3d(50%, 110%, 0) rotateZ(360deg) scale(0.3);
+    }
+}
+
+.attack-infiltrate {
+    animation: attackInfiltrate 14s infinite;
+}
+
+@keyframes attackInfiltrate {
+
+    0%,
+    100% {
+        transform: translate3d(-5%, 50%, 0) rotateX(0deg) rotateY(0deg);
+    }
+
+    16% {
+        transform: translate3d(15%, 30%, 25px) rotateX(60deg) rotateY(60deg);
+    }
+
+    32% {
+        transform: translate3d(40%, 60%, -20px) rotateX(120deg) rotateY(120deg);
+    }
+
+    48% {
+        transform: translate3d(65%, 20%, 35px) rotateX(180deg) rotateY(180deg);
+    }
+
+    64% {
+        transform: translate3d(85%, 80%, 0) rotateX(240deg) rotateY(240deg);
+    }
+
+    80% {
+        transform: translate3d(105%, 40%, -25px) rotateX(300deg) rotateY(300deg);
+    }
+}
+
+/* Position attack shapes */
+.attack-ethereum-shape:nth-child(1) {
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.attack-ethereum-shape:nth-child(2) {
+    top: 70%;
+    left: 80%;
+    animation-delay: 1.5s;
+}
+
+.attack-ethereum-shape:nth-child(3) {
+    top: 30%;
+    left: 60%;
+    animation-delay: 0.8s;
+}
+
+.attack-ethereum-shape:nth-child(4) {
+    top: 80%;
+    left: 20%;
+    animation-delay: 3s;
+}
+
+.attack-ethereum-shape:nth-child(5) {
+    top: 50%;
+    left: 90%;
+    animation-delay: 0.3s;
+}
+
+.attack-ethereum-shape:nth-child(6) {
+    top: 10%;
+    left: 40%;
+    animation-delay: 2.2s;
+}
+
+.attack-ethereum-shape:nth-child(7) {
+    top: 60%;
+    left: 5%;
+    animation-delay: 1.8s;
 }
 
 .attacks-header h1 {
