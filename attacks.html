@@ -15,7 +15,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span class="ethereum-icon">⟐</span>
+                <img src="ethereum-eth-logo-animated.gif" alt="Ethereum" class="ethereum-logo-gif">
                 Bloatnet
             </div>
             <ul class="nav-menu">
@@ -27,11 +27,23 @@
     </nav>
 
     <!-- Header Section -->
-    <section class="attacks-header">
+    <section class="attacks-header interactive-attack-header">
         <div class="container">
-            <h1>Attack Vectors & Scenarios</h1>
-            <p class="header-subtitle">Comprehensive analysis of potential attack vectors and their impact on client
-                performance</p>
+            <div class="header-content">
+                <h1>Attack Vectors & Scenarios</h1>
+                <p class="header-subtitle">Comprehensive analysis of potential attack vectors and their impact on client
+                    performance</p>
+
+                <!-- Interactive Attack Overlay -->
+                <div class="attack-collaboration-overlay">
+                    <div class="attack-collaboration-content">
+                        <div class="attack-collaboration-icon">⚔️</div>
+                        <h3 class="attack-collaboration-text">Submit your attack vector ideas!</h3>
+                        <div class="attack-collaboration-arrow">↓</div>
+                        <p class="attack-collaboration-subtitle">Click to contribute attack scenarios</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 3D Ethereum Attack Shapes -->
@@ -50,7 +62,7 @@
     <section class="attacks-section">
         <div class="container">
             <div class="table-container">
-                <h2>Attack Vector Cost Ranking</h2>
+                <h2>Attack Vector Ranking</h2>
                 <p class="table-description">
                     Ranked by gas cost per transient byte (lowest to highest cost - lower is more efficient for
                     attackers).
@@ -209,6 +221,40 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Attack Vector Submission Section -->
+    <section class="attack-submission-section">
+        <div class="container">
+            <div class="attack-form-container">
+                <h2>Submit Attack Vector</h2>
+                <p class="form-description">Help us identify potential attack vectors that could impact Bloatnet's
+                    performance and security</p>
+
+                <!-- Embedded Google Form -->
+                <div class="embedded-attack-form-container">
+                    <div class="attack-form-loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <p>Loading attack vector submission form...</p>
+                    </div>
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSfJmyyJSLGUhjk6um-Em8sZ7z6iS9TwXFwvWzr653R9W-du3A/viewform?embedded=true"
+                        width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" loading="lazy"
+                        onload="hideAttackFormLoader()">
+                        Loading…
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Contribute to Security Research</h2>
+            <p>Help us identify and analyze potential attack vectors for Ethereum's scaling future</p>
+            <a href="index.html" class="cta-button">← Back to Home</a>
         </div>
     </section>
 

@@ -45,14 +45,23 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.ethereum-icon {
-    font-size: 2rem;
-    color: #9fffe0;
+.ethereum-logo-gif {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(30, 215, 154, 0.3));
+}
+
+.ethereum-logo-gif:hover {
+    transform: scale(1.1) rotate(10deg);
+    filter: drop-shadow(0 4px 12px rgba(30, 215, 154, 0.5));
 }
 
 .nav-menu {

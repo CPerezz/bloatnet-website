@@ -153,32 +153,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow:
-        0 0 20px rgba(26, 188, 156, 0.8),
-        0 0 40px rgba(46, 204, 113, 0.6),
-        0 0 60px rgba(39, 174, 96, 0.4);
-    animation-fill-mode: both;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    border-radius: 50%;
     width: 80px;
     height: 80px;
     background: radial-gradient(circle, rgba(26, 188, 156, 0.3), rgba(46, 204, 113, 0.1));
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+
+    /* Ethereum diamond logo as background */
+    background-image: url('ethereum-eth-logo-diamond.svg');
+    background-size: 50px 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Add glow effect */
+    box-shadow:
+        0 0 20px rgba(26, 188, 156, 0.4),
+        0 0 40px rgba(46, 204, 113, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .ethereum-shape::before {
-    content: '⟐';
-    position: absolute;
-    font-size: 2.5rem;
-    z-index: 2;
-    filter: drop-shadow(0 0 15px rgba(26, 188, 156, 0.7));
+    display: none;
+    /* Hide the text symbol since we're using the SVG */
 }
 
 /* Collision Effect Classes */

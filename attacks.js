@@ -2,6 +2,14 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeAttackTable();
+    initInteractiveAttackHeader();
+    initAttackFormLoader();
+    enhanceAccessibility();
+
+    // Initialize attack collision system after shapes are loaded
+    setTimeout(() => {
+        initAttackEthereumCollisionSystem();
+    }, 1000);
 });
 
 function initializeAttackTable() {
@@ -423,13 +431,93 @@ function playAttackCollisionSound() {
     }
 }
 
-// Initialize attack collision system
-document.addEventListener('DOMContentLoaded', function () {
-    initializeAttackTable();
-    enhanceAccessibility();
+// Interactive attack header functionality
+function initInteractiveAttackHeader() {
+    const header = document.querySelector('.attacks-header');
+    const collaborationOverlay = document.querySelector('.attack-collaboration-overlay');
 
-    // Initialize attack collision system after shapes are loaded
-    setTimeout(() => {
-        initAttackEthereumCollisionSystem();
-    }, 1000);
-}); 
+    if (header && collaborationOverlay) {
+        // Click to scroll to form
+        header.addEventListener('click', function () {
+            const formSection = document.querySelector('.attack-submission-section');
+            if (formSection) {
+                // Add click feedback
+                collaborationOverlay.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    collaborationOverlay.style.transform = 'scale(1)';
+                }, 150);
+
+                // Smooth scroll to form
+                formSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Add emphasis to form after scroll
+                setTimeout(() => {
+                    const formContainer = document.querySelector('.attack-form-container');
+                    if (formContainer) {
+                        formContainer.style.transform = 'scale(1.02)';
+                        formContainer.style.boxShadow = '0 20px 60px rgba(220, 20, 60, 0.3)';
+
+                        setTimeout(() => {
+                            formContainer.style.transform = 'scale(1)';
+                            formContainer.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.1)';
+                        }, 1000);
+                    }
+                }, 800);
+            }
+        });
+
+        // Add keyboard accessibility
+        header.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
+            }
+        });
+
+        // Make header focusable
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('role', 'button');
+        header.setAttribute('aria-label', 'Click to navigate to attack vector submission form');
+    }
+}
+
+// Attack form loader functionality
+function initAttackFormLoader() {
+    const iframe = document.querySelector('.embedded-attack-form-container iframe');
+    const loadingOverlay = document.querySelector('.attack-form-loading-overlay');
+
+    if (iframe && loadingOverlay) {
+        // Create global function for iframe onload
+        window.hideAttackFormLoader = function () {
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                loadingOverlay.style.transform = 'scale(0.9)';
+                iframe.classList.add('loaded');
+
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000); // Small delay to ensure form is fully loaded
+        };
+
+        // Fallback timeout in case onload doesn't fire
+        setTimeout(() => {
+            if (loadingOverlay.style.display !== 'none') {
+                window.hideAttackFormLoader();
+            }
+        }, 5000);
+
+        // Add loading animation enhancement
+        const spinner = document.querySelector('.attack-form-loading-overlay .loading-spinner');
+        if (spinner) {
+            // Add random color shifts to the spinner
+            setInterval(() => {
+                const hue = Math.random() * 60 + 320; // Red range
+                spinner.style.borderTopColor = `hsl(${hue}, 70%, 50%)`;
+            }, 1000);
+        }
+    }
+} 

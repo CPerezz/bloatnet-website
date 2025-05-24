@@ -5,6 +5,8 @@
     padding: 120px 0 80px;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .attacks-header::before {
@@ -21,6 +23,117 @@
         radial-gradient(circle at 25% 75%, rgba(22, 160, 133, 0.3) 0%, transparent 55%);
     pointer-events: none;
     transition: all 0.6s ease;
+}
+
+.attacks-header:hover::before {
+    background:
+        radial-gradient(circle at 15% 25%, rgba(255, 107, 107, 0.5) 0%, transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(255, 87, 87, 0.4) 0%, transparent 60%),
+        radial-gradient(circle at 65% 85%, rgba(220, 20, 60, 0.45) 0%, transparent 55%),
+        radial-gradient(circle at 25% 75%, rgba(178, 34, 34, 0.4) 0%, transparent 65%);
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.attacks-header:hover .header-content {
+    transform: translateY(-10px);
+}
+
+/* Attack Collaboration Overlay */
+.attack-collaboration-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.95) 0%, rgba(255, 69, 0, 0.93) 25%, rgba(255, 99, 71, 0.95) 75%, rgba(178, 34, 34, 0.97) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(20px);
+    z-index: 3;
+}
+
+.attacks-header:hover .attack-collaboration-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attack-collaboration-content {
+    text-align: center;
+    color: #ffffff;
+    transform: translateY(30px) scale(0.9);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.attacks-header:hover .attack-collaboration-content {
+    transform: translateY(0) scale(1);
+}
+
+.attack-collaboration-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: attackPulse 2s infinite;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes attackPulse {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+.attack-collaboration-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.5px;
+}
+
+.attack-collaboration-arrow {
+    font-size: 2rem;
+    margin: 1rem 0;
+    animation: attackBounce 2s infinite;
+}
+
+@keyframes attackBounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.attack-collaboration-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* 3D Ethereum Attack Shapes */
@@ -40,32 +153,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ff6b6b;
-    text-shadow:
-        0 0 20px rgba(255, 107, 107, 0.8),
-        0 0 40px rgba(255, 87, 87, 0.6),
-        0 0 60px rgba(255, 69, 69, 0.4);
-    animation-fill-mode: both;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    border-radius: 50%;
     width: 70px;
     height: 70px;
     background: radial-gradient(circle, rgba(255, 107, 107, 0.3), rgba(255, 87, 87, 0.1));
     backdrop-filter: blur(8px);
     border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+
+    /* Ethereum diamond logo as background */
+    background-image: url('ethereum-eth-logo-diamond.svg');
+    background-size: 40px 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Add attack-themed glow effect */
+    box-shadow:
+        0 0 20px rgba(255, 107, 107, 0.4),
+        0 0 40px rgba(255, 87, 87, 0.2),
+        inset 0 0 15px rgba(255, 255, 255, 0.1);
+
+    /* Red tint filter for attack theme */
+    filter: hue-rotate(320deg) saturate(1.5) brightness(1.1);
 }
 
 .attack-ethereum-shape::before {
-    content: '⟐';
-    position: absolute;
-    font-size: 2rem;
-    z-index: 2;
-    filter: drop-shadow(0 0 15px rgba(255, 107, 107, 0.7));
+    display: none;
+    /* Hide the text symbol since we're using the SVG */
 }
 
 /* Attack-specific collision effects */
@@ -798,4 +916,213 @@
     100% {
         background-position: -200% 0;
     }
+}
+
+/* Google Forms Integration Styles */
+.google-form-button-container {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.google-form-btn {
+    background: linear-gradient(135deg, #1ed79a 0%, #0db7af 100%);
+    color: #ffffff;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(30, 215, 154, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.google-form-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.google-form-btn:hover::before {
+    left: 100%;
+}
+
+.google-form-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(30, 215, 154, 0.4);
+}
+
+.google-form-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.form-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.form-text {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.form-arrow {
+    transition: transform 0.3s ease;
+    font-weight: bold;
+}
+
+.google-form-btn:hover .form-arrow {
+    transform: translateX(4px);
+}
+
+.form-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Attack Submission Section Styles */
+.attack-submission-section {
+    background: linear-gradient(135deg, #fef8f8 0%, #ffe8e8 100%);
+    padding: 80px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.attack-form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #dc143c;
+}
+
+.attack-form-container h2 {
+    font-size: 2.5rem;
+    color: #dc143c;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.attack-form-container .form-description {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/* Enhanced Embedded Attack Form Styles */
+.embedded-attack-form-container {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffe8e8;
+    min-height: 900px;
+}
+
+.attack-form-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fef8f8 0%, #ffe8e8 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.5s ease;
+}
+
+.attack-form-loading-overlay .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffe8e8;
+    border-top: 4px solid #dc143c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.attack-form-loading-overlay p {
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.embedded-attack-form-container iframe {
+    border-radius: 16px;
+    background: #ffffff;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.embedded-attack-form-container iframe.loaded {
+    opacity: 1;
+}
+
+/* CTA Section for attacks page */
+.cta {
+    background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+    padding: 80px 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.cta-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
