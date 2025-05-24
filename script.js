@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initCardHoverEffects();
     initParticleAnimation();
     initScrollArrow();
+    initFindings();
 
     // Backup scroll arrow functionality - wait for DOM to be fully ready
     setTimeout(() => {
@@ -38,46 +39,69 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 500);
 });
 
-// Progress Bar Animation
+// Progress Bar Animation - State Size Milestones
 function initProgressBar() {
-    const progressFill = document.querySelector('.progress-fill');
-    const milestone = document.querySelector('.milestone');
+    const currentProgress = document.querySelector('.current-progress');
+    const findingPoints = document.querySelectorAll('.finding-point');
 
-    if (progressFill && milestone) {
-        // Set progress percentage from data attribute
-        const targetProgress = parseInt(progressFill.getAttribute('data-progress')) || 20;
-        const milestonePosition = parseInt(milestone.getAttribute('data-position')) || 20;
-
-        // Position milestone
-        milestone.style.left = milestonePosition + '%';
-
-        // Add click functionality to milestone
-        milestone.addEventListener('click', function (e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-        });
-
-        // Close milestone when clicking elsewhere
-        document.addEventListener('click', function (e) {
-            if (!milestone.contains(e.target)) {
-                milestone.classList.remove('active');
-            }
-        });
-
-        // Animate progress bar on scroll
+    if (currentProgress) {
+        // Animate the current progress bar on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        progressFill.style.width = targetProgress + '%';
+                        // Animate to the current state (10% as example - 650GB)
+                        currentProgress.style.width = '10%';
                     }, 300);
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
 
-        observer.observe(progressFill.closest('.progress-section'));
+        observer.observe(currentProgress.closest('.progress-section'));
     }
+
+    // Handle finding point interactions
+    findingPoints.forEach(findingPoint => {
+        // Add click functionality to toggle active state
+        findingPoint.addEventListener('click', function (e) {
+            e.stopPropagation();
+
+            // Close other active findings
+            findingPoints.forEach(point => {
+                if (point !== this) {
+                    point.classList.remove('active');
+                }
+            });
+
+            // Toggle this finding
+            this.classList.toggle('active');
+        });
+
+        // Add hover sound effect (optional enhancement)
+        findingPoint.addEventListener('mouseenter', function () {
+            const marker = this.querySelector('.finding-marker');
+            if (marker) {
+                marker.style.transform = 'scale(1.1)';
+            }
+        });
+
+        findingPoint.addEventListener('mouseleave', function () {
+            const marker = this.querySelector('.finding-marker');
+            if (marker) {
+                marker.style.transform = 'scale(1)';
+            }
+        });
+    });
+
+    // Close finding details when clicking elsewhere
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.finding-point')) {
+            findingPoints.forEach(point => {
+                point.classList.remove('active');
+            });
+        }
+    });
 }
 
 // Scroll Effects
@@ -362,5 +386,170 @@ function initScrollArrow() {
                 }
             }
         });
+    }
+}
+
+// Findings dropdown toggle function
+function toggleFindings() {
+    const findingsSection = document.querySelector('.findings-section');
+    const findingsContent = document.getElementById('findingsContent');
+
+    if (findingsSection) {
+        findingsSection.classList.toggle('expanded');
+
+        // Add slight delay for smooth animation
+        if (findingsSection.classList.contains('expanded')) {
+            // Opening animation
+            setTimeout(() => {
+                findingsContent.style.maxHeight = findingsContent.scrollHeight + 'px';
+            }, 10);
+        } else {
+            // Closing animation
+            findingsContent.style.maxHeight = '0px';
+        }
+    }
+}
+
+// Auto-expand findings section when a finding point is clicked
+function connectFindingPointToCards() {
+    const findingPoints = document.querySelectorAll('.finding-point');
+    const findingsSection = document.querySelector('.findings-section');
+
+    findingPoints.forEach(findingPoint => {
+        findingPoint.addEventListener('click', function () {
+            // Auto-expand findings section if not already expanded
+            if (!findingsSection.classList.contains('expanded')) {
+                toggleFindings();
+            }
+
+            // Highlight corresponding card
+            const position = this.getAttribute('data-position') || this.style.left;
+            const correspondingCard = document.querySelector(`.finding-card[data-position="${position}"]`);
+
+            if (correspondingCard) {
+                // Remove highlight from other cards
+                document.querySelectorAll('.finding-card').forEach(card => {
+                    card.classList.remove('highlighted');
+                });
+
+                // Highlight the corresponding card
+                correspondingCard.classList.add('highlighted');
+
+                // Scroll to the card
+                setTimeout(() => {
+                    correspondingCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 400);
+            }
+        });
+    });
+}
+
+// Initialize findings functionality
+function initFindings() {
+    connectFindingPointToCards();
+    initFindingFilters();
+
+    // Make toggleFindings function globally available
+    window.toggleFindings = toggleFindings;
+    window.clearAllFilters = clearAllFilters;
+    window.showAllFindings = showAllFindings;
+}
+
+// Initialize finding filters
+function initFindingFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const filter = this.getAttribute('data-filter');
+            toggleFilter(filter, this);
+        });
+    });
+}
+
+// Toggle individual filter
+function toggleFilter(filter, buttonElement) {
+    const isActive = buttonElement.classList.contains('active');
+
+    if (isActive) {
+        // Remove filter
+        buttonElement.classList.remove('active');
+    } else {
+        // Add filter
+        buttonElement.classList.add('active');
+    }
+
+    applyFilters();
+}
+
+// Apply all active filters
+function applyFilters() {
+    const activeFilters = Array.from(document.querySelectorAll('.filter-btn.active[data-filter]'))
+        .map(btn => btn.getAttribute('data-filter'));
+
+    const findingCards = document.querySelectorAll('.finding-card:not(.placeholder)');
+
+    findingCards.forEach(card => {
+        const cardLabels = card.getAttribute('data-labels');
+
+        if (!cardLabels) {
+            card.classList.add('hidden');
+            return;
+        }
+
+        const cardLabelsArray = cardLabels.split(',').map(label => label.trim());
+
+        if (activeFilters.length === 0) {
+            // No filters active, show all cards
+            card.classList.remove('hidden');
+        } else {
+            // Check if card matches any active filter
+            const hasMatchingFilter = activeFilters.some(filter =>
+                cardLabelsArray.includes(filter)
+            );
+
+            if (hasMatchingFilter) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        }
+    });
+
+    updateFilterCounts();
+}
+
+// Update the findings count in the header
+function updateFilterCounts() {
+    const visibleCards = document.querySelectorAll('.finding-card:not(.placeholder):not(.hidden)').length;
+    const findingsCount = document.querySelector('.findings-count');
+
+    if (findingsCount) {
+        findingsCount.textContent = `(${visibleCards})`;
+    }
+}
+
+// Clear all filters
+function clearAllFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+
+    filterButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    applyFilters();
+}
+
+// Show all findings
+function showAllFindings() {
+    clearAllFilters();
+
+    // Ensure findings section is expanded
+    const findingsSection = document.querySelector('.findings-section');
+    if (findingsSection && !findingsSection.classList.contains('expanded')) {
+        toggleFindings();
     }
 } 

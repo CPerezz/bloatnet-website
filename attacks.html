@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Vectors & Scenarios - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="attacks.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="ethereum-icon">⟐</span>
+                Bloatnet
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link active">Attack Vectors</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="attacks-header">
+        <div class="container">
+            <h1>Attack Vectors & Scenarios</h1>
+            <p class="header-subtitle">Comprehensive analysis of potential attack vectors and their impact on client
+                performance</p>
+        </div>
+    </section>
+
+    <!-- Attack Vectors Table Section -->
+    <section class="attacks-section">
+        <div class="container">
+            <div class="table-container">
+                <h2>Attack Vector Cost Ranking</h2>
+                <p class="table-description">
+                    Ranked by gas cost per transient byte (lowest to highest cost - lower is more efficient for
+                    attackers).
+                    Hover over or click on any row to view detailed technical information.
+                </p>
+
+                <div class="attacks-table-wrapper">
+                    <table class="attacks-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Technique</th>
+                                <th>Cost per Transient Byte</th>
+                                <th class="expand-indicator">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="attack-row" data-attack-id="1">
+                                <td class="attack-number">
+                                    <div class="rank-badge rank-1">🥇</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Cold BALANCE/EXTCODEHASH probe on never-seen EOAs</div>
+                                    <div class="technique-detail">2600 gas cold probe</div>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">23 g/B</span>
+                                    <span class="gas-calculation">(2,600 gas ÷ 112 Bytes)</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="attack-details" data-attack-id="1">
+                                <td colspan="4">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Net Persistent State:</label>
+                                                <span>0 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes Read/Written per Use:</label>
+                                                <span>112 B <strong>read</strong> each</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Spammer iterates millions of pseudo-random addresses, thrashing
+                                                    the account-trie cache</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="attack-row" data-attack-id="2">
+                                <td class="attack-number">
+                                    <div class="rank-badge rank-2">🥈</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Cold SLOAD over many distinct storage slots</div>
+                                    <div class="technique-detail">Multiple storage slot access</div>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">66 g/B</span>
+                                    <span class="gas-calculation">(2,100 gas ÷ 32 Bytes)</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="attack-details" data-attack-id="2">
+                                <td colspan="4">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Net Persistent State:</label>
+                                                <span>0 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes Read/Written per Use:</label>
+                                                <span>32 Bytes <strong>read</strong></span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Every new slot hits the disk; warm repeats are only 100 gas but
+                                                    read no new bytes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="attack-row" data-attack-id="3">
+                                <td class="attack-number">
+                                    <div class="rank-badge rank-3">🥉</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">SSTORE 0→x then x→0 in same tx</div>
+                                    <div class="technique-detail">Storage manipulation attack</div>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">475 g/B</span>
+                                    <span class="gas-calculation">((20,000 - 4,800) gas ÷ 32 Bytes)</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="attack-details" data-attack-id="3">
+                                <td colspan="4">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Net Persistent State:</label>
+                                                <span>0 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes Read/Written per Use:</label>
+                                                <span>64 Bytes <strong>written & erased</strong></span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Refund now capped to 1⁄5 of gas used (EIP-3529) so attack lost ¾
+                                                    of its edge</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="attack-analysis">
+                    <h3>Cost Efficiency Analysis</h3>
+                    <div class="analysis-grid">
+                        <div class="analysis-card ranking-top">
+                            <div class="rank-indicator">🏆</div>
+                            <h4>Most Efficient Attack</h4>
+                            <p>Balance probes with 23 g/B provide the lowest cost per byte, making them highly scalable
+                                for attackers</p>
+                        </div>
+                        <div class="analysis-card ranking-middle">
+                            <div class="rank-indicator">⚖️</div>
+                            <h4>Moderate Efficiency Attack</h4>
+                            <p>Cold SLOAD attacks with 66 g/B offer moderate cost efficiency for storage-based attacks
+                            </p>
+                        </div>
+                        <div class="analysis-card ranking-bottom">
+                            <div class="rank-indicator">💰</div>
+                            <h4>Least Efficient Attack</h4>
+                            <p>Storage manipulation attacks with 475 g/B are expensive per byte but can cause
+                                significant damage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="attacks.js"></script>
+</body>
+
+</html>

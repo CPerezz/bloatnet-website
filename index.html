@@ -20,6 +20,7 @@
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link active">Home</a></li>
                 <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
             </ul>
         </div>
     </nav>
@@ -82,21 +83,176 @@
     <!-- Progress Section -->
     <section class="progress-section">
         <div class="container">
-            <h2>Initiative Progress</h2>
+            <h2>State Size Milestones</h2>
             <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" data-progress="20"></div>
-                    <div class="milestone" data-position="20">
-                        <div class="milestone-marker"></div>
-                        <div class="milestone-content">
-                            <h4>Research Milestone</h4>
-                            <p>Network bloating and state-bloat attacks/weaknesses identification</p>
+                <div class="state-size-bar">
+                    <div class="size-scale">
+                        <!-- Size markers -->
+                        <div class="size-marker" data-size="500GB" style="left: 0%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">500GB</span>
+                        </div>
+                        <div class="size-marker" data-size="1TB" style="left: 30%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">1TB</span>
+                        </div>
+                        <div class="size-marker" data-size="2TB" style="left: 60%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">2TB</span>
+                        </div>
+                        <div class="size-marker" data-size="3TB" style="left: 77%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">3TB</span>
+                        </div>
+                        <div class="size-marker" data-size="4TB" style="left: 87%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">4TB</span>
+                        </div>
+                        <div class="size-marker" data-size="5TB" style="left: 100%">
+                            <div class="marker-dot"></div>
+                            <span class="marker-label">5TB</span>
+                        </div>
+
+                        <!-- Finding points -->
+                        <div class="finding-point" data-position="10%" style="left: 10%">
+                            <div class="finding-marker"></div>
+                            <div class="finding-content">
+                                <h4>Initial State Bloat Analysis</h4>
+                                <p><strong>Size:</strong> ~650GB</p>
+                                <p><strong>Finding:</strong> Identified critical bottlenecks in state access patterns
+                                    when approaching 650GB threshold. Memory consumption increases exponentially beyond
+                                    this point, affecting validator performance.</p>
+                                <p><strong>Impact:</strong> Direct correlation between state size and sync time
+                                    degradation observed.</p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Progress bar showing current state -->
+                    <div class="current-progress" style="width: 10%"></div>
                 </div>
-                <div class="progress-labels">
-                    <span>0%</span>
-                    <span>100%</span>
+
+                <!-- Findings Dropdown Section -->
+                <div class="findings-section">
+                    <div class="findings-header" onclick="toggleFindings()">
+                        <h3>Research Findings <span class="findings-count">(1)</span></h3>
+                        <div class="dropdown-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="findings-content" id="findingsContent">
+                        <div class="findings-grid">
+                            <!-- Finding Card 1 -->
+                            <div class="finding-card" data-position="10%"
+                                data-labels="high-severity,geth-affected,nethermind-affected,not-fixed">
+                                <div class="card-header">
+                                    <div class="finding-position">
+                                        <span class="position-title">Initial State Bloat Analysis</span>
+                                    </div>
+                                    <div class="finding-labels">
+                                        <div class="finding-label severity high">High Severity</div>
+                                        <div class="finding-label status not-fixed">Not Fixed</div>
+                                        <div class="finding-label client geth">Geth Affected</div>
+                                        <div class="finding-label client nethermind">Nethermind Affected</div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <h4>Critical bottlenecks in state access patterns at 650GB</h4>
+                                    <p class="finding-summary">Identified critical bottlenecks in state access patterns
+                                        when approaching 650GB threshold.</p>
+
+                                    <div class="finding-details">
+                                        <div class="detail-section">
+                                            <h5>Key Findings</h5>
+                                            <ul>
+                                                <li>Memory consumption increases exponentially beyond 650GB</li>
+                                                <li>Validator performance degrades significantly</li>
+                                                <li>State access times show 40% increase</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="detail-section">
+                                            <h5>Impact Analysis</h5>
+                                            <p>Direct correlation between state size and sync time degradation observed.
+                                                Network participants experience longer initial sync times and increased
+                                                hardware requirements.</p>
+                                        </div>
+
+                                        <div class="detail-section">
+                                            <h5>Recommendations</h5>
+                                            <p>Implement state pruning mechanisms and optimize memory management
+                                                strategies before reaching 1TB threshold.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="reproduction-link">
+                                        <span class="link-label">Reproduce:</span>
+                                        <a href="https://github.com/ethpandaops/spamoor/pull/41" target="_blank"
+                                            rel="noopener noreferrer" class="scenario-link">View Scenario/TX →</a>
+                                    </div>
+                                    <div class="finding-date">March 15, 2025</div>
+                                </div>
+                            </div>
+
+                            <!-- Placeholder for future findings -->
+                            <div class="finding-card placeholder">
+                                <div class="placeholder-content">
+                                    <div class="placeholder-icon">📊</div>
+                                    <h4>More Findings Coming Soon</h4>
+                                    <p>Additional research findings will appear here as we progress through larger state
+                                        sizes.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Findings Filter Section -->
+                        <div class="findings-filter">
+                            <h4>Filter Findings</h4>
+                            <div class="filter-categories">
+                                <div class="filter-category">
+                                    <h5>Status</h5>
+                                    <div class="filter-buttons">
+                                        <button class="filter-btn" data-filter="fixed">Fixed</button>
+                                        <button class="filter-btn" data-filter="not-fixed">Not Fixed</button>
+                                    </div>
+                                </div>
+
+                                <div class="filter-category">
+                                    <h5>Severity</h5>
+                                    <div class="filter-buttons">
+                                        <button class="filter-btn" data-filter="high-severity">High Severity</button>
+                                        <button class="filter-btn" data-filter="medium-severity">Medium
+                                            Severity</button>
+                                    </div>
+                                </div>
+
+                                <div class="filter-category">
+                                    <h5>Client Impact</h5>
+                                    <div class="filter-buttons">
+                                        <button class="filter-btn" data-filter="reth-affected">Reth Affected</button>
+                                        <button class="filter-btn" data-filter="besu-affected">Besu Affected</button>
+                                        <button class="filter-btn" data-filter="geth-affected">Geth Affected</button>
+                                        <button class="filter-btn" data-filter="erigon-affected">Erigon
+                                            Affected</button>
+                                        <button class="filter-btn" data-filter="nethermind-affected">Nethermind
+                                            Affected</button>
+                                    </div>
+                                </div>
+
+                                <div class="filter-actions">
+                                    <button class="filter-btn clear-all" onclick="clearAllFilters()">Clear All</button>
+                                    <button class="filter-btn show-all" onclick="showAllFindings()">Show All</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -159,9 +315,12 @@
     <!-- Call to Action -->
     <section class="cta">
         <div class="container">
-            <h2>Join the Initiative</h2>
-            <p>Help us gather critical data for Ethereum's scaling future</p>
-            <a href="metrics.html" class="cta-button">Explore Metrics →</a>
+            <h2>Explore the Research</h2>
+            <p>Dive into critical data and attack vector analysis for Ethereum's scaling future</p>
+            <div class="cta-buttons">
+                <a href="metrics.html" class="cta-button">Explore Metrics →</a>
+                <a href="attacks.html" class="cta-button cta-button-secondary">Attack Vectors →</a>
+            </div>
         </div>
     </section>
 

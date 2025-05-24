@@ -1,0 +1,534 @@
+/* Attack Vectors Page Styles */
+
+.attacks-header {
+    background: linear-gradient(135deg, #2a5a2a 0%, #1a4a1a 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.attacks-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(46, 125, 50, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.attacks-header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.attacks-header .header-subtitle {
+    font-size: 1.3rem;
+    color: #c8e6c9;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.attacks-section {
+    padding: 80px 0;
+    background: #fafafa;
+}
+
+.table-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.table-container h2 {
+    font-size: 2.5rem;
+    color: #2e7d32;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table-description {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.attacks-table-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+.attacks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+}
+
+.attacks-table thead th {
+    background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+    color: #ffffff;
+    padding: 20px 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: left;
+    border: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.attacks-table thead th:first-child {
+    width: 60px;
+    text-align: center;
+}
+
+.attacks-table thead th:last-child {
+    width: 100px;
+    text-align: center;
+}
+
+.attack-row {
+    background: #ffffff;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border-bottom: 1px solid #e8f5e8;
+    position: relative;
+}
+
+.attack-row:hover {
+    background: linear-gradient(90deg, #f1f8e9 0%, #ffffff 100%);
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+    transform: translateY(-4px) scale(1.02);
+    border-left: 4px solid #2e7d32;
+}
+
+.attack-row.expanded {
+    background: linear-gradient(90deg, #e8f5e8 0%, #ffffff 100%);
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.2);
+    transform: translateY(-2px);
+    border-left: 4px solid #1b5e20;
+}
+
+.attack-row td {
+    padding: 20px 16px;
+    border: none;
+    vertical-align: top;
+    transition: all 0.3s ease;
+}
+
+.attack-number {
+    text-align: center;
+    width: 80px;
+}
+
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.attack-row:hover .rank-badge {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+}
+
+.technique-cell {
+    flex: 1;
+}
+
+.technique-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1b5e20;
+    margin-bottom: 4px;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+}
+
+.attack-row:hover .technique-name {
+    color: #0d4d14;
+    font-size: 1.05rem;
+}
+
+.technique-detail {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+
+.attack-row:hover .technique-detail {
+    color: #555;
+    transform: translateX(4px);
+}
+
+.gas-cost {
+    text-align: left;
+    min-width: 200px;
+}
+
+.gas-value {
+    display: block;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #d32f2f;
+    margin-bottom: 2px;
+    transition: all 0.3s ease;
+}
+
+.attack-row:hover .gas-value {
+    transform: scale(1.08);
+    color: #b71c1c;
+    text-shadow: 0 2px 4px rgba(183, 28, 28, 0.2);
+}
+
+.gas-calculation {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.attack-row:hover .gas-calculation {
+    color: #555;
+    transform: translateX(2px);
+}
+
+.expand-cell {
+    text-align: center;
+    width: 100px;
+}
+
+.expand-icon {
+    font-size: 1.2rem;
+    color: #2e7d32;
+    transition: all 0.3s ease;
+}
+
+.attack-row:hover .expand-icon {
+    color: #1b5e20;
+    transform: scale(1.2);
+}
+
+.attack-row.expanded .expand-icon {
+    transform: rotate(180deg) scale(1.1);
+    color: #0d4d14;
+}
+
+.attack-details {
+    display: none;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e8f5e8;
+}
+
+.attack-details.show {
+    display: table-row;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.details-content {
+    padding: 24px;
+}
+
+.details-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.details-grid .notes {
+    grid-column: 1 / -1;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-item label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #2e7d32;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-item span {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.detail-item.notes span {
+    font-style: italic;
+    color: #555;
+}
+
+.attack-analysis {
+    margin-top: 4rem;
+}
+
+.attack-analysis h3 {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 2rem;
+}
+
+.analysis-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.analysis-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.ranking-top {
+    border-left-color: #d32f2f;
+}
+
+.ranking-middle {
+    border-left-color: #f57c00;
+}
+
+.ranking-bottom {
+    border-left-color: #2e7d32;
+}
+
+.rank-indicator {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.analysis-card:hover .rank-indicator {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.analysis-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.analysis-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .attacks-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .attacks-header .header-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .table-container h2 {
+        font-size: 2rem;
+    }
+
+    .attacks-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .attacks-table {
+        min-width: 600px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .attack-row td {
+        padding: 16px 12px;
+    }
+
+    .technique-name {
+        font-size: 0.9rem;
+    }
+
+    .gas-value {
+        font-size: 1.1rem;
+    }
+
+    .rank-badge {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .attacks-header {
+        padding: 100px 0 60px;
+    }
+
+    .attacks-header h1 {
+        font-size: 2rem;
+    }
+
+    .attacks-section {
+        padding: 60px 0;
+    }
+
+    .attacks-table thead th,
+    .attack-row td {
+        padding: 12px 8px;
+    }
+
+    .technique-name {
+        font-size: 0.85rem;
+    }
+
+    .gas-value {
+        font-size: 1rem;
+    }
+
+    .rank-badge {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Search functionality styles (optional) */
+.attack-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 16px;
+    margin: 0 auto 2rem;
+    display: block;
+    border: 2px solid #e8f5e8;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.attack-search:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.attack-search::placeholder {
+    color: #999;
+}
+
+/* Animation classes for scroll animations */
+.animate-in {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced hover effects for better interactivity */
+.attack-row:hover .technique-name {
+    color: #1b5e20;
+}
+
+.attack-row:hover .gas-value {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+/* Focus styles for accessibility */
+.attack-row:focus {
+    outline: 2px solid #2e7d32;
+    outline-offset: 2px;
+}
+
+.attack-row:focus .expand-icon {
+    color: #1b5e20;
+}
+
+/* Loading state styles (for future use) */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
