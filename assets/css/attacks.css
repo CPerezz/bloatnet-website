@@ -166,7 +166,7 @@
     transform-style: preserve-3d;
 
     /* Ethereum diamond logo as background */
-    background-image: url('ethereum-eth-logo-diamond.svg');
+    background-image: url('../images/ethereum-eth-logo-diamond.svg');
     background-size: 40px 40px;
     background-position: center;
     background-repeat: no-repeat;
