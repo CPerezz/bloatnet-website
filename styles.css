@@ -49,6 +49,12 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+    color: #9fffe0;
+    transform: translateY(-2px);
 }
 
 .ethereum-logo-gif {

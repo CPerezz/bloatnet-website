@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloating Techniques - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bloating.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="ethereum-eth-logo-animated.gif" alt="Ethereum" class="ethereum-logo-gif">
+                Bloatnet
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link active">Bloating</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="bloating-header interactive-bloating-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Bloating Techniques</h1>
+                <p class="header-subtitle">Research on the most efficient ways to write data to Ethereum blockchain for
+                    minimal cost</p>
+
+                <!-- Interactive Bloating Overlay -->
+                <div class="bloating-collaboration-overlay">
+                    <div class="bloating-collaboration-content">
+                        <div class="bloating-collaboration-icon">💾</div>
+                        <h3 class="bloating-collaboration-text">Optimize blockchain storage!</h3>
+                        <div class="bloating-collaboration-arrow">↓</div>
+                        <p class="bloating-collaboration-subtitle">Click to explore efficient data storage techniques
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Ethereum Bloating Shapes -->
+        <div class="bloating-ethereum-shapes">
+            <div class="bloating-ethereum-shape bloating-storage"></div>
+            <div class="bloating-ethereum-shape bloating-compress"></div>
+            <div class="bloating-ethereum-shape bloating-efficient"></div>
+            <div class="bloating-ethereum-shape bloating-optimize"></div>
+            <div class="bloating-ethereum-shape bloating-storage"></div>
+            <div class="bloating-ethereum-shape bloating-compress"></div>
+            <div class="bloating-ethereum-shape bloating-efficient"></div>
+        </div>
+    </section>
+
+    <!-- Bloating Techniques Table Section -->
+    <section class="bloating-section">
+        <div class="container">
+            <div class="table-container">
+                <h2>Bloating Technique Ranking</h2>
+                <p class="table-description">
+                    Ranked by gas cost per byte stored (lowest to highest cost - lower is more efficient for data
+                    storage).
+                    Hover over or click on any row to view detailed technical information.
+                </p>
+
+                <div class="bloating-table-wrapper">
+                    <table class="bloating-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Action (single tx)</th>
+                                <th>What is written</th>
+                                <th>Intrinsic gas</th>
+                                <th class="gas-per-byte">Gas / byte</th>
+                                <th class="expand-indicator">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bloating-row" data-bloating-id="1">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-1">🥇</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Deploy 24kB contract (EIP-170 limit)</div>
+                                    <div class="technique-detail">Maximum size contract deployment</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">runtime code + account trie node</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">32,000 CREATE + 20,000 new-acct + 200 × 24,576 code
+                                        deposit</span>
+                                    <span class="gas-total">4,967,200 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">~202 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="1">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Contract Size:</label>
+                                                <span>24,576 bytes (EIP-170 maximum)</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Storage Location:</label>
+                                                <span>Contract code stored in state trie + account creation</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>24,576 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>6 full deployments</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Most efficient method for large data storage. EIP-170 limits
+                                                    contract size but this maximizes bytes per gas spent</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bloating-row" data-bloating-id="2">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-2">🥈</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Add delegate flag to funded EOA (EIP-7702)</div>
+                                    <div class="technique-detail">Authorization tuple in large batch</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">23 B (0xef0100‖address) + updated account leaf</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616
+                                        calldata - 7,823 refund</span>
+                                    <span class="gas-total">~31,300 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">~232 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="2">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Authorization Data:</label>
+                                                <span>23-byte delegation marker with target address</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Refund Mechanism:</label>
+                                                <span>20% refund cap (EIP-3529) reduces effective cost</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>~135 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>960 tuples</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>EIP-7702 allows efficient account delegation. Batching multiple
+                                                    authorizations reduces per-byte cost</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bloating-row" data-bloating-id="3">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-3">🥉</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Fund fresh EOA with 1 wei</div>
+                                    <div class="technique-detail">Simple external transfer</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">updated account leaf</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">21,000 tx + 9,000 value-transfer</span>
+                                    <span class="gas-total">30,000 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">~267 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="3">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Account Creation:</label>
+                                                <span>RLP-encoded account data (~112 bytes)</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>State Change:</label>
+                                                <span>New account entry in state trie</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>~112 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>~1000 accounts</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Simple and reliable method for creating state entries. Each funded
+                                                    EOA persists in the state trie</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bloating-row" data-bloating-id="4">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-4">4</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">EIP-7702 authorization to empty address</div>
+                                    <div class="technique-detail">Authorization tuple batch</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">23 B (0xef0100‖address) per authorization</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616
+                                        calldata</span>
+                                    <span class="gas-total">39,116 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">~289 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="4">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Target Address:</label>
+                                                <span>Empty address with no existing code</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Authorization Format:</label>
+                                                <span>23-byte delegation marker (0xef0100 + 20-byte address)</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>~135 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>767 tuples</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Similar to funded EOA method but uses EIP-7702 authorization. Less
+                                                    efficient than batch with refunds</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bloating-row" data-bloating-id="5">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-5">5</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Deploy Minimal Proxy Contract (~60 B)</div>
+                                    <div class="technique-detail">Small contract deployment</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">Updated account + code trie</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">32,000 CREATE + 25,000 new account + 12,000 code
+                                        deposit</span>
+                                    <span class="gas-total">69,000 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">~401 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="5">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Contract Type:</label>
+                                                <span>Minimal proxy pattern (~60 bytes)</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Storage Components:</label>
+                                                <span>Account creation + contract code storage</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>~172 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>~434 deployments</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Smaller contracts are less efficient per byte than maximum-size
+                                                    contracts due to fixed deployment overhead</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bloating-row" data-bloating-id="6">
+                                <td class="bloating-number">
+                                    <div class="rank-badge rank-6">6</div>
+                                </td>
+                                <td class="technique-cell">
+                                    <div class="technique-name">Fill new storage slots (SSTORE 0→x)</div>
+                                    <div class="technique-detail">Storage slot creation</div>
+                                </td>
+                                <td class="what-written">
+                                    <span class="written-content">slot in storage trie</span>
+                                </td>
+                                <td class="intrinsic-gas">
+                                    <span class="gas-breakdown">20,000 gas/slot</span>
+                                    <span class="gas-total">20,000 gas</span>
+                                </td>
+                                <td class="gas-cost">
+                                    <span class="gas-value">625 gas</span>
+                                </td>
+                                <td class="expand-cell">
+                                    <span class="expand-icon">▼</span>
+                                </td>
+                            </tr>
+                            <tr class="bloating-details" data-bloating-id="6">
+                                <td colspan="6">
+                                    <div class="details-content">
+                                        <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Storage Mechanism:</label>
+                                                <span>SSTORE opcode from zero to non-zero value</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Data Size:</label>
+                                                <span>32 bytes per storage slot</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Bytes → State:</label>
+                                                <span>32 B</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Max Units per Block:</label>
+                                                <span>1,500 slots</span>
+                                            </div>
+                                            <div class="detail-item notes">
+                                                <label>Technical Notes:</label>
+                                                <span>Least efficient method per byte due to high SSTORE gas cost for
+                                                    new slots. Each slot is 32 bytes fixed</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bloating-analysis">
+                    <h3>Bloating Analysis Summary</h3>
+                    <div class="analysis-grid">
+                        <div class="analysis-card efficiency-top">
+                            <div class="rank-indicator">Most Efficient</div>
+                            <h4>Contract Deployment</h4>
+                            <p>Maximum size contract deployment offers the best gas/byte ratio for data storage on
+                                Ethereum</p>
+                        </div>
+                        <div class="analysis-card efficiency-middle">
+                            <div class="rank-indicator">Balanced</div>
+                            <h4>Account Creation</h4>
+                            <p>EIP-7702 and EOA funding provide moderate efficiency for smaller data amounts</p>
+                        </div>
+                        <div class="analysis-card efficiency-bottom">
+                            <div class="rank-indicator">Least Efficient</div>
+                            <h4>Storage Slots</h4>
+                            <p>SSTORE operations are the most expensive way to store data per byte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloating Technique Submission Section -->
+    <section class="bloating-submission-section">
+        <div class="container">
+            <div class="bloating-form-container">
+                <h2>Submit Bloating Technique</h2>
+                <p class="form-description">Help us discover new efficient ways to write data to the Ethereum blockchain
+                    for minimal cost</p>
+
+                <!-- Embedded Google Form -->
+                <div class="embedded-bloating-form-container">
+                    <div class="bloating-form-loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <p>Loading bloating technique submission form...</p>
+                    </div>
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdCpOSndQVdVB_vhM_npEagT-LD_-UuVm9p9gloDz4-UZG2GA/viewform?embedded=true"
+                        width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" loading="lazy"
+                        onload="hideBloatingFormLoader()">
+                        Loading…
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Contribute to Bloating Research</h2>
+            <p>Help us discover more efficient blockchain storage techniques</p>
+            <a href="#" class="cta-button">Submit Research</a>
+        </div>
+    </section>
+
+    <script src="bloating.js"></script>
+</body>
+
+</html>
