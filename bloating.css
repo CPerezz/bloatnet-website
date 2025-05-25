@@ -37,6 +37,7 @@
     position: relative;
     z-index: 2;
     transition: all 0.4s ease;
+    text-align: center;
 }
 
 .bloating-header:hover .header-content {

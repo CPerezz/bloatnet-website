@@ -1432,7 +1432,7 @@ body {
 
 .objective-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(159, 255, 224, 0.2);
     border-color: rgba(159, 255, 224, 0.5);
 }
 
@@ -1487,9 +1487,280 @@ body {
     opacity: 0;
 }
 
-.objective-card:hover .card-details {
-    max-height: 200px;
+.objective-card:hover .card-details,
+.objective-card.expanded .card-details {
+    max-height: 300px;
     opacity: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom scrollbar for card details */
+.card-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-details::-webkit-scrollbar-track {
+    background: rgba(159, 255, 224, 0.1);
+    border-radius: 3px;
+}
+
+.card-details::-webkit-scrollbar-thumb {
+    background: rgba(159, 255, 224, 0.4);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.card-details::-webkit-scrollbar-thumb:hover {
+    background: rgba(159, 255, 224, 0.6);
+}
+
+/* Emoji animations for objective cards */
+.objective-card {
+    position: relative;
+}
+
+.card-emoji {
+    position: absolute;
+    font-size: 3.5rem;
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    z-index: 10;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.objective-card:hover .card-emoji,
+.objective-card.clicked .card-emoji {
+    opacity: 1;
+    transform: scale(1.1) rotate(360deg);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+}
+
+.objective-card[data-number="1"] .card-emoji {
+    top: 15px;
+    right: 15px;
+    animation: detectivePulse 3s ease-in-out infinite;
+}
+
+.objective-card[data-number="2"] .card-emoji {
+    top: 15px;
+    right: 15px;
+    animation: growthBounce 2.5s ease-in-out infinite;
+}
+
+.objective-card[data-number="3"] .card-emoji {
+    top: 15px;
+    right: 15px;
+}
+
+@keyframes detectivePulse {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.05) rotate(2deg);
+        filter: hue-rotate(10deg);
+    }
+}
+
+@keyframes growthBounce {
+
+    0%,
+    100% {
+        transform: scale(1) translateY(0);
+        filter: hue-rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.02) translateY(-3px);
+        filter: hue-rotate(5deg);
+    }
+
+    75% {
+        transform: scale(0.98) translateY(2px);
+        filter: hue-rotate(-5deg);
+    }
+}
+
+@keyframes constructionBlink {
+
+    0%,
+    90%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    95% {
+        opacity: 0.7;
+        transform: scale(1.02);
+        filter: brightness(1.2) hue-rotate(15deg);
+    }
+}
+
+/* Enhanced hover effects for each emoji type */
+.objective-card[data-number="1"]:hover .card-emoji {
+    animation: detectivePulse 1s ease-in-out infinite, detectiveHover 0.6s ease-out;
+    transform: scale(1.2) rotate(380deg) !important;
+    filter: drop-shadow(0 15px 30px rgba(255, 215, 0, 0.6)) hue-rotate(30deg);
+}
+
+.objective-card[data-number="2"]:hover .card-emoji {
+    animation: growthBounce 1s ease-in-out infinite, growthHover 0.6s ease-out;
+    transform: scale(1.2) rotate(380deg) translateY(-5px) !important;
+    filter: drop-shadow(0 15px 30px rgba(34, 197, 94, 0.6)) hue-rotate(20deg);
+}
+
+.objective-card[data-number="3"]:hover .card-emoji,
+.objective-card[data-number="3"].clicked .card-emoji {
+    animation: constructionBlink 2s ease-in-out infinite, constructionHover 0.6s ease-out;
+    transform: scale(1.2) rotate(380deg) !important;
+    filter: drop-shadow(0 15px 30px rgba(255, 165, 0, 0.6)) hue-rotate(40deg);
+}
+
+@keyframes detectiveHover {
+    0% {
+        transform: scale(1.1) rotate(360deg);
+    }
+
+    50% {
+        transform: scale(1.25) rotate(370deg);
+    }
+
+    100% {
+        transform: scale(1.2) rotate(380deg);
+    }
+}
+
+@keyframes growthHover {
+    0% {
+        transform: scale(1.1) rotate(360deg) translateY(0);
+    }
+
+    50% {
+        transform: scale(1.25) rotate(370deg) translateY(-3px);
+    }
+
+    100% {
+        transform: scale(1.2) rotate(380deg) translateY(-5px);
+    }
+}
+
+@keyframes constructionHover {
+    0% {
+        transform: scale(1.1) rotate(360deg);
+    }
+
+    50% {
+        transform: scale(1.25) rotate(370deg);
+    }
+
+    100% {
+        transform: scale(1.2) rotate(380deg);
+    }
+}
+
+/* Enhanced card animations */
+.objective-card:active {
+    transform: translateY(-8px) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.objective-card.clicked {
+    animation: cardPulse 0.6s ease-out;
+}
+
+@keyframes cardPulse {
+    0% {
+        transform: translateY(-10px) scale(1);
+    }
+
+    25% {
+        transform: translateY(-15px) scale(1.02);
+    }
+
+    50% {
+        transform: translateY(-12px) scale(1.01);
+    }
+
+    75% {
+        transform: translateY(-13px) scale(1.015);
+    }
+
+    100% {
+        transform: translateY(-10px) scale(1);
+    }
+}
+
+/* Sparkle effects */
+.card-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #9fffe0 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.card-sparkle.animate {
+    animation: sparkleFloat 1.5s ease-out forwards;
+}
+
+@keyframes sparkleFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-30px) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0);
+    }
+}
+
+
+
+/* Progress bar in card details for visual interest */
+.detail-progress {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.detail-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(159, 255, 224, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.detail-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #9fffe0, #1ed79a);
+    border-radius: 2px;
+    transform: translateX(-100%);
+    transition: transform 0.8s ease 0.2s;
+}
+
+.objective-card:hover .detail-progress-fill,
+.objective-card.expanded .detail-progress-fill {
+    transform: translateX(0);
 }
 
 /* Call to Action */

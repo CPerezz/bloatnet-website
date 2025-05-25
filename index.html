@@ -81,6 +81,143 @@
         </div>
     </section>
 
+    <!-- Main Objectives -->
+    <section class="objectives">
+        <div class="container">
+            <h2>Core Objectives</h2>
+            <div class="objectives-grid">
+                <div class="objective-card" data-number="1">
+                    <div class="card-emoji">🕵️</div>
+                    <div class="card-header">
+                        <span class="card-number">1</span>
+                        <h3>Critical State Growth Monitoring</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Know when state growth becomes a critical issue → prioritize
+                            statelessness</p>
+                        <div class="card-details">
+                            <div class="detail-section">
+                                <h4>The Challenge</h4>
+                                <p>Ethereum's state continues to grow with every transaction, contract deployment, and
+                                    storage operation. This accumulation creates an invisible but mounting pressure on
+                                    the network's sustainability. Without precise monitoring, we risk reaching critical
+                                    thresholds where client synchronization becomes prohibitively slow and hardware
+                                    requirements exclude everyday participants.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Our Approach</h4>
+                                <p>Bloatnet provides real-world stress testing by intentionally accelerating state
+                                    growth in a controlled environment. We measure performance degradation at specific
+                                    size milestones (500GB, 1TB, 2TB+) to identify the exact points where statelessness
+                                    transitions from "nice to have" to "mission critical" for Ethereum's survival.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Impact & Motivation</h4>
+                                <p>This research directly informs Ethereum's roadmap priorities. By knowing precisely
+                                    when state growth becomes problematic, core developers can allocate resources
+                                    effectively and implement statelessness solutions before the network experiences
+                                    degradation. The data we collect today prevents future network emergencies.</p>
+                            </div>
+                            <div class="detail-progress">
+                                <div class="detail-progress-bar">
+                                    <div class="detail-progress-fill" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="objective-card" data-number="2">
+                    <div class="card-emoji">📈</div>
+                    <div class="card-header">
+                        <span class="card-number">2</span>
+                        <h3>Massive State Testnet Data</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Gather extensive performance data with high gas limits</p>
+                        <div class="card-details">
+                            <div class="detail-section">
+                                <h4>The Vision</h4>
+                                <p>Current Ethereum testnets operate within conservative parameters that don't
+                                    stress-test the boundaries of what's possible. Bloatnet breaks these constraints by
+                                    running with significantly higher gas limits and accelerated block times, creating a
+                                    laboratory for extreme conditions that mainnet may face in the future.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What We Measure</h4>
+                                <p>Our comprehensive data collection spans client performance metrics, memory
+                                    consumption patterns, disk I/O bottlenecks, network propagation delays, and
+                                    synchronization times. We track how different client implementations (Geth,
+                                    Nethermind, Besu, Erigon, Reth) behave under identical extreme conditions,
+                                    identifying implementation-specific optimizations and vulnerabilities.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Research Applications</h4>
+                                <p>This data becomes invaluable for client teams optimizing their implementations,
+                                    researchers modeling network behavior, and protocol developers designing future
+                                    upgrades. The extreme conditions we test today help prepare Ethereum for the
+                                    demanding applications of tomorrow - from high-frequency DeFi to massive on-chain
+                                    gaming ecosystems.</p>
+                            </div>
+                            <div class="detail-progress">
+                                <div class="detail-progress-bar">
+                                    <div class="detail-progress-fill" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="objective-card" data-number="3">
+                    <div class="card-emoji">🚧</div>
+                    <div class="card-header">
+                        <span class="card-number">3</span>
+                        <h3>Path to EIP-7938</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-summary">Understand when and how clients will struggle with state growth</p>
+                        <div class="card-details">
+                            <div class="detail-section">
+                                <h4>The Proposal</h4>
+                                <p>EIP-7938 proposes a methodical approach to increasing Ethereum's gas limits over
+                                    time, enabling higher throughput while maintaining network stability. However,
+                                    implementing this requires deep understanding of how each increment affects network
+                                    performance and what safety mechanisms need to be in place.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Critical Questions</h4>
+                                <p>When do clients start experiencing sync failures? At what state size do hardware
+                                    requirements become prohibitive for home validators? How do different attack vectors
+                                    scale with increased throughput? Bloatnet provides empirical answers to these
+                                    questions through controlled experimentation rather than theoretical modeling.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Implementation Strategy</h4>
+                                <p>Our findings directly shape the implementation timeline and safety measures for
+                                    EIP-7938. By identifying specific client vulnerabilities and performance cliffs, we
+                                    help establish safe increment schedules, necessary client optimizations, and early
+                                    warning systems. This ensures that when mainnet gas limits increase, the network
+                                    remains robust and accessible.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Long-term Impact</h4>
+                                <p>Success here means Ethereum can scale sustainably without compromising
+                                    decentralization. We're not just increasing numbers - we're charting a careful path
+                                    toward higher throughput that preserves Ethereum's core values while meeting growing
+                                    demand from users and applications worldwide.</p>
+                            </div>
+                            <div class="detail-progress">
+                                <div class="detail-progress-bar">
+                                    <div class="detail-progress-fill" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Progress Section -->
     <section class="progress-section">
         <div class="container">
@@ -252,60 +389,6 @@
                                     <button class="filter-btn show-all" onclick="showAllFindings()">Show All</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Objectives -->
-    <section class="objectives">
-        <div class="container">
-            <h2>Core Objectives</h2>
-            <div class="objectives-grid">
-                <div class="objective-card" data-number="1">
-                    <div class="card-header">
-                        <span class="card-number">1</span>
-                        <h3>Critical State Growth Monitoring</h3>
-                    </div>
-                    <div class="card-content">
-                        <p class="card-summary">Know when state growth becomes a critical issue → prioritize
-                            statelessness</p>
-                        <div class="card-details">
-                            <p>Understand the exact thresholds where state bloat begins to impact network performance
-                                and client synchronization. This critical monitoring helps us prioritize statelessness
-                                implementation before the network experiences malfunctions.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="objective-card" data-number="2">
-                    <div class="card-header">
-                        <span class="card-number">2</span>
-                        <h3>Massive State Testnet Data</h3>
-                    </div>
-                    <div class="card-content">
-                        <p class="card-summary">Gather extensive performance data with high gas limits</p>
-                        <div class="card-details">
-                            <p>Collect comprehensive performance metrics in a controlled testnet environment with
-                                significantly higher gas limits. This data provides insights into network behavior under
-                                extreme load conditions.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="objective-card" data-number="3">
-                    <div class="card-header">
-                        <span class="card-number">3</span>
-                        <h3>Path to EIP-7938</h3>
-                    </div>
-                    <div class="card-content">
-                        <p class="card-summary">Understand when and how clients will struggle with state growth</p>
-                        <div class="card-details">
-                            <p>Clear the implementation path for EIP-7938, which proposes incremental gas-limit upgrades
-                                over time. By identifying obstacles and safe thresholds, we ensure smooth implementation
-                                of this critical scalability improvement.</p>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initProgressBar();
     initScrollEffects();
     initCardHoverEffects();
+    initEmojiCycling();
     initParticleAnimation();
     initScrollArrow();
     initFindings();
@@ -165,6 +166,14 @@ function initCardHoverEffects() {
     cards.forEach(card => {
         // Add ripple effect on click
         card.addEventListener('click', function (e) {
+            // Add clicked class for emoji animation
+            card.classList.add('clicked');
+            setTimeout(() => card.classList.remove('clicked'), 600);
+
+            // Create sparkle effects
+            createSparkles(card, e);
+
+            // Ripple effect
             const ripple = document.createElement('div');
             const rect = card.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -186,6 +195,9 @@ function initCardHoverEffects() {
             setTimeout(() => {
                 ripple.remove();
             }, 600);
+
+            // Toggle expanded state for persistent scrolling
+            card.classList.toggle('expanded');
         });
 
         // Enhanced hover animations
@@ -204,6 +216,86 @@ function initCardHoverEffects() {
                 cardNumber.style.background = 'rgba(159, 255, 224, 0.1)';
             }
         });
+    });
+}
+
+// Create sparkle effects on click
+function createSparkles(card, clickEvent) {
+    const rect = card.getBoundingClientRect();
+    const clickX = clickEvent.clientX - rect.left;
+    const clickY = clickEvent.clientY - rect.top;
+
+    // Create multiple sparkles
+    for (let i = 0; i < 6; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'card-sparkle animate';
+
+        // Random position around click point
+        const offsetX = (Math.random() - 0.5) * 80;
+        const offsetY = (Math.random() - 0.5) * 80;
+
+        sparkle.style.left = (clickX + offsetX) + 'px';
+        sparkle.style.top = (clickY + offsetY) + 'px';
+
+        // Delay sparkles slightly
+        sparkle.style.animationDelay = (i * 0.1) + 's';
+
+        card.appendChild(sparkle);
+
+        // Remove sparkle after animation
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1500 + (i * 100));
+    }
+}
+
+// Add emoji cycling on double-click
+function initEmojiCycling() {
+    const cards = document.querySelectorAll('.objective-card');
+
+    const emojiSets = {
+        '1': ['🕵️', '🔍', '🔎', '👁️', '🎯'],
+        '2': ['📈', '📊', '💹', '🌱', '🎢'],
+        '3': ['🚧', '⚠️', '🛠️', '👷', '🔧']
+    };
+
+    cards.forEach(card => {
+        const cardNumber = card.getAttribute('data-number');
+        const emoji = card.querySelector('.card-emoji');
+        let currentEmojiIndex = 0;
+
+        if (emoji && emojiSets[cardNumber]) {
+            let clickCount = 0;
+            let clickTimer;
+
+            card.addEventListener('click', function () {
+                clickCount++;
+
+                if (clickCount === 1) {
+                    clickTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 300);
+                } else if (clickCount === 2) {
+                    clearTimeout(clickTimer);
+                    clickCount = 0;
+
+                    // Cycle emoji
+                    currentEmojiIndex = (currentEmojiIndex + 1) % emojiSets[cardNumber].length;
+                    emoji.textContent = emojiSets[cardNumber][currentEmojiIndex];
+
+                    // Add extra spectacular animation for emoji change
+                    emoji.style.transform = 'scale(1.5) rotate(1080deg)';
+                    emoji.style.filter = 'drop-shadow(0 15px 30px rgba(255, 255, 255, 0.8)) brightness(1.3)';
+                    emoji.style.textShadow = '0 0 40px rgba(255, 255, 255, 1)';
+
+                    setTimeout(() => {
+                        emoji.style.transform = 'scale(1.1) rotate(360deg)';
+                        emoji.style.filter = 'drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4))';
+                        emoji.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.8)';
+                    }, 600);
+                }
+            });
+        }
     });
 }
 
