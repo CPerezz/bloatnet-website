@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeHeaderInteractions();
     initializeSearchFunctionality();
     initializeAnimations();
+    initHamburgerMenu();
 });
 
 // Table Interactivity
@@ -605,4 +606,72 @@ function hideBloatingFormLoader() {
 }
 
 // Make function globally available
-window.hideBloatingFormLoader = hideBloatingFormLoader; 
+window.hideBloatingFormLoader = hideBloatingFormLoader;
+
+// Hamburger Menu Functionality
+function initHamburgerMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links .nav-link');
+
+    if (!hamburger || !mobileMenu) return;
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+        const isActive = mobileMenu.classList.contains('active');
+
+        if (isActive) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    // Open mobile menu
+    function openMobileMenu() {
+        hamburger.classList.add('active');
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    // Close mobile menu
+    function closeMobileMenu() {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Event listeners
+    hamburger.addEventListener('click', toggleMobileMenu);
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close menu when clicking on overlay
+    mobileMenu.addEventListener('click', function (e) {
+        if (e.target === mobileMenu) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close menu when clicking on a link
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close menu on window resize to desktop size
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+}
