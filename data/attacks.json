@@ -85,9 +85,45 @@
             }
         }
     ],
+    "persistent_attacks": [
+        {
+            "id": "database-corruption-attack",
+            "attack": "Database corruption through state root manipulation",
+            "description": "Exploits low-level database inconsistencies to corrupt state root calculations",
+            "details": {
+                "technical_notes": "This attack vector exploits race conditions in database write operations during high-throughput periods. By carefully timing transactions that modify overlapping state regions, attackers can cause database corruption that leads to inconsistent state root calculations across different client implementations.",
+                "requires_raw_db_manipulation": true,
+                "impact_level": "Critical",
+                "difficulty": "Very High"
+            }
+        },
+        {
+            "id": "memory-exhaustion-attack",
+            "attack": "Memory exhaustion through oversized trie structures",
+            "description": "Forces client memory usage to spike by creating complex state trie patterns",
+            "details": {
+                "technical_notes": "This attack creates deeply nested storage patterns that force the client to maintain large portions of the state trie in memory simultaneously. By carefully crafting storage slot patterns that don't compress well, attackers can cause memory pressure leading to degraded performance or client crashes.",
+                "requires_raw_db_manipulation": false,
+                "impact_level": "High",
+                "difficulty": "Medium"
+            }
+        },
+        {
+            "id": "consensus-desync-attack",
+            "attack": "Consensus layer desynchronization via state inconsistencies",
+            "description": "Exploits edge cases in state transitions to cause consensus layer issues",
+            "details": {
+                "technical_notes": "By triggering specific combinations of EVM operations during state transitions, this attack can cause subtle inconsistencies between execution and consensus layer state. This can lead to missed attestations, block proposals failures, or in extreme cases, temporary network splits.",
+                "requires_raw_db_manipulation": false,
+                "impact_level": "Critical",
+                "difficulty": "High"
+            }
+        }
+    ],
     "metadata": {
         "last_updated": "2024-12-19",
         "total_vectors": 6,
+        "total_persistent_attacks": 3,
         "ranking_criteria": "Gas cost per transient byte (lowest to highest cost)",
         "note": "Lower cost is more efficient for attackers. Transient bytes include both temporary and permanent state modifications."
     }

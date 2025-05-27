@@ -460,13 +460,15 @@
     margin-bottom: 3rem;
 }
 
-.attacks-table {
+.attacks-table,
+.persistent-attacks-table {
     width: 100%;
     border-collapse: collapse;
     font-family: 'Inter', sans-serif;
 }
 
-.attacks-table thead th {
+.attacks-table thead th,
+.persistent-attacks-table thead th {
     background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
     color: #ffffff;
     padding: 20px 16px;
@@ -484,12 +486,14 @@
     text-align: center;
 }
 
-.attacks-table thead th:last-child {
+.attacks-table thead th:last-child,
+.persistent-attacks-table thead th:last-child {
     width: 100px;
     text-align: center;
 }
 
-.attack-row {
+.attack-row,
+.persistent-attack-row {
     background: #ffffff;
     transition: all 0.4s ease;
     cursor: pointer;
@@ -497,21 +501,24 @@
     position: relative;
 }
 
-.attack-row:hover {
+.attack-row:hover,
+.persistent-attack-row:hover {
     background: linear-gradient(90deg, #f1f8e9 0%, #ffffff 100%);
     box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
     transform: translateY(-4px) scale(1.02);
     border-left: 4px solid #2e7d32;
 }
 
-.attack-row.expanded {
+.attack-row.expanded,
+.persistent-attack-row.expanded {
     background: linear-gradient(90deg, #e8f5e8 0%, #ffffff 100%);
     box-shadow: 0 8px 24px rgba(46, 125, 50, 0.2);
     transform: translateY(-2px);
     border-left: 4px solid #1b5e20;
 }
 
-.attack-row td {
+.attack-row td,
+.persistent-attack-row td {
     padding: 20px 16px;
     border: none;
     vertical-align: top;
@@ -547,7 +554,8 @@
     flex: 1;
 }
 
-.technique-name {
+.technique-name,
+.attack-name {
     font-weight: 600;
     font-size: 1rem;
     color: #1b5e20;
@@ -556,19 +564,22 @@
     transition: all 0.3s ease;
 }
 
-.attack-row:hover .technique-name {
+.attack-row:hover .technique-name,
+.persistent-attack-row:hover .attack-name {
     color: #0d4d14;
     font-size: 1.05rem;
 }
 
-.technique-detail {
+.technique-detail,
+.attack-description {
     font-size: 0.85rem;
     color: #666;
     font-style: italic;
     transition: all 0.3s ease;
 }
 
-.attack-row:hover .technique-detail {
+.attack-row:hover .technique-detail,
+.persistent-attack-row:hover .attack-description {
     color: #555;
     transform: translateX(4px);
 }
@@ -627,13 +638,15 @@
     color: #0d4d14;
 }
 
-.attack-details {
+.attack-details,
+.persistent-attack-details {
     display: none;
     background: #f8f9fa;
     border-bottom: 2px solid #e8f5e8;
 }
 
-.attack-details.show {
+.attack-details.show,
+.persistent-attack-details.show {
     display: table-row;
     animation: slideDown 0.3s ease;
 }

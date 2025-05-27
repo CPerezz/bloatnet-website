@@ -80,7 +80,7 @@
     <section class="attacks-section">
         <div class="container">
             <div class="table-container">
-                <h2>Attack Vector Ranking</h2>
+                <h2>Transient-storage bloating attack ranking</h2>
                 <p class="table-description">
                     Ranked by gas cost per transient byte (lowest to highest cost - lower is more efficient for
                     attackers).
@@ -237,6 +237,31 @@
                                 significant damage</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Second Attack Table -->
+            <div class="table-container" style="margin-top: 60px;">
+                <h2>Miscellaneous bloat-state-based attacks</h2>
+                <p class="table-description">
+                    Attack vectors that don't necessarily occur naturally or are craftable per-se, but could appear and
+                    need testing.
+                    Hover over or click on any row to view detailed technical information.
+                </p>
+
+                <div class="attacks-table-wrapper">
+                    <table class="persistent-attacks-table">
+                        <thead>
+                            <tr>
+                                <th>Attack</th>
+                                <th>Description</th>
+                                <th class="expand-indicator">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="persistent-attacks-tbody">
+                            <!-- Content will be dynamically rendered -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

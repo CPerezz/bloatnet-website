@@ -180,6 +180,15 @@ class DataRenderer {
             return;
         }
 
+        // Render transient attacks table
+        this.renderTransientAttacks();
+
+        // Render persistent attacks table
+        this.renderPersistentAttacks();
+    }
+
+    // Render transient attacks table
+    renderTransientAttacks() {
         const tableBody = document.querySelector('.attacks-table tbody');
         if (!tableBody) return;
 
@@ -237,6 +246,190 @@ class DataRenderer {
             `;
 
             tableBody.appendChild(detailsRow);
+        });
+    }
+
+    // Render persistent attacks table
+    renderPersistentAttacks() {
+        if (!this.data.attacks || !this.data.attacks.persistent_attacks) {
+            return;
+        }
+
+        const tableBody = document.getElementById('persistent-attacks-tbody');
+        if (!tableBody) {
+            return;
+        }
+
+        tableBody.innerHTML = '';
+
+        this.data.attacks.persistent_attacks.forEach((attack, index) => {
+            // Main row
+            const row = document.createElement('tr');
+            row.className = 'persistent-attack-row';
+            row.setAttribute('data-persistent-attack-id', attack.id);
+
+            row.innerHTML = `
+                <td class="attack-name-cell">
+                    <div class="attack-name">${attack.attack}</div>
+                </td>
+                <td class="attack-description-cell">
+                    <div class="attack-description">${attack.description}</div>
+                </td>
+                <td class="expand-cell">
+                    <span class="expand-icon">▼</span>
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+
+            // Details row
+            const detailsRow = document.createElement('tr');
+            detailsRow.className = 'persistent-attack-details';
+            detailsRow.setAttribute('data-persistent-attack-id', attack.id);
+
+            const detailItems = Object.entries(attack.details)
+                .filter(([key, value]) => key !== 'difficulty' && key !== 'impact_level') // Exclude difficulty and impact_level
+                .map(([key, value]) => {
+                    const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    const className = key === 'technical_notes' ? 'notes' : '';
+
+                    // Special handling for boolean values
+                    const displayValue = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value;
+
+                    return `
+                        <div class="detail-item ${className}">
+                            <label>${label}:</label>
+                            <span>${displayValue}</span>
+                        </div>
+                    `;
+                }).join('');
+
+            detailsRow.innerHTML = `
+                <td colspan="3">
+                    <div class="details-content">
+                        <div class="details-grid">
+                            ${detailItems}
+                        </div>
+                    </div>
+                </td>
+            `;
+
+            tableBody.appendChild(detailsRow);
+        });
+
+        // Add click event handling for persistent attacks table
+        this.initPersistentAttackTableEvents();
+    }
+
+    // Initialize click events for persistent attacks table
+    initPersistentAttackTableEvents() {
+        const persistentAttackRows = document.querySelectorAll('.persistent-attack-row');
+
+        persistentAttackRows.forEach(row => {
+            // Skip if already has event listener
+            if (row.hasAttribute('data-events-initialized')) {
+                return;
+            }
+
+            // Mark as initialized
+            row.setAttribute('data-events-initialized', 'true');
+
+            const attackId = row.getAttribute('data-persistent-attack-id');
+            const detailsRow = document.querySelector(`.persistent-attack-details[data-persistent-attack-id="${attackId}"]`);
+            const expandIcon = row.querySelector('.expand-icon');
+
+            // Click event to toggle details
+            row.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.togglePersistentAttackDetails(row, detailsRow, expandIcon);
+            });
+
+            // Hover events for subtle feedback
+            row.addEventListener('mouseenter', () => {
+                if (!row.classList.contains('expanded')) {
+                    expandIcon.style.transform = 'scale(1.1)';
+                }
+            });
+
+            row.addEventListener('mouseleave', () => {
+                if (!row.classList.contains('expanded')) {
+                    expandIcon.style.transform = 'scale(1)';
+                }
+            });
+
+            // Keyboard accessibility
+            row.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.togglePersistentAttackDetails(row, detailsRow, expandIcon);
+                }
+            });
+
+            // Make rows focusable for keyboard navigation
+            row.setAttribute('tabindex', '0');
+            row.setAttribute('role', 'button');
+            row.setAttribute('aria-expanded', 'false');
+            row.setAttribute('aria-label', `Expand details for persistent attack ${attackId}`);
+        });
+    }
+
+    // Toggle persistent attack details
+    togglePersistentAttackDetails(row, detailsRow, expandIcon) {
+        const isExpanded = row.classList.contains('expanded');
+
+        // Close all other expanded rows first
+        this.closeAllPersistentAttackDetails();
+
+        if (!isExpanded) {
+            // Expand this row
+            row.classList.add('expanded');
+            detailsRow.classList.add('show');
+            row.setAttribute('aria-expanded', 'true');
+
+            // Add smooth scroll to bring details into view
+            setTimeout(() => {
+                detailsRow.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
+            }, 100);
+
+            // Animate the details content
+            this.animatePersistentAttackDetailsContent(detailsRow);
+        }
+    }
+
+    // Close all persistent attack details
+    closeAllPersistentAttackDetails() {
+        const allRows = document.querySelectorAll('.persistent-attack-row');
+        const allDetails = document.querySelectorAll('.persistent-attack-details');
+
+        allRows.forEach(row => {
+            row.classList.remove('expanded');
+            row.setAttribute('aria-expanded', 'false');
+        });
+
+        allDetails.forEach(detail => {
+            detail.classList.remove('show');
+        });
+    }
+
+    // Animate persistent attack details content
+    animatePersistentAttackDetailsContent(detailsRow) {
+        const content = detailsRow.querySelector('.details-content');
+        const detailItems = content.querySelectorAll('.detail-item');
+
+        // Animate each detail item with a stagger effect
+        detailItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                item.style.transition = 'all 0.4s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
         });
     }
 

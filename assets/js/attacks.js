@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
         initAttackEthereumCollisionSystem();
     }, 1000);
+
+    // Ensure persistent attacks are rendered after DataRenderer is ready
+    setTimeout(() => {
+        if (window.dataRenderer && window.dataRenderer.initialized) {
+            window.dataRenderer.renderPersistentAttacks();
+        }
+    }, 100);
 });
 
 function initializeAttackTable() {
