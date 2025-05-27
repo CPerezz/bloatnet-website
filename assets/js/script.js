@@ -544,11 +544,77 @@ function connectFindingPointToCards() {
 function initFindings() {
     connectFindingPointToCards();
     initFindingFilters();
+    initFindingCardDropdowns();
 
     // Make toggleFindings function globally available
     window.toggleFindings = toggleFindings;
     window.clearAllFilters = clearAllFilters;
     window.showAllFindings = showAllFindings;
+}
+
+// Finding card dropdown functionality
+function initFindingCardDropdowns() {
+    const findingCards = document.querySelectorAll('.finding-card');
+
+    findingCards.forEach(card => {
+        card.addEventListener('click', function (e) {
+            // Prevent event bubbling
+            e.stopPropagation();
+
+            // Don't process clicks on links
+            if (e.target.closest('.scenario-link')) {
+                return;
+            }
+
+            // Toggle expanded state
+            const isExpanded = card.classList.contains('expanded');
+
+            if (isExpanded) {
+                card.classList.remove('expanded');
+            } else {
+                // Close other expanded cards
+                findingCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('expanded');
+                    }
+                });
+
+                // Expand this card
+                card.classList.add('expanded');
+            }
+
+            // Add click feedback
+            card.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 150);
+        });
+
+        // Add keyboard accessibility
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+
+        // Make cards focusable
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', 'false');
+
+        // Update aria-expanded when state changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const isExpanded = card.classList.contains('expanded');
+                    card.setAttribute('aria-expanded', isExpanded);
+                }
+            });
+        });
+
+        observer.observe(card, { attributes: true });
+    });
 }
 
 // Initialize finding filters

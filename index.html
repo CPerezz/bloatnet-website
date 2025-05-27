@@ -304,19 +304,19 @@
                             <div class="finding-card" data-position="10%"
                                 data-labels="high-severity,geth-affected,nethermind-affected,not-fixed">
                                 <div class="card-header">
-                                    <div class="finding-position">
-                                        <span class="position-title">Initial State Bloat Analysis</span>
-                                    </div>
                                     <div class="finding-labels">
                                         <div class="finding-label severity high">High Severity</div>
                                         <div class="finding-label status not-fixed">Not Fixed</div>
                                         <div class="finding-label client geth">Geth Affected</div>
                                         <div class="finding-label client nethermind">Nethermind Affected</div>
                                     </div>
+                                    <div class="finding-title-row">
+                                        <h4>Critical bottlenecks in state access patterns at 650GB</h4>
+                                        <span class="expand-indicator">▼</span>
+                                    </div>
                                 </div>
 
                                 <div class="card-body">
-                                    <h4>Critical bottlenecks in state access patterns at 650GB</h4>
                                     <p class="finding-summary">Identified critical bottlenecks in state access patterns
                                         when approaching 650GB threshold.</p>
 
@@ -357,11 +357,22 @@
 
                             <!-- Placeholder for future findings -->
                             <div class="finding-card placeholder">
-                                <div class="placeholder-content">
-                                    <div class="placeholder-icon">📊</div>
-                                    <h4>More Findings Coming Soon</h4>
-                                    <p>Additional research findings will appear here as we progress through larger state
-                                        sizes.</p>
+                                <div class="card-header">
+                                    <div class="finding-labels">
+                                        <div class="finding-label status placeholder-label">Coming Soon</div>
+                                    </div>
+                                    <div class="finding-title-row">
+                                        <h4>More Findings Coming Soon</h4>
+                                        <span class="expand-indicator">▼</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="placeholder-content">
+                                        <div class="placeholder-icon">📊</div>
+                                        <p>Additional research findings will appear here as we progress through larger
+                                            state
+                                            sizes.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -94,103 +94,174 @@
         <div class="container">
             <div class="metrics-grid" id="metrics-grid">
 
-                <!-- Initial batch of metrics (will be shown immediately) -->
-                <div class="metric-card initial-card" data-category="infrastructure">
-                    <div class="metric-header">
-                        <div class="requester-badge">Core Dev Team</div>
-                        <h3>Block Processing Time</h3>
-                    </div>
-                    <div class="metric-content">
-                        <p class="metric-description">
-                            Measuring the time required to process blocks under increased gas limits. Critical for
-                            understanding the scalability boundaries and identifying bottlenecks in block execution.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="metric-card initial-card" data-category="networking">
-                    <div class="metric-header">
-                        <div class="requester-badge">Alex K. - Networking Team</div>
-                        <h3>Peer Synchronization Performance</h3>
-                    </div>
-                    <div class="metric-content">
-                        <p class="metric-description">
-                            Tracking how quickly new nodes can sync with the network as state size grows. Essential for
-                            maintaining network accessibility and preventing client abandonment.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="metric-card initial-card" data-category="storage">
-                    <div class="metric-header">
-                        <div class="requester-badge">Dr. Sarah Chen - Research Team</div>
-                        <h3>State Growth Rate Analysis</h3>
-                    </div>
-                    <div class="metric-content">
-                        <p class="metric-description">
-                            Comprehensive tracking of state database growth patterns under various gas limit
-                            configurations. Fundamental for predicting when statelessness becomes critical.
-                        </p>
-                    </div>
-                </div>
-
+                <!-- Metrics from Stateless-Consensus Team and Geth Team (initial batch) -->
                 <div class="metric-card initial-card" data-category="performance">
                     <div class="metric-header">
-                        <div class="requester-badge">Performance Team</div>
-                        <h3>Memory Usage Patterns</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Read/Write Performance vs Tree Depth</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Monitoring RAM consumption across different client implementations during high-throughput
-                            scenarios. Key for hardware requirement forecasting.
+                            Measuring how I/O performance degrades with respect to state growth and tree depth at each
+                            time interval. Critical for understanding performance bottlenecks as the state size
+                            increases.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card initial-card" data-category="database">
+                    <div class="metric-header">
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Client Database Breaking Points</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Identifying when and where client DB implementations break due to inability to hold X[G/T]Bs
+                            of state. Monitor sync failures, OOM errors, and other critical breakdowns.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card initial-card" data-category="execution">
+                    <div class="metric-header">
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Block Creation Time & Flamegraph Analysis</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Measuring block building/execution time changes with gas limit increases. Includes detailed
+                            flamegraph analysis of computation, I/O, swapping, and other performance factors.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card initial-card" data-category="witness">
+                    <div class="metric-header">
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>MPT Witness Size Analysis</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Tracking multiproof size for state changes and deep-depth tree values. While 3x DB growth
+                            may only increase depth by ~2 levels, monitoring witness size impact is crucial.
                         </p>
                     </div>
                 </div>
 
                 <!-- Additional metrics (will be loaded via "see more") -->
-                <div class="metric-card loadmore-card" data-category="security" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="resources" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Marcus R. - Security Research</div>
-                        <h3>Attack Vector Vulnerability</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Disk Growth & RAM Usage per Block</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Identifying potential attack vectors that become viable with increased gas limits, including
-                            state bloat attacks and resource exhaustion scenarios.
+                            Self-explanatory tracking of disk space consumption and RAM usage for each block
+                            executed/processed. Essential for resource planning and hardware requirements.
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="user-experience" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="database" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">UX Research Team</div>
-                        <h3>Transaction Confirmation Times</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Database Compaction Impact</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Real-world transaction processing speeds under various network loads. Important for
-                            maintaining user experience as throughput increases.
+                            Analyzing DB compaction impacts caused by state growth. Includes continuous monitoring of
+                            compaction rate and performance effects (gballet suggests 1 client node running compaction
+                            constantly).
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="economics" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="sync" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Dr. James Liu - Economics Team</div>
-                        <h3>Gas Price Dynamics</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Sync Metrics & Breakpoints</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Analyzing how gas pricing mechanisms behave under altered parameters. Critical for EIP-7938
-                            economic modeling and fee market stability.
+                            Testing snap-sync with each client for every X blocks. Monitoring when sync breaks,
+                            degradation speed, starting/final chain/DB size, and sync speed. Requires many
+                            state-touching txs for realistic metrics.
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="infrastructure" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="caching" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">DevOps Team</div>
-                        <h3>Node Operator Resource Usage</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Cache Missing Rates</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Monitoring cache functionality with respect to state growth. Tracking cache poisoning
+                            effects on next block execution - valuable data for identifying previously unfeasible attack
+                            vectors.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card loadmore-card" data-category="resources" style="display: none;">
+                    <div class="metric-header">
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Node Operator Resource Usage</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
@@ -200,54 +271,103 @@
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="consensus" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="user-experience" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Elena M. - Consensus Team</div>
-                        <h3>Finality & Reorganization Rates</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Transaction Confirmation Times</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Tracking block finality times and chain reorganization frequency under stress conditions.
-                            Essential for network stability assessment.
+                            Real-world transaction processing speeds under various network loads. Important for
+                            maintaining user experience as throughput increases.
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="scalability" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="execution" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Scalability Research</div>
-                        <h3>Throughput Scaling Limits</h3>
+                        <div class="requester-badges">
+                            <div class="requester-badge">Stateless-Consensus</div>
+                            <div class="requester-badge">Geth</div>
+                        </div>
+                        <div class="metric-title-row">
+                            <h3>Block Processing/Re-execution Time</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Identifying the theoretical and practical limits of transaction throughput before network
-                            degradation occurs. Crucial for safe gas limit recommendations.
+                            Measuring the time required to process blocks under increased gas limits. Critical for
+                            understanding the scalability boundaries and identifying bottlenecks in block execution.
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="client-diversity" style="display: none;">
+                <!-- Placeholder cards for other client teams -->
+                <div class="metric-card loadmore-card" data-category="reth" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Client Teams Collective</div>
-                        <h3>Multi-Client Performance Comparison</h3>
+                        <div class="requester-badge">Reth Team</div>
+                        <div class="metric-title-row">
+                            <h3>Reth-Specific Metrics</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Comparing performance characteristics across different Ethereum client implementations under
-                            identical high-load conditions.
+                            Metrics requested by the Reth team will be added here once they provide their requirements.
                         </p>
                     </div>
                 </div>
 
-                <div class="metric-card loadmore-card" data-category="analytics" style="display: none;">
+                <div class="metric-card loadmore-card" data-category="erigon" style="display: none;">
                     <div class="metric-header">
-                        <div class="requester-badge">Thomas K. - Analytics Team</div>
-                        <h3>Real-time Network Health Monitoring</h3>
+                        <div class="requester-badge">Erigon Team</div>
+                        <div class="metric-title-row">
+                            <h3>Erigon-Specific Metrics</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
                     </div>
                     <div class="metric-content">
                         <p class="metric-description">
-                            Continuous monitoring of network health indicators including peer connectivity, block
-                            propagation times, and overall network resilience.
+                            Metrics requested by the Erigon team will be added here once they provide their
+                            requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card loadmore-card" data-category="nethermind" style="display: none;">
+                    <div class="metric-header">
+                        <div class="requester-badge">Nethermind Team</div>
+                        <div class="metric-title-row">
+                            <h3>Nethermind-Specific Metrics</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Metrics requested by the Nethermind team will be added here once they provide their
+                            requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card loadmore-card" data-category="besu" style="display: none;">
+                    <div class="metric-header">
+                        <div class="requester-badge">Besu Team</div>
+                        <div class="metric-title-row">
+                            <h3>Besu-Specific Metrics</h3>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p class="metric-description">
+                            Metrics requested by the Besu team will be added here once they provide their requirements.
                         </p>
                     </div>
                 </div>
@@ -270,12 +390,18 @@
             <h3>Filter by Category</h3>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Metrics</button>
-                <button class="filter-btn" data-filter="infrastructure">Infrastructure</button>
-                <button class="filter-btn" data-filter="networking">Networking</button>
-                <button class="filter-btn" data-filter="security">Security</button>
                 <button class="filter-btn" data-filter="performance">Performance</button>
-                <button class="filter-btn" data-filter="consensus">Consensus</button>
-                <button class="filter-btn" data-filter="economics">Economics</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="execution">Execution</button>
+                <button class="filter-btn" data-filter="witness">Witness</button>
+                <button class="filter-btn" data-filter="resources">Resources</button>
+                <button class="filter-btn" data-filter="sync">Sync</button>
+                <button class="filter-btn" data-filter="caching">Caching</button>
+                <button class="filter-btn" data-filter="user-experience">User Experience</button>
+                <button class="filter-btn" data-filter="reth">Reth</button>
+                <button class="filter-btn" data-filter="erigon">Erigon</button>
+                <button class="filter-btn" data-filter="nethermind">Nethermind</button>
+                <button class="filter-btn" data-filter="besu">Besu</button>
             </div>
         </div>
     </section>
