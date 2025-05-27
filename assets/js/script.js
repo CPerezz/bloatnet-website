@@ -197,7 +197,7 @@ function initCardHoverEffects() {
                 ripple.remove();
             }, 600);
 
-            // Toggle expanded state for persistent scrolling
+            // Toggle expanded state for persistent scrolling and neon effect
             card.classList.toggle('expanded');
         });
 

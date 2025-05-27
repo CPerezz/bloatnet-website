@@ -1619,6 +1619,78 @@ body {
     overflow: hidden;
 }
 
+.objective-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(159, 255, 224, 0.3),
+            transparent,
+            rgba(159, 255, 224, 0.3),
+            transparent);
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: neonRotate 3s linear infinite;
+}
+
+.objective-card:hover::after,
+.objective-card.expanded::after {
+    opacity: 1;
+}
+
+@keyframes neonRotate {
+    0% {
+        background: linear-gradient(45deg,
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent);
+    }
+
+    25% {
+        background: linear-gradient(135deg,
+                transparent,
+                rgba(159, 255, 224, 0.4),
+                transparent,
+                rgba(159, 255, 224, 0.4),
+                transparent);
+    }
+
+    50% {
+        background: linear-gradient(225deg,
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent);
+    }
+
+    75% {
+        background: linear-gradient(315deg,
+                transparent,
+                rgba(159, 255, 224, 0.4),
+                transparent,
+                rgba(159, 255, 224, 0.4),
+                transparent);
+    }
+
+    100% {
+        background: linear-gradient(45deg,
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent,
+                rgba(159, 255, 224, 0.3),
+                transparent);
+    }
+}
+
 .objective-card::before {
     content: '';
     position: absolute;
@@ -1634,10 +1706,39 @@ body {
     left: 100%;
 }
 
-.objective-card:hover {
+.objective-card:hover,
+.objective-card.expanded {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(159, 255, 224, 0.2);
-    border-color: rgba(159, 255, 224, 0.5);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(159, 255, 224, 0.2),
+        0 0 40px rgba(159, 255, 224, 0.3),
+        0 0 60px rgba(159, 255, 224, 0.2),
+        inset 0 0 40px rgba(159, 255, 224, 0.1);
+    border-color: rgba(159, 255, 224, 0.8);
+    animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    0% {
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(159, 255, 224, 0.2),
+            0 0 40px rgba(159, 255, 224, 0.3),
+            0 0 60px rgba(159, 255, 224, 0.2),
+            inset 0 0 40px rgba(159, 255, 224, 0.1);
+        border-color: rgba(159, 255, 224, 0.8);
+    }
+
+    100% {
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(159, 255, 224, 0.4),
+            0 0 60px rgba(159, 255, 224, 0.5),
+            0 0 80px rgba(159, 255, 224, 0.3),
+            inset 0 0 50px rgba(159, 255, 224, 0.15);
+        border-color: rgba(159, 255, 224, 1);
+    }
 }
 
 .card-header {
