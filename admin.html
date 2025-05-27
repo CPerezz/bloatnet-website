@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="assets/js/dataRenderer.js"></script>
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            padding: 40px;
+            background: rgba(13, 183, 175, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .admin-form {
+            background: rgba(168, 85, 247, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #9fffe0;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(13, 183, 175, 0.1);
+            border: 1px solid rgba(159, 255, 224, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #1ed79a 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #a855f7 0%, #1ed79a 100%);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .preview-section {
+            background: rgba(30, 215, 154, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid rgba(30, 215, 154, 0.2);
+        }
+
+        .json-output {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #9fffe0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/ethereum-eth-logo-animated.gif" alt="Ethereum" class="ethereum-logo-gif">
+                Bloatnet Admin
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link">Bloating</a></li>
+                <li><a href="admin.html" class="nav-link active">Admin</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <h1 style="color: #9fffe0; text-align: center; margin-bottom: 40px;">Content Management</h1>
+
+        <div class="success-message" id="successMessage">
+            Content added successfully! The JSON has been generated below - copy it to update the appropriate data file.
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab('metrics')">Add Metric</button>
+            <button class="tab-btn" onclick="showTab('bloating')">Add Bloating Technique</button>
+            <button class="tab-btn" onclick="showTab('attacks')">Add Attack Vector</button>
+            <button class="tab-btn" onclick="showTab('findings')">Add Research Finding</button>
+        </div>
+
+        <!-- Metrics Form -->
+        <div class="form-section active" id="metrics-section">
+            <div class="admin-form">
+                <h2 style="color: #9fffe0; margin-bottom: 20px;">Add New Metric</h2>
+                <form id="metrics-form">
+                    <div class="form-group">
+                        <label for="metric-title">Title:</label>
+                        <input type="text" id="metric-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="metric-category">Category:</label>
+                        <select id="metric-category" required>
+                            <option value="performance">Performance</option>
+                            <option value="database">Database</option>
+                            <option value="execution">Execution</option>
+                            <option value="witness">Witness</option>
+                            <option value="resources">Resources</option>
+                            <option value="trie">Trie Structure</option>
+                            <option value="economics">Economics</option>
+                            <option value="verkle">Verkle Trees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="metric-requesters">Requesters (comma-separated):</label>
+                        <input type="text" id="metric-requesters" placeholder="e.g., Geth, Stateless-Consensus"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="metric-description">Description:</label>
+                        <textarea id="metric-description" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Generate Metric JSON</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Bloating Form -->
+        <div class="form-section" id="bloating-section">
+            <div class="admin-form">
+                <h2 style="color: #9fffe0; margin-bottom: 20px;">Add New Bloating Technique</h2>
+                <form id="bloating-form">
+                    <div class="form-group">
+                        <label for="bloating-rank">Rank:</label>
+                        <input type="number" id="bloating-rank" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-name">Technique Name:</label>
+                        <input type="text" id="bloating-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-detail">Technique Detail:</label>
+                        <input type="text" id="bloating-detail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-written">What is Written:</label>
+                        <input type="text" id="bloating-written" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-gas-breakdown">Gas Breakdown:</label>
+                        <input type="text" id="bloating-gas-breakdown" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-gas-total">Gas Total:</label>
+                        <input type="text" id="bloating-gas-total" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-gas-per-byte">Gas per Byte:</label>
+                        <input type="text" id="bloating-gas-per-byte" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloating-notes">Technical Notes:</label>
+                        <textarea id="bloating-notes" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Generate Bloating JSON</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Attacks Form -->
+        <div class="form-section" id="attacks-section">
+            <div class="admin-form">
+                <h2 style="color: #9fffe0; margin-bottom: 20px;">Add New Attack Vector</h2>
+                <form id="attacks-form">
+                    <div class="form-group">
+                        <label for="attack-rank">Rank:</label>
+                        <input type="number" id="attack-rank" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-name">Technique Name:</label>
+                        <input type="text" id="attack-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-detail">Technique Detail:</label>
+                        <input type="text" id="attack-detail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-cost">Cost per Transient Byte:</label>
+                        <input type="text" id="attack-cost" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-calculation">Cost Calculation:</label>
+                        <input type="text" id="attack-calculation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-persistent">Net Persistent State:</label>
+                        <input type="text" id="attack-persistent" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-bytes">Bytes Read/Written:</label>
+                        <input type="text" id="attack-bytes" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack-notes">Technical Notes:</label>
+                        <textarea id="attack-notes" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Generate Attack JSON</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Findings Form -->
+        <div class="form-section" id="findings-section">
+            <div class="admin-form">
+                <h2 style="color: #9fffe0; margin-bottom: 20px;">Add New Research Finding</h2>
+                <form id="findings-form">
+                    <div class="form-group">
+                        <label for="finding-title">Title:</label>
+                        <input type="text" id="finding-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-position">Position (e.g., 25%):</label>
+                        <input type="text" id="finding-position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-size">State Size:</label>
+                        <input type="text" id="finding-size" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-summary">Summary:</label>
+                        <textarea id="finding-summary" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-impact">Impact Analysis:</label>
+                        <textarea id="finding-impact" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-recommendations">Recommendations:</label>
+                        <textarea id="finding-recommendations" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-labels">Labels (comma-separated):</label>
+                        <input type="text" id="finding-labels"
+                            placeholder="e.g., high-severity, geth-affected, not-fixed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="finding-url">Reproduction URL:</label>
+                        <input type="url" id="finding-url" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Generate Finding JSON</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" id="preview-section" style="display: none;">
+            <h3 style="color: #9fffe0; margin-bottom: 15px;">Generated JSON:</h3>
+            <div class="json-output" id="json-output"></div>
+            <p style="color: #9fffe0; margin-top: 15px; font-size: 14px;">
+                Copy this JSON and add it to the appropriate data file in the <code>data/</code> folder.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Update active tab button
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show appropriate form section
+            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(tabName + '-section').classList.add('active');
+
+            // Hide preview
+            document.getElementById('preview-section').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function generateId(text) {
+            return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        }
+
+        function getRankBadge(rank) {
+            const badges = {
+                1: '🥇',
+                2: '🥈',
+                3: '🥉'
+            };
+            return badges[rank] || `${rank}️⃣`;
+        }
+
+        function showJson(jsonData) {
+            document.getElementById('json-output').textContent = JSON.stringify(jsonData, null, 2);
+            document.getElementById('preview-section').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        // Form handlers
+        document.getElementById('metrics-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            const metric = {
+                id: generateId(document.getElementById('metric-title').value),
+                title: document.getElementById('metric-title').value,
+                category: document.getElementById('metric-category').value,
+                requester_badges: document.getElementById('metric-requesters').value.split(',').map(s => s.trim()),
+                description: document.getElementById('metric-description').value
+            };
+
+            showJson(metric);
+        });
+
+        document.getElementById('bloating-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const rank = parseInt(document.getElementById('bloating-rank').value);
+            const technique = {
+                id: generateId(document.getElementById('bloating-name').value),
+                rank: rank,
+                rank_badge: getRankBadge(rank),
+                technique_name: document.getElementById('bloating-name').value,
+                technique_detail: document.getElementById('bloating-detail').value,
+                what_written: document.getElementById('bloating-written').value,
+                intrinsic_gas: {
+                    breakdown: document.getElementById('bloating-gas-breakdown').value,
+                    total: document.getElementById('bloating-gas-total').value
+                },
+                gas_per_byte: document.getElementById('bloating-gas-per-byte').value,
+                details: {
+                    technical_notes: document.getElementById('bloating-notes').value
+                }
+            };
+
+            showJson(technique);
+        });
+
+        document.getElementById('attacks-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const rank = parseInt(document.getElementById('attack-rank').value);
+            const attack = {
+                id: generateId(document.getElementById('attack-name').value),
+                rank: rank,
+                rank_badge: getRankBadge(rank),
+                technique_name: document.getElementById('attack-name').value,
+                technique_detail: document.getElementById('attack-detail').value,
+                cost_per_transient_byte: document.getElementById('attack-cost').value,
+                cost_calculation: document.getElementById('attack-calculation').value,
+                details: {
+                    net_persistent_state: document.getElementById('attack-persistent').value,
+                    bytes_read_written: document.getElementById('attack-bytes').value,
+                    technical_notes: document.getElementById('attack-notes').value
+                }
+            };
+
+            showJson(attack);
+        });
+
+        document.getElementById('findings-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const finding = {
+                id: generateId(document.getElementById('finding-title').value),
+                position: document.getElementById('finding-position').value,
+                title: document.getElementById('finding-title').value,
+                size: document.getElementById('finding-size').value,
+                summary: document.getElementById('finding-summary').value,
+                labels: document.getElementById('finding-labels').value.split(',').map(s => s.trim()),
+                details: {
+                    key_findings: ["(Add key findings here)"],
+                    impact_analysis: document.getElementById('finding-impact').value,
+                    recommendations: document.getElementById('finding-recommendations').value
+                },
+                reproduction_link: {
+                    url: document.getElementById('finding-url').value,
+                    text: "View Scenario/TX"
+                },
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+
+            showJson(finding);
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

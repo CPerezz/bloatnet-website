@@ -1,0 +1,119 @@
+{
+    "findings": [
+        {
+            "id": "bottlenecks-650gb",
+            "position": "10%",
+            "title": "Critical bottlenecks in state access patterns at 650GB",
+            "size": "~650GB",
+            "summary": "Identified critical bottlenecks in state access patterns when approaching 650GB threshold.",
+            "labels": [
+                "high-severity",
+                "geth-affected",
+                "nethermind-affected",
+                "not-fixed"
+            ],
+            "details": {
+                "key_findings": [
+                    "Memory consumption increases exponentially beyond 650GB",
+                    "Validator performance degrades significantly",
+                    "State access times show 40% increase"
+                ],
+                "impact_analysis": "Direct correlation between state size and sync time degradation observed. Network participants experience longer initial sync times and increased hardware requirements.",
+                "recommendations": "Implement state pruning mechanisms and optimize memory management strategies before reaching 1TB threshold."
+            },
+            "reproduction_link": {
+                "url": "https://github.com/ethpandaops/spamoor/pull/41",
+                "text": "View Scenario/TX"
+            },
+            "date": "March 15, 2025"
+        }
+    ],
+    "placeholders": [
+        {
+            "id": "coming-soon",
+            "title": "More Findings Coming Soon",
+            "content": "Additional research findings will appear here as we progress through larger state sizes.",
+            "icon": "📊"
+        }
+    ],
+    "milestones": [
+        {
+            "size": "500GB",
+            "position": "0%",
+            "label": "500GB"
+        },
+        {
+            "size": "1TB",
+            "position": "30%",
+            "label": "1TB"
+        },
+        {
+            "size": "2TB",
+            "position": "60%",
+            "label": "2TB"
+        },
+        {
+            "size": "3TB",
+            "position": "77%",
+            "label": "3TB"
+        },
+        {
+            "size": "4TB",
+            "position": "87%",
+            "label": "4TB"
+        },
+        {
+            "size": "5TB",
+            "position": "100%",
+            "label": "5TB"
+        }
+    ],
+    "current_progress": {
+        "percentage": "10%",
+        "description": "Current state size approaching 650GB threshold"
+    },
+    "labels": {
+        "severity": {
+            "high-severity": {
+                "name": "High Severity",
+                "color": "#ef4444"
+            },
+            "medium-severity": {
+                "name": "Medium Severity",
+                "color": "#f59e0b"
+            }
+        },
+        "status": {
+            "fixed": {
+                "name": "Fixed",
+                "color": "#10b981"
+            },
+            "not-fixed": {
+                "name": "Not Fixed",
+                "color": "#ef4444"
+            }
+        },
+        "clients": {
+            "geth-affected": {
+                "name": "Geth Affected",
+                "color": "#8b5cf6"
+            },
+            "nethermind-affected": {
+                "name": "Nethermind Affected",
+                "color": "#06b6d4"
+            },
+            "reth-affected": {
+                "name": "Reth Affected",
+                "color": "#3b82f6"
+            },
+            "besu-affected": {
+                "name": "Besu Affected",
+                "color": "#10b981"
+            },
+            "erigon-affected": {
+                "name": "Erigon Affected",
+                "color": "#f97316"
+            }
+        }
+    }
+}
