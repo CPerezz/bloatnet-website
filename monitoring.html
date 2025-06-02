@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Monitoring - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/monitoring.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/ethereum-eth-logo-animated.gif" alt="Ethereum" class="ethereum-logo-gif">
+                Bloatnet
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link">Bloating</a></li>
+                <li><a href="monitoring.html" class="nav-link active">Monitoring</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-menu-close" id="mobileMenuClose">&times;</button>
+            <ul class="mobile-menu-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link">Bloating</a></li>
+                <li><a href="monitoring.html" class="nav-link active">Monitoring</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="monitoring-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Real-time Network Monitoring</h1>
+                <p class="header-subtitle">Live metrics and performance data from Ethereum clients and network</p>
+                <div class="status-indicators">
+                    <div class="status-item">
+                        <div class="status-dot status-online"></div>
+                        <span>Monitoring Active</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-dot status-syncing"></div>
+                        <span>Data Syncing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monitoring Dashboard Section -->
+    <section class="monitoring-section">
+        <div class="container">
+
+            <!-- Quick Stats Grid -->
+            <div class="quick-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3>Network Metrics</h3>
+                        <p>Real-time performance data</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💾</div>
+                    <div class="stat-content">
+                        <h3>State Size</h3>
+                        <p>Current blockchain state metrics</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-content">
+                        <h3>Client Performance</h3>
+                        <p>Execution layer efficiency</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔍</div>
+                    <div class="stat-content">
+                        <h3>Attack Detection</h3>
+                        <p>Anomaly monitoring</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafana Panels Grid -->
+            <div class="grafana-panels-grid">
+
+                <!-- Network Overview Panel -->
+                <div class="panel-container">
+                    <div class="panel-header">
+                        <h3>Geth Node Performance (Live)</h3>
+                        <div class="panel-actions">
+                            <button class="panel-refresh" title="Refresh">🔄</button>
+                            <button class="panel-fullscreen" title="Fullscreen">⛶</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <!-- LIVE GRAFANA PANEL from EthPandaOps -->
+                        <iframe
+                            src="https://grafana.observability.ethpandaops.io/d-solo/Jpk-Be5Wk1/geth-dual?orgId=1&from=1748460266746&to=1748463866746&timezone=browser&var-exp=bootnode-aws-ap-southeast-1-001&var-master=bootnode-aws-us-east-1-001&var-percentile=0.5&refresh=5m&panelId=2&__feature.dashboardSceneSolo"
+                            width="100%" height="300" frameborder="0" class="grafana-panel">
+                        </iframe>
+                        <!-- Placeholder content for demo (hidden when iframe loads) -->
+                        <div class="placeholder-panel">
+                            <div class="placeholder-chart">
+                                <div class="chart-placeholder">
+                                    <div class="chart-bars">
+                                        <div class="bar" style="height: 60%"></div>
+                                        <div class="bar" style="height: 80%"></div>
+                                        <div class="bar" style="height: 45%"></div>
+                                        <div class="bar" style="height: 90%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                    </div>
+                                </div>
+                                <p>Loading Geth Performance Data...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- State Size Panel -->
+                <div class="panel-container">
+                    <div class="panel-header">
+                        <h3>State Size Growth</h3>
+                        <div class="panel-actions">
+                            <button class="panel-refresh" title="Refresh">🔄</button>
+                            <button class="panel-fullscreen" title="Fullscreen">⛶</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <!-- Replace with your actual Grafana embed URL -->
+                        <iframe
+                            src="https://grafana.example.com/d-solo/dashboard-id/state-size?orgId=1&panelId=2&from=now-24h&to=now&theme=light"
+                            width="100%" height="300" frameborder="0" class="grafana-panel">
+                        </iframe>
+                        <!-- Placeholder content for demo -->
+                        <div class="placeholder-panel">
+                            <div class="placeholder-chart">
+                                <div class="line-chart-placeholder">
+                                    <svg width="100%" height="200" viewBox="0 0 400 200">
+                                        <path d="M 20 180 Q 100 120 200 100 T 380 80" stroke="#2e7d32" stroke-width="3"
+                                            fill="none" />
+                                        <circle cx="380" cy="80" r="4" fill="#2e7d32" />
+                                    </svg>
+                                </div>
+                                <p>State Size: 45.2 GB (+2.1% this week)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Performance Panel -->
+                <div class="panel-container large">
+                    <div class="panel-header">
+                        <h3>Client Performance Comparison</h3>
+                        <div class="panel-actions">
+                            <button class="panel-refresh" title="Refresh">🔄</button>
+                            <button class="panel-fullscreen" title="Fullscreen">⛶</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <!-- Replace with your actual Grafana embed URL -->
+                        <iframe
+                            src="https://grafana.example.com/d-solo/dashboard-id/client-performance?orgId=1&panelId=3&from=now-1h&to=now&theme=light"
+                            width="100%" height="400" frameborder="0" class="grafana-panel">
+                        </iframe>
+                        <!-- Placeholder content for demo -->
+                        <div class="placeholder-panel">
+                            <div class="multi-line-chart">
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #ff6b6b;"></div>
+                                        <span>Geth</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #4ecdc4;"></div>
+                                        <span>Nethermind</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #45b7d1;"></div>
+                                        <span>Besu</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #f9ca24;"></div>
+                                        <span>Erigon</span>
+                                    </div>
+                                </div>
+                                <svg width="100%" height="300" viewBox="0 0 500 300">
+                                    <path d="M 20 250 Q 150 200 300 180 T 480 160" stroke="#ff6b6b" stroke-width="2"
+                                        fill="none" />
+                                    <path d="M 20 240 Q 150 190 300 170 T 480 150" stroke="#4ecdc4" stroke-width="2"
+                                        fill="none" />
+                                    <path d="M 20 260 Q 150 210 300 190 T 480 170" stroke="#45b7d1" stroke-width="2"
+                                        fill="none" />
+                                    <path d="M 20 245 Q 150 195 300 175 T 480 155" stroke="#f9ca24" stroke-width="2"
+                                        fill="none" />
+                                </svg>
+                                <p>Block Processing Time (ms)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attack Detection Panel -->
+                <div class="panel-container">
+                    <div class="panel-header">
+                        <h3>Attack Detection</h3>
+                        <div class="panel-actions">
+                            <button class="panel-refresh" title="Refresh">🔄</button>
+                            <button class="panel-fullscreen" title="Fullscreen">⛶</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <!-- Replace with your actual Grafana embed URL -->
+                        <iframe
+                            src="https://grafana.example.com/d-solo/dashboard-id/attack-detection?orgId=1&panelId=4&from=now-1h&to=now&theme=light"
+                            width="100%" height="300" frameborder="0" class="grafana-panel">
+                        </iframe>
+                        <!-- Placeholder content for demo -->
+                        <div class="placeholder-panel">
+                            <div class="alert-list">
+                                <div class="alert-item status-normal">
+                                    <div class="alert-dot"></div>
+                                    <span>Gas Usage: Normal</span>
+                                </div>
+                                <div class="alert-item status-warning">
+                                    <div class="alert-dot"></div>
+                                    <span>State Growth: Elevated</span>
+                                </div>
+                                <div class="alert-item status-normal">
+                                    <div class="alert-dot"></div>
+                                    <span>Transaction Pattern: Normal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Integration Instructions -->
+            <div class="integration-info">
+                <h2>Grafana Integration Guide</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>1. Setup Grafana Instance</h3>
+                        <p>Deploy Grafana and configure data sources (Prometheus, InfluxDB, etc.)</p>
+                        <code>docker run -d -p 3000:3000 grafana/grafana</code>
+                    </div>
+                    <div class="info-card">
+                        <h3>2. Create Dashboards</h3>
+                        <p>Build dashboards with relevant metrics for Ethereum network monitoring</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>3. Generate Embed URLs</h3>
+                        <p>Use Grafana's share feature to get embed URLs for each panel</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>4. Replace iframe URLs</h3>
+                        <p>Update the iframe src attributes with your actual Grafana panel URLs</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Monitor Network Health</h2>
+            <p>Real-time insights into Ethereum network performance and potential attack vectors</p>
+            <a href="index.html" class="cta-button">← Back to Home</a>
+        </div>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/monitoring.js"></script>
+</body>
+
+</html>
