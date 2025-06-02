@@ -1466,6 +1466,11 @@ body {
     opacity: 0.7;
     transition: all 0.3s ease;
     text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    /* Ensure proper vertical alignment */
 }
 
 .logo-container:hover .logo-divider {
@@ -1494,6 +1499,32 @@ body {
 
     .logo-label {
         font-size: 0.75rem;
+    }
+
+    .logo-divider {
+        font-size: 1.5rem;
+        min-height: 70px;
+        /* Adjust for smaller logos */
+    }
+}
+
+/* Additional fix for very small screens like 400px width */
+@media (max-width: 450px) {
+    .logo-container {
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .logo-divider {
+        font-size: 1.3rem;
+        min-height: 60px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-item {
+        min-height: 60px;
+        justify-content: center;
     }
 }
 

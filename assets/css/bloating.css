@@ -834,8 +834,37 @@
         overflow-x: auto;
     }
 
+    /* Hide fullscreen toggle button on mobile/tablet */
+    .bloating-table-wrapper button[title="Toggle Fullscreen"] {
+        display: none !important;
+    }
+
+    /* Hide middle columns on mobile - show only Rank and Action */
+    .bloating-table thead th:nth-child(3),
+    .bloating-table thead th:nth-child(4),
+    .bloating-table thead th:nth-child(5),
+    .bloating-table tbody td:nth-child(3),
+    .bloating-table tbody td:nth-child(4),
+    .bloating-table tbody td:nth-child(5) {
+        display: none;
+    }
+
+    /* Adjust table layout for mobile */
     .bloating-table {
-        min-width: 800px;
+        min-width: auto;
+    }
+
+    /* Adjust column widths for mobile */
+    .bloating-table thead th:first-child {
+        width: 80px;
+    }
+
+    .bloating-table thead th:nth-child(2) {
+        width: auto;
+    }
+
+    .bloating-table thead th:last-child {
+        width: 60px;
     }
 
     .details-grid {
@@ -847,21 +876,27 @@
     }
 
     .bloating-row td {
-        padding: 12px 8px;
+        padding: 16px 12px;
     }
 
     .technique-name {
         font-size: 0.9rem;
     }
 
-    .gas-value {
-        font-size: 1rem;
-    }
-
     .rank-badge {
         width: 35px;
         height: 35px;
         font-size: 1rem;
+    }
+
+    /* Ensure expand icon is visible and properly sized */
+    .expand-cell {
+        text-align: center;
+        width: 60px;
+    }
+
+    .expand-icon {
+        font-size: 1.1rem;
     }
 }
 
@@ -878,24 +913,37 @@
         padding: 60px 0;
     }
 
+    /* Hide fullscreen toggle button on very small screens */
+    .bloating-table-wrapper button[title="Toggle Fullscreen"] {
+        display: none !important;
+    }
+
     .bloating-table thead th,
-    .bloating-table tbody td {
-        padding: 10px 6px;
+    .bloating-row td {
+        padding: 12px 8px;
     }
 
     .technique-name {
         font-size: 0.85rem;
     }
 
-    .gas-value {
-        font-size: 0.9rem;
-        padding: 6px 10px;
-    }
-
     .rank-badge {
         width: 30px;
         height: 30px;
         font-size: 0.9rem;
+    }
+
+    /* Further adjust column widths for very small screens */
+    .bloating-table thead th:first-child {
+        width: 70px;
+    }
+
+    .bloating-table thead th:last-child {
+        width: 50px;
+    }
+
+    .expand-icon {
+        font-size: 1rem;
     }
 }
 

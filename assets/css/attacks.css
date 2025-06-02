@@ -788,12 +788,63 @@
         overflow-x: auto;
     }
 
-    .attacks-table {
-        min-width: 600px;
+    /* Hide gas cost column on mobile - show only Rank and Technique */
+    .attacks-table thead th:nth-child(3),
+    .attacks-table tbody td:nth-child(3) {
+        display: none;
     }
 
+    /* Hide extra columns in persistent attacks table - show only Attack and Description */
+    .persistent-attacks-table thead th:nth-child(3),
+    .persistent-attacks-table tbody td:nth-child(3) {
+        display: none;
+    }
+
+    /* Adjust table layout for mobile */
+    .attacks-table {
+        min-width: auto;
+    }
+
+    .persistent-attacks-table {
+        min-width: auto;
+    }
+
+    /* Adjust column widths for mobile */
+    .attacks-table thead th:first-child {
+        width: 80px;
+    }
+
+    .attacks-table thead th:nth-child(2) {
+        width: auto;
+    }
+
+    .attacks-table thead th:last-child {
+        width: 60px;
+    }
+
+    /* Adjust column widths for persistent attacks table */
+    .persistent-attacks-table thead th:first-child {
+        width: auto;
+    }
+
+    .persistent-attacks-table thead th:nth-child(2) {
+        width: auto;
+    }
+
+    .persistent-attacks-table thead th:last-child {
+        width: 60px;
+    }
+
+    /* Add gas cost information to details grid on mobile */
     .details-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Add gas cost as first item in details on mobile */
+    .attack-details .details-content::before {
+        content: '';
+        display: block;
+        order: -1;
     }
 
     .analysis-grid {
@@ -804,18 +855,28 @@
         padding: 16px 12px;
     }
 
-    .technique-name {
-        font-size: 0.9rem;
+    .persistent-attack-row td {
+        padding: 16px 12px;
     }
 
-    .gas-value {
-        font-size: 1.1rem;
+    .technique-name {
+        font-size: 0.9rem;
     }
 
     .rank-badge {
         width: 35px;
         height: 35px;
         font-size: 1rem;
+    }
+
+    /* Ensure expand icon is visible and properly sized */
+    .expand-cell {
+        text-align: center;
+        width: 60px;
+    }
+
+    .expand-icon {
+        font-size: 1.1rem;
     }
 }
 
@@ -837,18 +898,36 @@
         padding: 12px 8px;
     }
 
-    .technique-name {
-        font-size: 0.85rem;
+    .persistent-attacks-table thead th,
+    .persistent-attack-row td {
+        padding: 12px 8px;
     }
 
-    .gas-value {
-        font-size: 1rem;
+    .technique-name {
+        font-size: 0.85rem;
     }
 
     .rank-badge {
         width: 30px;
         height: 30px;
         font-size: 0.9rem;
+    }
+
+    /* Further adjust column widths for very small screens */
+    .attacks-table thead th:first-child {
+        width: 70px;
+    }
+
+    .attacks-table thead th:last-child {
+        width: 50px;
+    }
+
+    .persistent-attacks-table thead th:last-child {
+        width: 50px;
+    }
+
+    .expand-icon {
+        font-size: 1rem;
     }
 }
 

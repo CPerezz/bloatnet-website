@@ -417,6 +417,13 @@
         gap: 1rem;
     }
 
+    /* Hide fullscreen toggle buttons on mobile/tablet */
+    .panel-fullscreen,
+    button[title="Fullscreen"],
+    button[title="Toggle Fullscreen"] {
+        display: none !important;
+    }
+
     .quick-stats-grid {
         grid-template-columns: 1fr;
     }
@@ -457,6 +464,13 @@
 
     .monitoring-section {
         padding: 60px 0;
+    }
+
+    /* Hide fullscreen toggle buttons on very small screens */
+    .panel-fullscreen,
+    button[title="Fullscreen"],
+    button[title="Toggle Fullscreen"] {
+        display: none !important;
     }
 
     .stat-card {

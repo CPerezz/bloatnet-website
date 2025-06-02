@@ -127,6 +127,19 @@
                                     <div class="details-content">
                                         <div class="details-grid">
                                             <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>~202 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>runtime code + account trie node</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>32,000 CREATE + 20,000 new-acct + 200 × 24,576 code deposit =
+                                                    <strong>4,967,200 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
                                                 <label>Contract Size:</label>
                                                 <span>24,576 bytes (EIP-170 maximum)</span>
                                             </div>
@@ -177,6 +190,19 @@
                                     <div class="details-content">
                                         <div class="details-grid">
                                             <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>~232 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>23 B (0xef0100‖address) + updated account leaf</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata -
+                                                    7,823 refund = <strong>~31,300 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
                                                 <label>Authorization Data:</label>
                                                 <span>23-byte delegation marker with target address</span>
                                             </div>
@@ -225,6 +251,19 @@
                                 <td colspan="6">
                                     <div class="details-content">
                                         <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>~267 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>updated account leaf</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>21,000 tx + 9,000 value-transfer = <strong>30,000
+                                                        gas</strong></span>
+                                            </div>
                                             <div class="detail-item">
                                                 <label>Account Creation:</label>
                                                 <span>RLP-encoded account data (~112 bytes)</span>
@@ -276,6 +315,19 @@
                                     <div class="details-content">
                                         <div class="details-grid">
                                             <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>~289 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>23 B (0xef0100‖address) per authorization</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata =
+                                                    <strong>39,116 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
                                                 <label>Target Address:</label>
                                                 <span>Empty address with no existing code</span>
                                             </div>
@@ -326,6 +378,19 @@
                                     <div class="details-content">
                                         <div class="details-grid">
                                             <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>~401 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>Updated account + code trie</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>32,000 CREATE + 25,000 new account + 12,000 code deposit =
+                                                    <strong>69,000 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
                                                 <label>Contract Type:</label>
                                                 <span>Minimal proxy pattern (~60 bytes)</span>
                                             </div>
@@ -374,6 +439,18 @@
                                 <td colspan="6">
                                     <div class="details-content">
                                         <div class="details-grid">
+                                            <div class="detail-item">
+                                                <label>Gas per Byte:</label>
+                                                <span><strong>625 gas</strong></span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>What is Written:</label>
+                                                <span>slot in storage trie</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Intrinsic Gas:</label>
+                                                <span>20,000 gas/slot = <strong>20,000 gas</strong></span>
+                                            </div>
                                             <div class="detail-item">
                                                 <label>Storage Mechanism:</label>
                                                 <span>SSTORE opcode from zero to non-zero value</span>
