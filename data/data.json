@@ -1,0 +1,309 @@
+{
+    "initial_metrics": [
+        {
+            "id": "read-write-performance",
+            "title": "Read/Write Performance vs Tree Depth",
+            "category": "performance",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Measuring how I/O performance degrades with respect to state growth and tree depth at each time interval. Critical for understanding performance bottlenecks as the state size increases."
+        },
+        {
+            "id": "client-db-breaking",
+            "title": "Client Database Breaking Points",
+            "category": "database",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Identifying when and where client DB implementations break due to inability to hold X[G/T]Bs of state. Monitor sync failures, OOM errors, and other critical breakdowns."
+        },
+        {
+            "id": "block-creation-time",
+            "title": "Block Creation Time & Flamegraph Analysis",
+            "category": "execution",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Measuring block building/execution time changes with gas limit increases. Includes detailed flamegraph analysis of computation, I/O, swapping, and other performance factors."
+        },
+        {
+            "id": "mpt-witness-size",
+            "title": "MPT Witness Size Analysis",
+            "category": "witness",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Tracking multiproof size for state changes and deep-depth tree values. While 3x DB growth may only increase depth by ~2 levels, monitoring witness size impact is crucial."
+        },
+        {
+            "id": "disk-ram-usage",
+            "title": "Disk Growth & RAM Usage Metrics",
+            "category": "resources",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Monitoring disk growth and RAM usage on average per gas_limit and per day respectively. Essential for understanding resource consumption patterns and hardware requirements."
+        },
+        {
+            "id": "db-compaction-impact",
+            "title": "Database Compaction Impact",
+            "category": "database",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Analyzing the impacts of database compaction on state-growth and monitoring when compaction becomes necessary. Valuable for clients with constant compaction or close monitoring."
+        },
+        {
+            "id": "sync-metrics",
+            "title": "Sync Performance & Breaking Points",
+            "category": "sync",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Testing snap-sync with each client for every 100 GB increments. Monitor starting/final chain size, sync speed, and issues under heavy network stress to simulate real environments."
+        },
+        {
+            "id": "cache-missing-rates",
+            "title": "Cache Missing Rates Analysis",
+            "category": "caching",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Monitoring cache functionality with respect to state growth. Tracking cache poisoning effects on block execution and identifying attack vectors that may become feasible."
+        }
+    ],
+    "additional_metrics": [
+        {
+            "id": "node-operator-resources",
+            "title": "Node Operator Resource Usage",
+            "category": "resources",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for running full nodes under increased load. Critical for node operator planning."
+        },
+        {
+            "id": "transaction-confirmation-times",
+            "title": "Transaction Confirmation Times",
+            "category": "performance",
+            "requester_badges": [
+                "Stateless-Consensus",
+                "Geth"
+            ],
+            "description": "Real-world transaction processing speeds under various network loads. Important for maintaining user experience as throughput increases."
+        },
+        {
+            "id": "database-access-measurement",
+            "title": "Database Access Measurement (SLOAD/SSTORE)",
+            "category": "database",
+            "requester_badges": [
+                "Reth"
+            ],
+            "description": "Detailed measurement of database access patterns focusing on SLOAD and SSTORE operations. Essential for understanding storage layer performance characteristics."
+        },
+        {
+            "id": "state-root-computation",
+            "title": "State Root Computation Time",
+            "category": "execution",
+            "requester_badges": [
+                "Reth"
+            ],
+            "description": "Measuring the time required for state root computation across different scenarios and state sizes. Critical for block processing performance analysis."
+        },
+        {
+            "id": "erigon-database-access",
+            "title": "Erigon Database Access Metrics",
+            "category": "database",
+            "requester_badges": [
+                "Erigon"
+            ],
+            "description": "Specialized measurement of database access patterns (SLOAD/SSTORE) specifically for Erigon client architecture and performance characteristics."
+        },
+        {
+            "id": "erigon-state-root-computation",
+            "title": "Erigon State Root Computation",
+            "category": "execution",
+            "requester_badges": [
+                "Erigon"
+            ],
+            "description": "Measuring state root computation time in Erigon client implementation, focusing on optimization opportunities and performance bottlenecks."
+        },
+        {
+            "id": "besu-state-access-percentage",
+            "title": "State Access Percentage in Block Execution",
+            "category": "execution",
+            "requester_badges": [
+                "Besu"
+            ],
+            "description": "Measuring percentage of state accesses like SLOAD in block execution time across different gas limits, state sizes, and similar blocks for Besu client."
+        },
+        {
+            "id": "besu-state-root-calculation",
+            "title": "Besu State Root Hash Calculation",
+            "category": "execution",
+            "requester_badges": [
+                "Besu"
+            ],
+            "description": "Testing if EL clients maintain the same throughput (mgas/s) with higher gas limits and determining if performance degradation is only related to state growth."
+        },
+        {
+            "id": "besu-gas-limit-breaking",
+            "title": "Gas Limit Breaking Points on Standard Hardware",
+            "category": "resources",
+            "requester_badges": [
+                "Besu"
+            ],
+            "description": "Determining gas limits that make EL clients break on predefined hardware (32 GiB machines) using EIP 9270 hardware recommendations. Critical for understanding hardware constraints."
+        },
+        {
+            "id": "account-trie-depth",
+            "title": "Account Trie Depth Impact",
+            "category": "trie",
+            "requester_badges": [
+                "Ethereum Foundation"
+            ],
+            "description": "Measuring the impact of increasing account trie depth on sync times and storage requirements across different client implementations."
+        },
+        {
+            "id": "gas-limit-scaling",
+            "title": "Gas Limit Scaling Effects",
+            "category": "execution",
+            "requester_badges": [
+                "Core Developers"
+            ],
+            "description": "Analyzing how different gas limit increases affect block processing time, memory usage, and overall network performance."
+        },
+        {
+            "id": "state-rent-simulation",
+            "title": "State Rent Impact Simulation",
+            "category": "economics",
+            "requester_badges": [
+                "Research Team"
+            ],
+            "description": "Simulating various state rent mechanisms and their impact on network economics and state growth patterns."
+        },
+        {
+            "id": "verkle-migration",
+            "title": "Verkle Tree Migration Metrics",
+            "category": "verkle",
+            "requester_badges": [
+                "Verkle Team"
+            ],
+            "description": "Tracking performance metrics during the migration from MPT to Verkle trees, including witness sizes and verification times."
+        }
+    ],
+    "categories": {
+        "performance": {
+            "name": "Performance",
+            "color": "#a855f7",
+            "icon": "⚡"
+        },
+        "database": {
+            "name": "Database",
+            "color": "#3b82f6",
+            "icon": "💾"
+        },
+        "execution": {
+            "name": "Execution",
+            "color": "#10b981",
+            "icon": "🔄"
+        },
+        "witness": {
+            "name": "Witness",
+            "color": "#f59e0b",
+            "icon": "📋"
+        },
+        "resources": {
+            "name": "Resources",
+            "color": "#ef4444",
+            "icon": "📊"
+        },
+        "trie": {
+            "name": "Trie Structure",
+            "color": "#8b5cf6",
+            "icon": "🌳"
+        },
+        "economics": {
+            "name": "Economics",
+            "color": "#06b6d4",
+            "icon": "💰"
+        },
+        "verkle": {
+            "name": "Verkle Trees",
+            "color": "#f97316",
+            "icon": "🔗"
+        },
+        "sync": {
+            "name": "Synchronization",
+            "color": "#84cc16",
+            "icon": "🔄"
+        },
+        "caching": {
+            "name": "Caching",
+            "color": "#ec4899",
+            "icon": "⚡"
+        }
+    },
+    "requesters": {
+        "Stateless-Consensus": {
+            "name": "Stateless-Consensus",
+            "color": "#a855f7",
+            "url": "https://stateless.fyi/"
+        },
+        "Geth": {
+            "name": "Geth",
+            "color": "#8b5cf6",
+            "url": "https://geth.ethereum.org/"
+        },
+        "Reth": {
+            "name": "Reth",
+            "color": "#f97316",
+            "url": "https://reth.rs/"
+        },
+        "Erigon": {
+            "name": "Erigon",
+            "color": "#06b6d4",
+            "url": "https://erigon.tech/"
+        },
+        "Nethermind": {
+            "name": "Nethermind",
+            "color": "#10b981",
+            "url": "https://nethermind.io/"
+        },
+        "Besu": {
+            "name": "Besu",
+            "color": "#3b82f6",
+            "url": "https://besu.hyperledger.org/"
+        },
+        "Ethereum Foundation": {
+            "name": "Ethereum Foundation",
+            "color": "#627eea",
+            "url": "https://ethereum.foundation/"
+        },
+        "Core Developers": {
+            "name": "Core Developers",
+            "color": "#374151",
+            "url": null
+        },
+        "Research Team": {
+            "name": "Research Team",
+            "color": "#7c3aed",
+            "url": null
+        },
+        "Verkle Team": {
+            "name": "Verkle Team",
+            "color": "#dc2626",
+            "url": null
+        }
+    }
+}

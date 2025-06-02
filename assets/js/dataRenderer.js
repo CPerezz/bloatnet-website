@@ -23,9 +23,9 @@ class DataRenderer {
     // Load all JSON data files
     async loadAllData() {
         const dataFiles = [
-            { key: 'metrics', url: 'data/metrics.json' },
-            { key: 'bloating', url: 'data/bloating.json' },
-            { key: 'attacks', url: 'data/attacks.json' },
+            { key: 'metrics', url: 'data/data.json' },
+            { key: 'bloating', url: 'data/techniques.json' },
+            { key: 'attacks', url: 'data/vectors.json' },
             { key: 'findings', url: 'data/findings.json' }
         ];
 
