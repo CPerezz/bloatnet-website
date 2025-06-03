@@ -1,30 +1,50 @@
 {
     "attack_vectors": [
         {
-            "id": "extcodesize-probe-24kib",
+            "id": "warm-extcodesize-24kb",
             "rank": 1,
             "rank_badge": "🥇",
-            "technique_name": "2600 gas cold EXTCODESIZE probe on 24KiB contracts",
-            "technique_detail": "Cold EXTCODESIZE probe",
-            "cost_per_transient_byte": "9.45 g/B",
-            "cost_calculation": "30Mgas per block / 2,600gas per EXTCODESIZE = 11,538 calls → 11,538 * 24KiB = 270.6MiB read",
+            "technique_name": "100 gas warm EXTCODESIZE probe on 24KiB contracts",
+            "technique_detail": "Warm EXTCODESIZE operation on large contracts",
+            "cost_per_transient_byte": "240 g/B",
+            "cost_calculation": "100 gas ÷ 24,576 B",
             "details": {
                 "net_persistent_state": "0 B",
-                "bytes_read_written": "24KiB read per use",
+                "bytes_read_written": "24 KiB read",
+                "intrinsic_gas": "100 gas per EXTCODESIZE",
+                "max_units_30m_gas": "300,000 calls → 300,000 × 24KiB = 6.72GiB bytes read",
+                "technical_notes": "EXTCODESIZE is priced really low, and requires the node to load the code even if storage is warm. As the node needs to count the bytes. That allows for an insane amount of data to be read while executing"
+            }
+        },
+        {
+            "id": "cold-extcodesize-24kb",
+            "rank": 2,
+            "rank_badge": "🥈",
+            "technique_name": "2600 gas cold EXTCODESIZE probe on 24KiB contracts",
+            "technique_detail": "Cold EXTCODESIZE operation on large contracts",
+            "cost_per_transient_byte": "9.45 g/B",
+            "cost_calculation": "2,600 gas ÷ 24,576 B",
+            "details": {
+                "net_persistent_state": "0 B",
+                "bytes_read_written": "24 KiB read",
+                "intrinsic_gas": "2,600 gas per EXTCODESIZE",
+                "max_units_30m_gas": "11,538 calls → 11,538 × 24KiB = 270.6MiB read",
                 "technical_notes": "EXTCODESIZE is priced really low, and since the node doesn't cache the size of the bytecode, it actually needs to copy the whole bytecode to memory, count bytes then return the value. If the accounts aren't cached, this has chances to be quite disruptive when tries are massive and this can be abused more with higher gas limits"
             }
         },
         {
-            "id": "sstore-manipulation-same-tx",
-            "rank": 2,
-            "rank_badge": "🥈",
+            "id": "sstore-zero-to-nonzero-back",
+            "rank": 3,
+            "rank_badge": "🥉",
             "technique_name": "SSTORE 0→x then x→0 in the same tx",
-            "technique_detail": "Storage manipulation attack",
+            "technique_detail": "Storage manipulation with refund",
             "cost_per_transient_byte": "475 g/B",
-            "cost_calculation": "(20,000 gas − 4,800 gas (refund)) ÷ 32 Bytes",
+            "cost_calculation": "(20,000 gas - 4,800 gas refund) ÷ 32 Bytes",
             "details": {
                 "net_persistent_state": "0 B",
                 "bytes_read_written": "64 Bytes written & erased",
+                "intrinsic_gas": "20,000 gas - 4,800 gas refund = 15,200 gas net",
+                "max_units_30m_gas": "Variable based on refund calculations",
                 "technical_notes": "Refund now capped to 1⁄5 of gas used (EIP-3529) so attack lost ¾ of its edge"
             }
         }
@@ -66,9 +86,9 @@
     ],
     "metadata": {
         "last_updated": "2024-12-19",
-        "total_vectors": 2,
+        "total_vectors": 3,
         "total_persistent_attacks": 3,
         "ranking_criteria": "Gas cost per transient byte (lowest to highest cost)",
-        "note": "Lower cost is more efficient for attackers. Transient bytes include both temporary and permanent state modifications."
+        "note": "Lower cost is more efficient for attackers. Rankings focus on EXTCODESIZE exploits and storage manipulation attacks."
     }
 }
