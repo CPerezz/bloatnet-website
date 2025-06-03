@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function initMetricsPage() {
+    // Initialize DataRenderer and load metrics
+    initDataRenderer();
+
     initTitleAnimations();
     initMetricsFiltering();
     initSeeMoreFunctionality();
@@ -16,6 +19,36 @@ function initMetricsPage() {
     setTimeout(() => {
         initEthereumCollisionSystem();
     }, 1000);
+}
+
+// Initialize DataRenderer and load metrics
+async function initDataRenderer() {
+    try {
+        if (window.dataRenderer) {
+            await window.dataRenderer.init();
+            if (window.dataRenderer.initialized) {
+                window.dataRenderer.renderMetrics();
+
+                // Re-initialize dropdown functionality for dynamically added cards
+                setTimeout(() => {
+                    initMetricCardDropdowns();
+                }, 100);
+            }
+        } else {
+            // Fallback: try to create DataRenderer if not available
+            const dataRenderer = new DataRenderer();
+            await dataRenderer.init();
+            if (dataRenderer.initialized) {
+                dataRenderer.renderMetrics();
+                setTimeout(() => {
+                    initMetricCardDropdowns();
+                }, 100);
+            }
+            window.dataRenderer = dataRenderer;
+        }
+    } catch (error) {
+        console.error('Failed to initialize DataRenderer for metrics:', error);
+    }
 }
 
 // Title animation effects

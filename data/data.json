@@ -1,101 +1,101 @@
 {
     "initial_metrics": [
         {
-            "id": "read-write-performance",
-            "title": "Read/Write Performance vs Tree Depth",
+            "id": "read-write-performance-tree-depth",
+            "title": "Read/Write Performance Speed vs Tree Depth",
             "category": "performance",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Measuring how I/O performance degrades with respect to state growth and tree depth at each time interval. Critical for understanding performance bottlenecks as the state size increases."
+            "description": "It would be nice to know how performance for I/O gets degraded wrt the state growth and its size at each time."
         },
         {
-            "id": "client-db-breaking",
-            "title": "Client Database Breaking Points",
+            "id": "client-db-breaking-points",
+            "title": "At Which State-Size Do Client-DBs Break?",
             "category": "database",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Identifying when and where client DB implementations break due to inability to hold X[G/T]Bs of state. Monitor sync failures, OOM errors, and other critical breakdowns."
+            "description": "It's important to know when and where client DB implementations will just break as they can't hold X[G/T]Bs of state. So that we see if things like e.g. sync or other things (OOM, etc) fail."
         },
         {
-            "id": "block-creation-time",
+            "id": "block-creation-time-flamegraph",
             "title": "Block Creation Time & Flamegraph Analysis",
             "category": "execution",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Measuring block building/execution time changes with gas limit increases. Includes detailed flamegraph analysis of computation, I/O, swapping, and other performance factors."
+            "description": "Will be interesting to see how execution time spent on blockbuilding/execution changes with gas_limit increases. How does the flamegraph look like? (computation, io, swapping, etc)."
         },
         {
-            "id": "mpt-witness-size",
-            "title": "MPT Witness Size Analysis",
+            "id": "mpt-witness-multiproof-size",
+            "title": "Size of MPT Witness (Multiproof)",
             "category": "witness",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Tracking multiproof size for state changes and deep-depth tree values. While 3x DB growth may only increase depth by ~2 levels, monitoring witness size impact is crucial."
-        },
+            "description": "Likely not going to be severely impacted within the MPT as 3x'ing the DB will imply an increase in depth of ~2 levels. Nevertheless, is interesting to see the impact that this will cause for state change and for deep-depth tree value."
+        }
+    ],
+    "additional_metrics": [
         {
-            "id": "disk-ram-usage",
-            "title": "Disk Growth & RAM Usage Metrics",
+            "id": "disk-ram-usage-gas-limit-day",
+            "title": "Disk Growth & RAM Usage per Gas Limit & Day",
             "category": "resources",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Monitoring disk growth and RAM usage on average per gas_limit and per day respectively. Essential for understanding resource consumption patterns and hardware requirements."
+            "description": "Self-explainatory metrics tracking disk growth and RAM usage on average per gas_limit and per day respectively."
         },
         {
             "id": "db-compaction-impact",
-            "title": "Database Compaction Impact",
+            "title": "DB Compaction Impact",
             "category": "database",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Analyzing the impacts of database compaction on state-growth and monitoring when compaction becomes necessary. Valuable for clients with constant compaction or close monitoring."
+            "description": "Interesting to see the impacts on DB compaction that state-growth will cause and when. Would be interesting to have a client constantly running compaction or at least monitor closely what's the impact."
         },
         {
-            "id": "sync-metrics",
-            "title": "Sync Performance & Breaking Points",
+            "id": "sync-metrics-breaks-performance",
+            "title": "Sync Metrics (When Sync Breaks & Performance)",
             "category": "sync",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Testing snap-sync with each client for every 100 GB increments. Monitor starting/final chain size, sync speed, and issues under heavy network stress to simulate real environments."
+            "description": "Test snap-sync with each client for every 100 GB?. Account for starting and final chain/DB size and speed of syncing as well as any issues. This should be performed WHILE the network is under heavy stress. To simulate real envs."
         },
         {
             "id": "cache-missing-rates",
-            "title": "Cache Missing Rates Analysis",
+            "title": "Cache Missing Rates",
             "category": "caching",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Monitoring cache functionality with respect to state growth. Tracking cache poisoning effects on block execution and identifying attack vectors that may become feasible."
-        }
-    ],
-    "additional_metrics": [
+            "description": "It would be really interesting to get some data related to cache functioning wrt. state growth. Things like how cache poisoning affects next block execution are really valuable info on attack vectors that now seem unfeasible to perform."
+        },
         {
-            "id": "node-operator-resources",
+            "id": "node-operator-resource-usage",
             "title": "Node Operator Resource Usage",
             "category": "resources",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
             ],
-            "description": "Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for running full nodes under increased load. Critical for node operator planning."
+            "description": "Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for running full nodes under increased load."
         },
         {
             "id": "transaction-confirmation-times",
             "title": "Transaction Confirmation Times",
-            "category": "performance",
+            "category": "user-experience",
             "requester_badges": [
                 "Stateless-Consensus",
                 "Geth"
@@ -103,103 +103,67 @@
             "description": "Real-world transaction processing speeds under various network loads. Important for maintaining user experience as throughput increases."
         },
         {
-            "id": "database-access-measurement",
+            "id": "reth-desired-metrics",
+            "title": "Reth's Desired Metrics",
+            "category": "reth",
+            "requester_badges": [
+                "Reth"
+            ],
+            "description": "Metrics requested by the Reth team are still to be defined. This section will be updated once they provide their specific requirements."
+        },
+        {
+            "id": "erigon-database-access-sload-sstore",
             "title": "Database Access Measurement (SLOAD/SSTORE)",
-            "category": "database",
+            "category": "erigon",
             "requester_badges": [
-                "Reth"
+                "Erigon"
             ],
-            "description": "Detailed measurement of database access patterns focusing on SLOAD and SSTORE operations. Essential for understanding storage layer performance characteristics."
+            "description": "Measure database Access (SLOAD/SSTORE) to understand how state operations impact performance and resource usage."
         },
         {
-            "id": "state-root-computation",
+            "id": "erigon-state-root-computation-time",
             "title": "State Root Computation Time",
-            "category": "execution",
-            "requester_badges": [
-                "Reth"
-            ],
-            "description": "Measuring the time required for state root computation across different scenarios and state sizes. Critical for block processing performance analysis."
-        },
-        {
-            "id": "erigon-database-access",
-            "title": "Erigon Database Access Metrics",
-            "category": "database",
+            "category": "erigon",
             "requester_badges": [
                 "Erigon"
             ],
-            "description": "Specialized measurement of database access patterns (SLOAD/SSTORE) specifically for Erigon client architecture and performance characteristics."
+            "description": "Measure state root computation time to understand how this critical operation scales with state growth and affects overall performance."
         },
         {
-            "id": "erigon-state-root-computation",
-            "title": "Erigon State Root Computation",
-            "category": "execution",
+            "id": "nethermind-desired-metrics",
+            "title": "Nethermind's Desired Metrics",
+            "category": "nethermind",
             "requester_badges": [
-                "Erigon"
+                "Nethermind"
             ],
-            "description": "Measuring state root computation time in Erigon client implementation, focusing on optimization opportunities and performance bottlenecks."
+            "description": "Metrics requested by the Nethermind team are still to be defined. This section will be updated once they provide their specific requirements."
         },
         {
-            "id": "besu-state-access-percentage",
-            "title": "State Access Percentage in Block Execution",
-            "category": "execution",
-            "requester_badges": [
-                "Besu"
-            ],
-            "description": "Measuring percentage of state accesses like SLOAD in block execution time across different gas limits, state sizes, and similar blocks for Besu client."
-        },
-        {
-            "id": "besu-state-root-calculation",
-            "title": "Besu State Root Hash Calculation",
-            "category": "execution",
+            "id": "besu-state-access-percentage-sload",
+            "title": "Percentage of State Accesses (SLOAD) in Block Execution",
+            "category": "besu",
             "requester_badges": [
                 "Besu"
             ],
-            "description": "Testing if EL clients maintain the same throughput (mgas/s) with higher gas limits and determining if performance degradation is only related to state growth."
+            "description": "This should be checked with different gas limits, and different state sizes and for similar blocks. Understanding how much of block execution time is spent on state accesses."
         },
         {
-            "id": "besu-gas-limit-breaking",
-            "title": "Gas Limit Breaking Points on Standard Hardware",
-            "category": "resources",
+            "id": "besu-state-root-hash-calculation",
+            "title": "State Root Hash Calculation Performance",
+            "category": "besu",
             "requester_badges": [
                 "Besu"
             ],
-            "description": "Determining gas limits that make EL clients break on predefined hardware (32 GiB machines) using EIP 9270 hardware recommendations. Critical for understanding hardware constraints."
+            "description": "Do EL clients have the same throughput (mgas/s) with higher gas limit? And if no, is it only related to state growth?"
         },
         {
-            "id": "account-trie-depth",
-            "title": "Account Trie Depth Impact",
-            "category": "trie",
+            "id": "besu-gas-limit-breaking-points-hardware",
+            "title": "Gas Limit Breaking Points on Predefined Hardware",
+            "category": "besu",
             "requester_badges": [
-                "Ethereum Foundation"
+                "Besu"
             ],
-            "description": "Measuring the impact of increasing account trie depth on sync times and storage requirements across different client implementations."
-        },
-        {
-            "id": "gas-limit-scaling",
-            "title": "Gas Limit Scaling Effects",
-            "category": "execution",
-            "requester_badges": [
-                "Core Developers"
-            ],
-            "description": "Analyzing how different gas limit increases affect block processing time, memory usage, and overall network performance."
-        },
-        {
-            "id": "state-rent-simulation",
-            "title": "State Rent Impact Simulation",
-            "category": "economics",
-            "requester_badges": [
-                "Research Team"
-            ],
-            "description": "Simulating various state rent mechanisms and their impact on network economics and state growth patterns."
-        },
-        {
-            "id": "verkle-migration",
-            "title": "Verkle Tree Migration Metrics",
-            "category": "verkle",
-            "requester_badges": [
-                "Verkle Team"
-            ],
-            "description": "Tracking performance metrics during the migration from MPT to Verkle trees, including witness sizes and verification times."
+            "description": "What gas limit makes EL clients break on a predefined hardware, like a 32 GiB machine. Use Hardware and Bandwidth recommendations from EIP 9270 to see when different EL clients break due to state being too big."
         }
     ],
     "categories": {
@@ -228,21 +192,6 @@
             "color": "#ef4444",
             "icon": "📊"
         },
-        "trie": {
-            "name": "Trie Structure",
-            "color": "#8b5cf6",
-            "icon": "🌳"
-        },
-        "economics": {
-            "name": "Economics",
-            "color": "#06b6d4",
-            "icon": "💰"
-        },
-        "verkle": {
-            "name": "Verkle Trees",
-            "color": "#f97316",
-            "icon": "🔗"
-        },
         "sync": {
             "name": "Synchronization",
             "color": "#84cc16",
@@ -252,6 +201,31 @@
             "name": "Caching",
             "color": "#ec4899",
             "icon": "⚡"
+        },
+        "user-experience": {
+            "name": "User Experience",
+            "color": "#06b6d4",
+            "icon": "👥"
+        },
+        "reth": {
+            "name": "Reth",
+            "color": "#f97316",
+            "icon": "🦀"
+        },
+        "erigon": {
+            "name": "Erigon",
+            "color": "#06b6d4",
+            "icon": "🚀"
+        },
+        "nethermind": {
+            "name": "Nethermind",
+            "color": "#10b981",
+            "icon": "⚡"
+        },
+        "besu": {
+            "name": "Besu",
+            "color": "#3b82f6",
+            "icon": "☕"
         }
     },
     "requesters": {
@@ -284,26 +258,6 @@
             "name": "Besu",
             "color": "#3b82f6",
             "url": "https://besu.hyperledger.org/"
-        },
-        "Ethereum Foundation": {
-            "name": "Ethereum Foundation",
-            "color": "#627eea",
-            "url": "https://ethereum.foundation/"
-        },
-        "Core Developers": {
-            "name": "Core Developers",
-            "color": "#374151",
-            "url": null
-        },
-        "Research Team": {
-            "name": "Research Team",
-            "color": "#7c3aed",
-            "url": null
-        },
-        "Verkle Team": {
-            "name": "Verkle Team",
-            "color": "#dc2626",
-            "url": null
         }
     }
 }

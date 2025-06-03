@@ -1,87 +1,31 @@
 {
     "attack_vectors": [
         {
-            "id": "cold-balance-probe",
+            "id": "extcodesize-probe-24kib",
             "rank": 1,
             "rank_badge": "🥇",
-            "technique_name": "Cold BALANCE/EXTCODEHASH probe on never-seen EOAs",
-            "technique_detail": "2600 gas cold probe",
-            "cost_per_transient_byte": "23 g/B",
-            "cost_calculation": "(2,600 gas ÷ 112 Bytes)",
+            "technique_name": "2600 gas cold EXTCODESIZE probe on 24KiB contracts",
+            "technique_detail": "Cold EXTCODESIZE probe",
+            "cost_per_transient_byte": "9.45 g/B",
+            "cost_calculation": "30Mgas per block / 2,600gas per EXTCODESIZE = 11,538 calls → 11,538 * 24KiB = 270.6MiB read",
             "details": {
                 "net_persistent_state": "0 B",
-                "bytes_read_written": "112 B read each",
-                "technical_notes": "Spammer iterates millions of pseudo-random addresses, thrashing the account-trie cache"
+                "bytes_read_written": "24KiB read per use",
+                "technical_notes": "EXTCODESIZE is priced really low, and since the node doesn't cache the size of the bytecode, it actually needs to copy the whole bytecode to memory, count bytes then return the value. If the accounts aren't cached, this has chances to be quite disruptive when tries are massive and this can be abused more with higher gas limits"
             }
         },
         {
-            "id": "cold-sload-distinct",
+            "id": "sstore-manipulation-same-tx",
             "rank": 2,
             "rank_badge": "🥈",
-            "technique_name": "Cold SLOAD over many distinct storage slots",
-            "technique_detail": "Multiple storage slot access",
-            "cost_per_transient_byte": "66 g/B",
-            "cost_calculation": "(2,100 gas ÷ 32 Bytes)",
-            "details": {
-                "net_persistent_state": "0 B",
-                "bytes_read_written": "32 Bytes read",
-                "technical_notes": "Every new slot hits the disk; warm repeats are only 100 gas but read no new bytes"
-            }
-        },
-        {
-            "id": "sstore-manipulation",
-            "rank": 3,
-            "rank_badge": "🥉",
-            "technique_name": "SSTORE 0→x then x→0 in same tx",
+            "technique_name": "SSTORE 0→x then x→0 in the same tx",
             "technique_detail": "Storage manipulation attack",
             "cost_per_transient_byte": "475 g/B",
-            "cost_calculation": "((20,000 - 4,800) gas ÷ 32 Bytes)",
+            "cost_calculation": "(20,000 gas − 4,800 gas (refund)) ÷ 32 Bytes",
             "details": {
                 "net_persistent_state": "0 B",
-                "bytes_read_written": "32 Bytes written then cleared",
-                "technical_notes": "Exploits gas refund mechanics while causing temporary state bloat during transaction execution"
-            }
-        },
-        {
-            "id": "sstore-zero-nonzero-permanent",
-            "rank": 4,
-            "rank_badge": "4️⃣",
-            "technique_name": "SSTORE 0→nonzero (permanent)",
-            "technique_detail": "Permanent storage expansion",
-            "cost_per_transient_byte": "691 g/B",
-            "cost_calculation": "(22,100 gas ÷ 32 Bytes)",
-            "details": {
-                "net_persistent_state": "32 B + trie overhead",
-                "bytes_read_written": "32 Bytes written permanently",
-                "technical_notes": "Classic state bloat attack. Each new storage slot permanently increases state size with no cleanup"
-            }
-        },
-        {
-            "id": "account-creation-spam",
-            "rank": 5,
-            "rank_badge": "5️⃣",
-            "technique_name": "Account creation spam",
-            "technique_detail": "EOA creation with minimal funding",
-            "cost_per_transient_byte": "~1000 g/B",
-            "cost_calculation": "(25,000 gas ÷ ~25 Bytes account data)",
-            "details": {
-                "net_persistent_state": "~25 B per account + trie overhead",
-                "bytes_read_written": "Account data written permanently",
-                "technical_notes": "Creates new accounts in the state trie. Each account adds permanent overhead to the global state"
-            }
-        },
-        {
-            "id": "code-size-manipulation",
-            "rank": 6,
-            "rank_badge": "6️⃣",
-            "technique_name": "Large contract deployment spam",
-            "technique_detail": "Maximum size contract spam",
-            "cost_per_transient_byte": "~200-250 g/B",
-            "cost_calculation": "Varies by contract size and optimization",
-            "details": {
-                "net_persistent_state": "Up to 24KB per contract",
-                "bytes_read_written": "Contract bytecode stored permanently",
-                "technical_notes": "Deploys maximum-size contracts to bloat the state. Limited by EIP-170 but still effective for state growth"
+                "bytes_read_written": "64 Bytes written & erased",
+                "technical_notes": "Refund now capped to 1⁄5 of gas used (EIP-3529) so attack lost ¾ of its edge"
             }
         }
     ],
@@ -122,7 +66,7 @@
     ],
     "metadata": {
         "last_updated": "2024-12-19",
-        "total_vectors": 6,
+        "total_vectors": 2,
         "total_persistent_attacks": 3,
         "ranking_criteria": "Gas cost per transient byte (lowest to highest cost)",
         "note": "Lower cost is more efficient for attackers. Transient bytes include both temporary and permanent state modifications."
