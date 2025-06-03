@@ -231,12 +231,12 @@
     "requesters": {
         "Stateless-Consensus": {
             "name": "Stateless-Consensus",
-            "color": "#a855f7",
+            "color": "#1e40af",
             "url": "https://stateless.fyi/"
         },
         "Geth": {
             "name": "Geth",
-            "color": "#8b5cf6",
+            "color": "#1e40af",
             "url": "https://geth.ethereum.org/"
         },
         "Reth": {
@@ -251,7 +251,7 @@
         },
         "Nethermind": {
             "name": "Nethermind",
-            "color": "#10b981",
+            "color": "#1ed79a",
             "url": "https://nethermind.io/"
         },
         "Besu": {

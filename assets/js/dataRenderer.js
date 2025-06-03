@@ -59,18 +59,51 @@ class DataRenderer {
 
         metricsGrid.innerHTML = '';
 
-        // Render initial metrics
-        this.data.metrics.initial_metrics.forEach(metric => {
+        // Combine all metrics
+        const allMetrics = [
+            ...this.data.metrics.initial_metrics,
+            ...this.data.metrics.additional_metrics
+        ];
+
+        // Sort metrics by category first, then by title
+        const sortedMetrics = allMetrics.sort((a, b) => {
+            // First sort by category
+            if (a.category !== b.category) {
+                return a.category.localeCompare(b.category);
+            }
+            // Then sort by title within the same category
+            return a.title.localeCompare(b.title);
+        });
+
+        // Render first 6 metrics as initial cards
+        sortedMetrics.slice(0, 6).forEach(metric => {
             const metricCard = this.createMetricCard(metric, 'initial-card');
             metricsGrid.appendChild(metricCard);
         });
 
-        // Render additional metrics (initially hidden)
-        this.data.metrics.additional_metrics.forEach(metric => {
+        // Render remaining metrics as loadmore cards (initially hidden)
+        sortedMetrics.slice(6).forEach(metric => {
             const metricCard = this.createMetricCard(metric, 'loadmore-card');
             metricCard.style.display = 'none';
             metricsGrid.appendChild(metricCard);
         });
+
+        // Update see more button visibility
+        this.updateSeeMoreButton();
+    }
+
+    // Update see more button visibility
+    updateSeeMoreButton() {
+        const seeMoreBtn = document.getElementById('see-more-btn');
+        const loadMoreCards = document.querySelectorAll('.loadmore-card');
+
+        if (seeMoreBtn) {
+            // Check if there are hidden cards to show
+            const hiddenCards = Array.from(loadMoreCards).filter(card =>
+                card.style.display === 'none' || getComputedStyle(card).display === 'none'
+            );
+            seeMoreBtn.style.display = hiddenCards.length > 0 ? 'flex' : 'none';
+        }
     }
 
     // Create a metric card element
@@ -79,9 +112,29 @@ class DataRenderer {
         card.className = `metric-card ${className}`;
         card.setAttribute('data-category', metric.category);
 
-        const badges = metric.requester_badges.map(badge =>
-            `<div class="requester-badge">${badge}</div>`
-        ).join('');
+        const badges = metric.requester_badges.map(badge => {
+            // Create a normalized class name from the badge text
+            const teamClass = badge.toLowerCase().replace(/[^a-z0-9]/g, '-');
+            return `<div class="requester-badge badge-${teamClass}">${badge}</div>`;
+        }).join('');
+
+        // Get the primary badge color for border - match the CSS badge colors exactly
+        let borderColor = '#1ed79a'; // default green
+        if (metric.requester_badges.length > 0) {
+            const primaryBadge = metric.requester_badges[0];
+            const badgeColorMap = {
+                'Stateless-Consensus': '#1e40af', // matches CSS gradient start
+                'Geth': '#1e40af',                // matches CSS gradient start
+                'Reth': '#92400e',                // matches CSS gradient start
+                'Erigon': '#f59e0b',              // matches CSS gradient start
+                'Nethermind': '#1ed79a',          // matches CSS gradient start
+                'Besu': '#8b5cf6'                 // matches CSS gradient start
+            };
+
+            if (badgeColorMap[primaryBadge]) {
+                borderColor = badgeColorMap[primaryBadge];
+            }
+        }
 
         card.innerHTML = `
             <div class="metric-header">
@@ -99,6 +152,9 @@ class DataRenderer {
                 </p>
             </div>
         `;
+
+        // Apply dynamic border color
+        card.style.borderLeftColor = borderColor;
 
         return card;
     }
