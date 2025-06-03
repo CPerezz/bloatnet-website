@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://docs.google.com; frame-src https://docs.google.com; img-src 'self' data: https:;">
     <title>Metrics & Data Collection - Bloatnet Initiative</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/metrics.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="assets/js/dataRenderer.js"></script>
 </head>
 
@@ -146,7 +150,7 @@
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSdeTVr45HVTdhdpzDff8plocH7wJbtozNaHXN-L45OfSkrKBQ/viewform?embedded=true"
                         width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" loading="lazy"
-                        onload="hideFormLoader()">
+                        sandbox="allow-scripts allow-forms allow-same-origin allow-popups" onload="hideFormLoader()">
                         Loading…
                     </iframe>
                 </div>
