@@ -458,6 +458,18 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-bottom: 3rem;
+    overflow-x: auto;
+}
+
+/* Hide fullscreen toggle button on mobile/tablet */
+.attacks-table-wrapper button[title="Toggle Fullscreen"] {
+    display: none !important;
+}
+
+/* Hide gas cost column on mobile - show only Rank and Technique */
+.attacks-table thead th:nth-child(3),
+.attacks-table tbody td:nth-child(3) {
+    display: none;
 }
 
 .attacks-table,
@@ -784,10 +796,6 @@
         font-size: 2rem;
     }
 
-    .attacks-table-wrapper {
-        overflow-x: auto;
-    }
-
     /* Hide gas cost column on mobile - show only Rank and Technique */
     .attacks-table thead th:nth-child(3),
     .attacks-table tbody td:nth-child(3) {
@@ -891,6 +899,11 @@
 
     .attacks-section {
         padding: 60px 0;
+    }
+
+    /* Hide fullscreen toggle button on very small screens */
+    .attacks-table-wrapper button[title="Toggle Fullscreen"] {
+        display: none !important;
     }
 
     .attacks-table thead th,

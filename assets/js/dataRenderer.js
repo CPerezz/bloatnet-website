@@ -122,6 +122,7 @@ class DataRenderer {
             row.setAttribute('data-bloating-id', technique.id);
 
             row.innerHTML = `
+                <td></td>
                 <td class="bloating-number">
                     <div class="rank-badge rank-${technique.rank}">${technique.rank_badge}</div>
                 </td>
@@ -160,7 +161,7 @@ class DataRenderer {
             }).join('');
 
             detailsRow.innerHTML = `
-                <td colspan="5">
+                <td colspan="6">
                     <div class="details-content">
                         <div class="details-grid">
                             ${detailItems}
@@ -171,6 +172,124 @@ class DataRenderer {
 
             tableBody.appendChild(detailsRow);
         });
+
+        // Initialize click events for bloating table after rendering
+        this.initBloatingTableEvents();
+    }
+
+    // Initialize click events for bloating table
+    initBloatingTableEvents() {
+        const bloatingRows = document.querySelectorAll('.bloating-row');
+
+        bloatingRows.forEach(row => {
+            // Skip if already has event listener
+            if (row.hasAttribute('data-events-initialized')) {
+                return;
+            }
+
+            // Mark as initialized
+            row.setAttribute('data-events-initialized', 'true');
+
+            const bloatingId = row.getAttribute('data-bloating-id');
+            const detailsRow = document.querySelector(`.bloating-details[data-bloating-id="${bloatingId}"]`);
+
+            // Click event to toggle details
+            row.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleBloatingDetails(row, detailsRow);
+            });
+
+            // Hover events
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateY(-3px)';
+
+                // Add subtle glow to rank badge
+                const rankBadge = row.querySelector('.rank-badge');
+                if (rankBadge) {
+                    rankBadge.style.boxShadow = '0 8px 20px rgba(34, 197, 94, 0.4)';
+                }
+            });
+
+            row.addEventListener('mouseleave', () => {
+                if (!row.classList.contains('expanded')) {
+                    row.style.transform = 'translateY(0)';
+                }
+
+                const rankBadge = row.querySelector('.rank-badge');
+                if (rankBadge) {
+                    rankBadge.style.boxShadow = '';
+                }
+            });
+
+            // Keyboard accessibility
+            row.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleBloatingDetails(row, detailsRow);
+                }
+            });
+
+            // Make rows focusable for keyboard navigation
+            row.setAttribute('tabindex', '0');
+            row.setAttribute('role', 'button');
+            row.setAttribute('aria-expanded', 'false');
+            row.setAttribute('aria-label', `Expand details for bloating technique ${bloatingId}`);
+        });
+
+        // Add global keyboard handler for escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close all expanded rows on Escape
+                document.querySelectorAll('.bloating-row.expanded').forEach(row => {
+                    row.classList.remove('expanded');
+                    const bloatingId = row.getAttribute('data-bloating-id');
+                    const detailsRow = document.querySelector(`.bloating-details[data-bloating-id="${bloatingId}"]`);
+                    if (detailsRow) {
+                        detailsRow.classList.remove('show');
+                    }
+                });
+            }
+        });
+    }
+
+    // Toggle bloating details
+    toggleBloatingDetails(row, detailsRow) {
+        const isExpanded = row.classList.contains('expanded');
+
+        // Close all other expanded rows first
+        document.querySelectorAll('.bloating-row.expanded').forEach(expandedRow => {
+            if (expandedRow !== row) {
+                expandedRow.classList.remove('expanded');
+                const otherBloatingId = expandedRow.getAttribute('data-bloating-id');
+                const otherDetails = document.querySelector(`.bloating-details[data-bloating-id="${otherBloatingId}"]`);
+                if (otherDetails) {
+                    otherDetails.classList.remove('show');
+                }
+            }
+        });
+
+        // Toggle current row
+        if (isExpanded) {
+            row.classList.remove('expanded');
+            if (detailsRow) {
+                detailsRow.classList.remove('show');
+            }
+            row.setAttribute('aria-expanded', 'false');
+        } else {
+            row.classList.add('expanded');
+            if (detailsRow) {
+                detailsRow.classList.add('show');
+            }
+            row.setAttribute('aria-expanded', 'true');
+
+            // Smooth scroll to details
+            setTimeout(() => {
+                detailsRow.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 150);
+        }
     }
 
     // Render attack vectors page
@@ -246,6 +365,121 @@ class DataRenderer {
             `;
 
             tableBody.appendChild(detailsRow);
+        });
+
+        // Initialize click events for transient attacks table after rendering
+        this.initTransientAttackTableEvents();
+    }
+
+    // Initialize click events for transient attacks table
+    initTransientAttackTableEvents() {
+        const attackRows = document.querySelectorAll('.attack-row');
+
+        attackRows.forEach(row => {
+            // Skip if already has event listener
+            if (row.hasAttribute('data-events-initialized')) {
+                return;
+            }
+
+            // Mark as initialized
+            row.setAttribute('data-events-initialized', 'true');
+
+            const attackId = row.getAttribute('data-attack-id');
+            const detailsRow = document.querySelector(`.attack-details[data-attack-id="${attackId}"]`);
+            const expandIcon = row.querySelector('.expand-icon');
+
+            // Click event to toggle details
+            row.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleAttackDetails(row, detailsRow, expandIcon);
+            });
+
+            // Hover events for subtle feedback
+            row.addEventListener('mouseenter', () => {
+                if (!row.classList.contains('expanded')) {
+                    expandIcon.style.transform = 'scale(1.1)';
+                }
+            });
+
+            row.addEventListener('mouseleave', () => {
+                if (!row.classList.contains('expanded')) {
+                    expandIcon.style.transform = 'scale(1)';
+                }
+            });
+
+            // Keyboard accessibility
+            row.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleAttackDetails(row, detailsRow, expandIcon);
+                }
+            });
+
+            // Make rows focusable for keyboard navigation
+            row.setAttribute('tabindex', '0');
+            row.setAttribute('role', 'button');
+            row.setAttribute('aria-expanded', 'false');
+            row.setAttribute('aria-label', `Expand details for attack ${attackId}`);
+        });
+    }
+
+    // Toggle attack details for transient attacks
+    toggleAttackDetails(row, detailsRow, expandIcon) {
+        const isExpanded = row.classList.contains('expanded');
+
+        // Close all other expanded rows first
+        this.closeAllTransientAttackDetails();
+
+        if (!isExpanded) {
+            // Expand this row
+            row.classList.add('expanded');
+            detailsRow.classList.add('show');
+            row.setAttribute('aria-expanded', 'true');
+
+            // Add smooth scroll to bring details into view
+            setTimeout(() => {
+                detailsRow.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
+            }, 100);
+
+            // Animate the details content
+            this.animateTransientAttackDetailsContent(detailsRow);
+        }
+    }
+
+    // Close all transient attack details
+    closeAllTransientAttackDetails() {
+        const allRows = document.querySelectorAll('.attack-row');
+        const allDetails = document.querySelectorAll('.attack-details');
+
+        allRows.forEach(row => {
+            row.classList.remove('expanded');
+            row.setAttribute('aria-expanded', 'false');
+        });
+
+        allDetails.forEach(detail => {
+            detail.classList.remove('show');
+        });
+    }
+
+    // Animate transient attack details content
+    animateTransientAttackDetailsContent(detailsRow) {
+        const content = detailsRow.querySelector('.details-content');
+        const detailItems = content.querySelectorAll('.detail-item');
+
+        // Animate each detail item with a stagger effect
+        detailItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                item.style.transition = 'all 0.4s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
         });
     }
 

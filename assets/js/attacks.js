@@ -22,10 +22,24 @@ document.addEventListener('DOMContentLoaded', function () {
 function initializeAttackTable() {
     const attackRows = document.querySelectorAll('.attack-row');
 
-    attackRows.forEach(row => {
+    // Only initialize if rows don't already have data-events-initialized attribute
+    // This prevents conflicts with dataRenderer's event initialization
+    const uninitializedRows = Array.from(attackRows).filter(row =>
+        !row.hasAttribute('data-events-initialized')
+    );
+
+    if (uninitializedRows.length === 0) {
+        // All rows have been initialized by dataRenderer, skip initialization
+        return;
+    }
+
+    uninitializedRows.forEach(row => {
         const attackId = row.getAttribute('data-attack-id');
         const detailsRow = document.querySelector(`.attack-details[data-attack-id="${attackId}"]`);
         const expandIcon = row.querySelector('.expand-icon');
+
+        // Mark as initialized to prevent duplicate initialization
+        row.setAttribute('data-events-initialized', 'true');
 
         // Click event to toggle details
         row.addEventListener('click', (e) => {

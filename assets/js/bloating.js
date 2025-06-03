@@ -16,7 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
 function initializeBloatingTable() {
     const bloatingRows = document.querySelectorAll('.bloating-row');
 
-    bloatingRows.forEach(row => {
+    // Only initialize if rows don't already have data-events-initialized attribute
+    // This prevents conflicts with dataRenderer's event initialization
+    const uninitializedRows = Array.from(bloatingRows).filter(row =>
+        !row.hasAttribute('data-events-initialized')
+    );
+
+    if (uninitializedRows.length === 0) {
+        // All rows have been initialized by dataRenderer, skip initialization
+        return;
+    }
+
+    uninitializedRows.forEach(row => {
+        // Mark as initialized to prevent duplicate initialization
+        row.setAttribute('data-events-initialized', 'true');
+
         row.addEventListener('click', function () {
             const bloatingId = this.getAttribute('data-bloating-id');
             const detailsRow = document.querySelector(`.bloating-details[data-bloating-id="${bloatingId}"]`);

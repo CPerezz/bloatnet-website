@@ -1304,6 +1304,11 @@ body {
     .mobile-menu {
         display: flex;
     }
+
+    /* Hide fullscreen toggle buttons on mobile/tablet */
+    button[title="Toggle Fullscreen"] {
+        display: none !important;
+    }
 }
 
 @media (max-width: 480px) {
