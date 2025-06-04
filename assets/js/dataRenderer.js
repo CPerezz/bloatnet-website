@@ -178,20 +178,12 @@ class DataRenderer {
             row.setAttribute('data-bloating-id', technique.id);
 
             row.innerHTML = `
-                <td></td>
                 <td class="bloating-number">
                     <div class="rank-badge rank-${technique.rank}">${technique.rank_badge}</div>
                 </td>
                 <td class="technique-cell">
                     <div class="technique-name">${technique.technique_name}</div>
                     <div class="technique-detail">${technique.technique_detail}</div>
-                </td>
-                <td class="what-written">
-                    <span class="written-content">${technique.what_written}</span>
-                </td>
-                <td class="intrinsic-gas">
-                    <span class="gas-breakdown">${technique.intrinsic_gas.breakdown}</span>
-                    <span class="gas-total">${technique.intrinsic_gas.total}</span>
                 </td>
                 <td class="gas-cost">
                     <span class="gas-value">${technique.gas_per_byte}</span>
@@ -205,23 +197,77 @@ class DataRenderer {
             detailsRow.className = 'bloating-details';
             detailsRow.setAttribute('data-bloating-id', technique.id);
 
-            const detailItems = Object.entries(technique.details).map(([key, value]) => {
-                const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                const className = key === 'technical_notes' ? 'notes' : '';
-                return `
-                    <div class="detail-item ${className}">
-                        <label>${label}:</label>
-                        <span>${value}</span>
+            // Generate details content based on structure
+            let detailsContent = '';
+
+            if (technique.details.performance_metrics || technique.details.technical_details || technique.details.analysis_notes) {
+                // Sectioned structure
+                detailsContent = '<div class="details-grid">';
+
+                // Performance Metrics Section
+                if (technique.details.performance_metrics) {
+                    detailsContent += `
+                        <div class="detail-section">
+                            <div class="detail-section-header">Performance Metrics</div>
+                            ${technique.details.performance_metrics.map(item => `
+                                <div class="detail-item">
+                                    <label>${item.label}:</label>
+                                    <span>${item.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                // Technical Details Section
+                if (technique.details.technical_details) {
+                    detailsContent += `
+                        <div class="detail-section">
+                            <div class="detail-section-header">Technical Details</div>
+                            ${technique.details.technical_details.map(item => `
+                                <div class="detail-item">
+                                    <label>${item.label}:</label>
+                                    <span>${item.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                // Analysis & Notes Section
+                if (technique.details.analysis_notes) {
+                    detailsContent += `
+                        <div class="detail-section full-width">
+                            <div class="detail-section-header">Analysis & Notes</div>
+                            ${technique.details.analysis_notes.map(item => `
+                                <div class="detail-item notes">
+                                    <label>${item.label}:</label>
+                                    <span>${item.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                detailsContent += '</div>';
+            } else if (technique.details.flat_details) {
+                // Flat structure
+                detailsContent = `
+                    <div class="details-grid">
+                        ${technique.details.flat_details.map(item => `
+                            <div class="detail-item ${item.className || ''}">
+                                <label>${item.label}:</label>
+                                <span>${item.value}</span>
+                            </div>
+                        `).join('')}
                     </div>
                 `;
-            }).join('');
+            }
 
             detailsRow.innerHTML = `
-                <td colspan="6">
+                <td colspan="4">
                     <div class="details-content">
-                        <div class="details-grid">
-                            ${detailItems}
-                        </div>
+                        ${detailsContent}
                     </div>
                 </td>
             `;

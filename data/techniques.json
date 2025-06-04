@@ -1,109 +1,264 @@
 {
     "techniques": [
         {
-            "id": "deploy-24kb-contract",
+            "id": 1,
             "rank": 1,
             "rank_badge": "🥇",
             "technique_name": "Deploy 24kB contract (EIP-170 limit)",
             "technique_detail": "Maximum size contract deployment",
-            "what_written": "runtime code + account trie node",
-            "intrinsic_gas": {
-                "breakdown": "32,000 CREATE + 20,000 new-acct + 200 × 24,576 code deposit",
-                "total": "4,967,200 gas"
-            },
             "gas_per_byte": "~202 gas",
             "details": {
-                "contract_size": "24,576 bytes (EIP-170 maximum)",
-                "storage_location": "Contract code stored in state trie + account creation",
-                "bytes_to_state": "24,576 B",
-                "max_units_per_block": "6 full deployments",
-                "technical_notes": "Most efficient method for large data storage. EIP-170 limits contract size but this maximizes bytes per gas spent"
+                "performance_metrics": [
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "32,000 CREATE + 20,000 new-acct + 200 × 24,576 code deposit = <strong>4,967,200 gas</strong>"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "6 full deployments"
+                    }
+                ],
+                "technical_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "runtime code + account trie node"
+                    },
+                    {
+                        "label": "Contract Size",
+                        "value": "24,576 bytes (EIP-170 maximum)"
+                    },
+                    {
+                        "label": "Storage Location",
+                        "value": "Contract code stored in state trie + account creation"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "24,576 B"
+                    }
+                ],
+                "analysis_notes": [
+                    {
+                        "label": "Technical Notes",
+                        "value": "Most efficient method for large data storage. EIP-170 limits contract size but this maximizes bytes per gas spent"
+                    }
+                ]
             }
         },
         {
-            "id": "eip-7702-delegate",
+            "id": 2,
             "rank": 2,
             "rank_badge": "🥈",
             "technique_name": "Add delegate flag to funded EOA (EIP-7702)",
             "technique_detail": "Authorization tuple in large batch",
-            "what_written": "23 B (0xef0100‖address) + updated account leaf",
-            "intrinsic_gas": {
-                "breakdown": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 7,823 refund",
-                "total": "~31,300 gas"
-            },
             "gas_per_byte": "~232 gas",
             "details": {
-                "authorization_data": "23-byte delegation marker with target address",
-                "refund_mechanism": "20% refund cap (EIP-3529) reduces effective cost",
-                "bytes_to_state": "~135 B",
-                "max_units_per_block": "960 tuples",
-                "technical_notes": "EIP-7702 allows efficient account delegation. Batching multiple authorizations reduces per-byte cost"
+                "performance_metrics": [
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 7,823 refund = <strong>~31,300 gas</strong>"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "960 tuples"
+                    }
+                ],
+                "technical_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "23 B (0xef0100‖address) + updated account leaf"
+                    },
+                    {
+                        "label": "Authorization Data",
+                        "value": "23-byte delegation marker with target address"
+                    },
+                    {
+                        "label": "Refund Mechanism",
+                        "value": "20% refund cap (EIP-3529) reduces effective cost"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "~135 B"
+                    }
+                ],
+                "analysis_notes": [
+                    {
+                        "label": "Technical Notes",
+                        "value": "EIP-7702 allows efficient account delegation. Batching multiple authorizations reduces per-byte cost"
+                    }
+                ]
             }
         },
         {
-            "id": "sstore-zero-nonzero",
+            "id": 3,
             "rank": 3,
             "rank_badge": "🥉",
-            "technique_name": "SSTORE 0→nonzero in 32-byte increments",
-            "technique_detail": "Storage slot modification",
-            "what_written": "32 B in storage slot + updated storage trie",
-            "intrinsic_gas": {
-                "breakdown": "20,000 SSTORE + 2,100 cold access",
-                "total": "22,100 gas"
-            },
-            "gas_per_byte": "~691 gas",
+            "technique_name": "Fund fresh EOA with 1 wei",
+            "technique_detail": "Simple external transfer",
+            "gas_per_byte": "~267 gas",
             "details": {
-                "storage_size": "32 bytes per slot",
-                "storage_location": "Contract storage trie",
-                "bytes_to_state": "32 B + trie overhead",
-                "max_units_per_block": "1,357 writes",
-                "technical_notes": "Classic storage bloating. Each new storage slot permanently increases state size"
+                "performance_metrics": [
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "21,000 tx + 9,000 value-transfer = <strong>30,000 gas</strong>"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "~1000 accounts"
+                    }
+                ],
+                "technical_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "updated account leaf"
+                    },
+                    {
+                        "label": "Account Creation",
+                        "value": "RLP-encoded account data (~112 bytes)"
+                    },
+                    {
+                        "label": "State Change",
+                        "value": "New account entry in state trie"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "~112 B"
+                    }
+                ],
+                "analysis_notes": [
+                    {
+                        "label": "Technical Notes",
+                        "value": "Simple and reliable method for creating state entries. Each funded EOA persists in the state trie"
+                    }
+                ]
             }
         },
         {
-            "id": "create2-vanity",
+            "id": 4,
             "rank": 4,
-            "rank_badge": "4️⃣",
-            "technique_name": "CREATE2 with vanity addresses",
-            "technique_detail": "Small contracts with computed addresses",
-            "what_written": "runtime code + account trie node",
-            "intrinsic_gas": {
-                "breakdown": "32,000 CREATE2 + 20,000 new-acct + 200 × size",
-                "total": "varies by size"
-            },
-            "gas_per_byte": "~800-1000 gas",
+            "rank_badge": "4",
+            "technique_name": "EIP-7702 authorization to empty address",
+            "technique_detail": "Authorization tuple batch",
+            "gas_per_byte": "~289 gas",
             "details": {
-                "contract_size": "Variable (optimized for gas efficiency)",
-                "storage_location": "Account trie + code storage",
-                "bytes_to_state": "Variable",
-                "max_units_per_block": "Depends on contract size",
-                "technical_notes": "CREATE2 allows predictable addresses. Can be optimized for specific byte patterns"
+                "flat_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "23 B (0xef0100‖address) per authorization"
+                    },
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata = <strong>39,116 gas</strong>"
+                    },
+                    {
+                        "label": "Target Address",
+                        "value": "Empty address with no existing code"
+                    },
+                    {
+                        "label": "Authorization Format",
+                        "value": "23-byte delegation marker (0xef0100 + 20-byte address)"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "~135 B"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "767 tuples"
+                    },
+                    {
+                        "label": "Technical Notes",
+                        "value": "Similar to funded EOA method but uses EIP-7702 authorization. Less efficient than batch with refunds",
+                        "className": "notes"
+                    }
+                ]
             }
         },
         {
-            "id": "log-data",
+            "id": 5,
             "rank": 5,
-            "rank_badge": "5️⃣",
-            "technique_name": "LOG with maximum data",
-            "technique_detail": "Event emission with large payloads",
-            "what_written": "log data (transient)",
-            "intrinsic_gas": {
-                "breakdown": "375 LOG + 8 × data_size",
-                "total": "varies by data size"
-            },
-            "gas_per_byte": "~8 gas (transient)",
+            "rank_badge": "5",
+            "technique_name": "Deploy Minimal Proxy Contract (~60 B)",
+            "technique_detail": "Small contract deployment",
+            "gas_per_byte": "~401 gas",
             "details": {
-                "log_size": "Up to block gas limit",
-                "storage_location": "Event logs (not part of state)",
-                "bytes_to_state": "0 B (transient only)",
-                "max_units_per_block": "Limited by gas",
-                "technical_notes": "Logs don't increase permanent state but consume block space and client resources"
+                "flat_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "Updated account + code trie"
+                    },
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "32,000 CREATE + 25,000 new account + 12,000 code deposit = <strong>69,000 gas</strong>"
+                    },
+                    {
+                        "label": "Contract Type",
+                        "value": "Minimal proxy pattern (~60 bytes)"
+                    },
+                    {
+                        "label": "Storage Components",
+                        "value": "Account creation + contract code storage"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "~172 B"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "~434 deployments"
+                    },
+                    {
+                        "label": "Technical Notes",
+                        "value": "Smaller contracts are less efficient per byte than maximum-size contracts due to fixed deployment overhead",
+                        "className": "notes"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "rank": 6,
+            "rank_badge": "6",
+            "technique_name": "Fill new storage slots (SSTORE 0→x)",
+            "technique_detail": "Storage slot creation",
+            "gas_per_byte": "625 gas",
+            "details": {
+                "flat_details": [
+                    {
+                        "label": "What is Written",
+                        "value": "slot in storage trie"
+                    },
+                    {
+                        "label": "Intrinsic Gas",
+                        "value": "20,000 gas/slot = <strong>20,000 gas</strong>"
+                    },
+                    {
+                        "label": "Storage Mechanism",
+                        "value": "SSTORE opcode from zero to non-zero value"
+                    },
+                    {
+                        "label": "Data Size",
+                        "value": "32 bytes per storage slot"
+                    },
+                    {
+                        "label": "Bytes → State",
+                        "value": "32 B"
+                    },
+                    {
+                        "label": "Max Units per Block",
+                        "value": "1,500 slots"
+                    },
+                    {
+                        "label": "Technical Notes",
+                        "value": "Least efficient method per byte due to high SSTORE gas cost for new slots. Each slot is 32 bytes fixed",
+                        "className": "notes"
+                    }
+                ]
             }
         }
     ],
     "metadata": {
         "last_updated": "2024-12-19",
-        "total_techniques": 5,
+        "total_techniques": 6,
         "ranking_criteria": "Gas cost per byte stored (lowest to highest cost)",
         "note": "Lower cost is more efficient for data storage"
     }
