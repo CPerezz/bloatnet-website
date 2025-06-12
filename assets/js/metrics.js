@@ -209,208 +209,26 @@ function showMoreMetrics() {
     // Show up to 6 more cards
     const cardsToShow = hiddenCards.slice(0, 6);
 
-    // Create spectacular entrance sequence
-    createLoadingShockwave();
+    // Simple entrance sequence
 
     cardsToShow.forEach((card, index) => {
         setTimeout(() => {
-            // Show card with dramatic entrance
+            // Show card with simple fade in
             card.style.display = 'block';
             card.style.opacity = '0';
-            card.style.transform = 'translateY(100px) scale(0.3) rotate(15deg)';
-            card.style.filter = 'hue-rotate(360deg) saturate(2)';
+            card.style.transform = 'translateY(20px)';
 
-            // Create entrance fireworks for each card
+            // Simple fade in animation
             setTimeout(() => {
-                createCardEntranceFireworks(card);
-                createCardEntranceGlow(card);
-            }, 100);
-
-            // Trigger dramatic animation
-            setTimeout(() => {
-                card.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                card.style.transition = 'all 0.4s ease';
                 card.style.opacity = '1';
-                card.style.transform = 'translateY(0) scale(1) rotate(0deg)';
-                card.style.filter = 'hue-rotate(0deg) saturate(1)';
-
-                // Add bounce effect
-                setTimeout(() => {
-                    card.style.transform = 'translateY(-10px) scale(1.05) rotate(-1deg)';
-                    setTimeout(() => {
-                        card.style.transform = 'translateY(0) scale(1) rotate(0deg)';
-                    }, 200);
-                }, 600);
-
+                card.style.transform = 'translateY(0)';
             }, 50);
-        }, index * 200);
+        }, index * 100);
     });
 }
 
-// Create spectacular loading shockwave
-function createLoadingShockwave() {
-    const seeMoreBtn = document.getElementById('see-more-btn');
-    if (!seeMoreBtn) return;
-
-    const rect = seeMoreBtn.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    // Create expanding shockwave rings
-    for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-            const ring = document.createElement('div');
-            ring.style.cssText = `
-                position: fixed;
-                left: ${centerX}px;
-                top: ${centerY}px;
-                width: 20px;
-                height: 20px;
-                border: 4px solid rgba(30, 215, 154, ${0.8 - i * 0.15});
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                animation: shockwaveRing 2s ease-out forwards;
-                transform: translate(-50%, -50%);
-            `;
-
-            document.body.appendChild(ring);
-
-            setTimeout(() => {
-                if (ring.parentNode) ring.parentNode.removeChild(ring);
-            }, 2000);
-        }, i * 150);
-    }
-
-    // Create energy burst particles
-    for (let i = 0; i < 20; i++) {
-        setTimeout(() => {
-            const particle = document.createElement('div');
-            const angle = (i / 20) * 2 * Math.PI;
-            const velocity = 200 + Math.random() * 150;
-            const endX = centerX + Math.cos(angle) * velocity;
-            const endY = centerY + Math.sin(angle) * velocity;
-
-            particle.style.cssText = `
-                position: fixed;
-                left: ${centerX}px;
-                top: ${centerY}px;
-                width: 6px;
-                height: 6px;
-                background: radial-gradient(circle, #1ed79a, #0db7af);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                box-shadow: 0 0 15px #1ed79a;
-                animation: energyBurstParticle 1.5s ease-out forwards;
-            `;
-
-            // Add dynamic animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes energyBurstParticle {
-                    0% {
-                        transform: translate(-50%, -50%) scale(0);
-                        opacity: 1;
-                    }
-                    70% {
-                        transform: translate(${(endX - centerX) * 0.8}px, ${(endY - centerY) * 0.8}px) scale(1.5);
-                        opacity: 0.8;
-                    }
-                    100% {
-                        transform: translate(${endX - centerX}px, ${endY - centerY}px) scale(0);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-
-            document.body.appendChild(particle);
-
-            setTimeout(() => {
-                if (particle.parentNode) particle.parentNode.removeChild(particle);
-                if (style.parentNode) style.parentNode.removeChild(style);
-            }, 1500);
-        }, i * 50);
-    }
-}
-
-// Create card entrance fireworks
-function createCardEntranceFireworks(card) {
-    const rect = card.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    for (let i = 0; i < 8; i++) {
-        const particle = document.createElement('div');
-        const angle = (i / 8) * 2 * Math.PI;
-        const velocity = 80 + Math.random() * 60;
-        const endX = centerX + Math.cos(angle) * velocity;
-        const endY = centerY + Math.sin(angle) * velocity;
-
-        const colors = ['#FFD700', '#FF6B35', '#1ed79a', '#FF1493'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-
-        particle.style.cssText = `
-            position: fixed;
-            left: ${centerX}px;
-            top: ${centerY}px;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, ${color}, ${color}88);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 15px ${color};
-            animation: cardEntranceFirework 1s ease-out forwards;
-        `;
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes cardEntranceFirework {
-                0% {
-                    transform: translate(-50%, -50%) scale(0) rotate(0deg);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translate(${endX - centerX}px, ${endY - centerY}px) scale(0) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        document.body.appendChild(particle);
-
-        setTimeout(() => {
-            if (particle.parentNode) particle.parentNode.removeChild(particle);
-            if (style.parentNode) style.parentNode.removeChild(style);
-        }, 1000);
-    }
-}
-
-// Create card entrance glow
-function createCardEntranceGlow(card) {
-    const glowOverlay = document.createElement('div');
-    glowOverlay.style.cssText = `
-        position: absolute;
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-        background: radial-gradient(circle, rgba(30, 215, 154, 0.5) 0%, rgba(255, 215, 0, 0.2) 50%, transparent 100%);
-        border-radius: 25px;
-        pointer-events: none;
-        z-index: 0;
-        animation: cardEntranceGlowPulse 2s ease-in-out;
-    `;
-
-    card.style.position = 'relative';
-    card.appendChild(glowOverlay);
-
-    setTimeout(() => {
-        if (glowOverlay.parentNode) glowOverlay.parentNode.removeChild(glowOverlay);
-    }, 2000);
-}
+// Removed flashy loading animations
 
 // Metric card dropdown functionality with enhanced flashy animations
 function initMetricCardDropdowns() {
@@ -425,42 +243,19 @@ function initMetricCardDropdowns() {
             const isExpanded = card.classList.contains('expanded');
 
             if (isExpanded) {
-                // Collapse with flashy animation
+                // Simple collapse
                 card.classList.remove('expanded');
-                createCollapseSparkles(card);
             } else {
-                // Close other expanded cards with cascade effect
-                metricCards.forEach((otherCard, index) => {
+                // Close other expanded cards
+                metricCards.forEach((otherCard) => {
                     if (otherCard !== card && otherCard.classList.contains('expanded')) {
-                        setTimeout(() => {
-                            otherCard.classList.remove('expanded');
-                            createCollapseSparkles(otherCard);
-                        }, index * 50);
+                        otherCard.classList.remove('expanded');
                     }
                 });
 
-                // Expand this card with dramatic effect
-                setTimeout(() => {
-                    card.classList.add('expanded');
-                    createExpansionFireworks(card);
-                    createExpansionGlow(card);
-                    createExpansionRipples(card);
-                }, 200);
+                // Expand this card
+                card.classList.add('expanded');
             }
-
-            // Add dramatic click feedback with bounce
-            card.style.transform = 'scale(0.95) rotate(-2deg)';
-            card.style.transition = 'transform 0.1s ease-out';
-
-            setTimeout(() => {
-                card.style.transform = 'scale(1.05) rotate(1deg)';
-                card.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-
-                setTimeout(() => {
-                    card.style.transform = '';
-                    card.style.transition = '';
-                }, 300);
-            }, 100);
         });
 
         // Add keyboard accessibility
@@ -490,157 +285,7 @@ function initMetricCardDropdowns() {
     });
 }
 
-// Create dramatic expansion fireworks effect
-function createExpansionFireworks(card) {
-    const rect = card.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    // Create multiple bursts of particles
-    for (let burst = 0; burst < 3; burst++) {
-        setTimeout(() => {
-            for (let i = 0; i < 12; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'expansion-firework';
-
-                const angle = (i / 12) * 2 * Math.PI;
-                const velocity = 150 + Math.random() * 100;
-                const endX = centerX + Math.cos(angle) * velocity;
-                const endY = centerY + Math.sin(angle) * velocity;
-
-                const colors = ['#FFD700', '#FF6B35', '#1ed79a', '#FF1493', '#00BFFF', '#FF69B4'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-
-                particle.style.cssText = `
-                    position: fixed;
-                    left: ${centerX}px;
-                    top: ${centerY}px;
-                    width: 8px;
-                    height: 8px;
-                    background: radial-gradient(circle, ${color}, ${color}88);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    box-shadow: 0 0 20px ${color}, 0 0 40px ${color}44;
-                    animation: fireworkBurst${burst} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                `;
-
-                // Add dynamic keyframes
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes fireworkBurst${burst} {
-                        0% {
-                            transform: translate(-50%, -50%) scale(0) rotate(0deg);
-                            opacity: 1;
-                        }
-                        60% {
-                            transform: translate(${(endX - centerX) * 0.8}px, ${(endY - centerY) * 0.8}px) scale(1.5) rotate(360deg);
-                            opacity: 0.8;
-                        }
-                        100% {
-                            transform: translate(${endX - centerX}px, ${endY - centerY}px) scale(0) rotate(720deg);
-                            opacity: 0;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-
-                document.body.appendChild(particle);
-
-                setTimeout(() => {
-                    if (particle.parentNode) particle.parentNode.removeChild(particle);
-                    if (style.parentNode) style.parentNode.removeChild(style);
-                }, 1200);
-            }
-        }, burst * 200);
-    }
-}
-
-// Create expansion glow effect
-function createExpansionGlow(card) {
-    const glowOverlay = document.createElement('div');
-    glowOverlay.className = 'expansion-glow-overlay';
-    glowOverlay.style.cssText = `
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        background: radial-gradient(circle, rgba(30, 215, 154, 0.4) 0%, rgba(13, 183, 175, 0.2) 50%, transparent 100%);
-        border-radius: 20px;
-        pointer-events: none;
-        z-index: 0;
-        animation: expansionGlowPulse 2s ease-in-out;
-    `;
-
-    card.style.position = 'relative';
-    card.appendChild(glowOverlay);
-
-    setTimeout(() => {
-        if (glowOverlay.parentNode) glowOverlay.parentNode.removeChild(glowOverlay);
-    }, 2000);
-}
-
-// Create expansion ripples effect
-function createExpansionRipples(card) {
-    for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-            const ripple = document.createElement('div');
-            ripple.style.cssText = `
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 20px;
-                height: 20px;
-                border: 3px solid rgba(30, 215, 154, 0.6);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 1;
-                animation: expansionRipple 1.5s ease-out forwards;
-                transform: translate(-50%, -50%);
-            `;
-
-            card.style.position = 'relative';
-            card.appendChild(ripple);
-
-            setTimeout(() => {
-                if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
-            }, 1500);
-        }, i * 300);
-    }
-}
-
-// Create collapse sparkles effect
-function createCollapseSparkles(card) {
-    const rect = card.getBoundingClientRect();
-
-    for (let i = 0; i < 8; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'collapse-sparkle';
-
-        const x = rect.left + Math.random() * rect.width;
-        const y = rect.top + Math.random() * rect.height;
-
-        sparkle.style.cssText = `
-            position: fixed;
-            left: ${x}px;
-            top: ${y}px;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #FFD700, #FF6B35);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            animation: collapseSparkleTwinkle 0.8s ease-out forwards;
-        `;
-
-        document.body.appendChild(sparkle);
-
-        setTimeout(() => {
-            if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
-        }, 800);
-    }
-}
+// Removed flashy animation functions
 
 // Updated filtering functionality
 function initMetricsFiltering() {
@@ -790,33 +435,7 @@ function initParallaxParticles() {
     });
 }
 
-function createRippleEffect(event, element) {
-    const rect = element.getBoundingClientRect();
-    const circle = document.createElement('div');
-    const size = Math.max(rect.width, rect.height) * 1.5;
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    circle.style.cssText = `
-        position: absolute;
-        left: ${x}px;
-        top: ${y}px;
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: 50%;
-        background: rgba(30, 215, 154, 0.1);
-        pointer-events: none;
-        transform: scale(0);
-        animation: ripple 0.6s ease-out;
-        z-index: 1;
-    `;
-
-    element.style.position = 'relative';
-    element.style.overflow = 'hidden';
-    element.appendChild(circle);
-
-    setTimeout(() => circle.remove(), 600);
-}
+// Removed ripple effect function
 
 // Global functions for external access
 window.searchBloatnetMetrics = function (searchTerm) {

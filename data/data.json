@@ -1,169 +1,247 @@
 {
+    "general_metrics": [
+        {
+            "id": "ram",
+            "title": "RAM",
+            "icon": "💾",
+            "description": "Memory usage monitoring"
+        },
+        {
+            "id": "swap",
+            "title": "SWAP",
+            "icon": "🔄",
+            "description": "Swap memory utilization"
+        },
+        {
+            "id": "goroutines",
+            "title": "Goroutines",
+            "icon": "🧵",
+            "description": "Concurrent goroutines count"
+        },
+        {
+            "id": "threads-cpus",
+            "title": "Threads/CPUs",
+            "icon": "⚙️",
+            "description": "Thread and CPU usage"
+        },
+        {
+            "id": "state-size-growth",
+            "title": "State Size Growth",
+            "icon": "📈",
+            "description": "State database growth rate"
+        },
+        {
+            "id": "disk-size",
+            "title": "Disk Size",
+            "icon": "💿",
+            "description": "Overall disk usage"
+        },
+        {
+            "id": "reorgs",
+            "title": "Reorgs",
+            "icon": "🔀",
+            "description": "Number of chain reorganizations"
+        },
+        {
+            "id": "heap-activity",
+            "title": "Heap Activity",
+            "icon": "📊",
+            "description": "Memory heap allocation activity"
+        }
+    ],
     "initial_metrics": [
         {
-            "id": "read-write-performance-tree-depth",
-            "title": "Read/Write Performance Speed vs Tree Depth",
+            "id": "block-hash-block-time-calls",
+            "title": "Block Hash and Block Time Calls",
             "category": "performance",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "It would be nice to know how performance for I/O gets degraded wrt the state growth and its size at each time."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Discussed with Guillaume",
+            "specific_metrics": []
+        },
+        {
+            "id": "read-write-performance-speed",
+            "title": "Read/Write Performance Speed vs State Growth",
+            "category": "performance",
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "It would be nice to know how performance for I/O gets degraded wrt the state growth and its size at each time.",
+            "specific_metrics": [
+                "Min/Max/Avg Bytes/s Read and Write for every block with a 50k block queue",
+                "Same block queue for all bloated states",
+                "Avg RAM usage"
+            ]
+        },
+        {
+            "id": "block-time-vs-state-size",
+            "title": "Block Time vs State Size and Gas Limit",
+            "category": "execution",
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "If block-time (block production/generation) time goes above 4s could start to be a problem. Also attesters would have more issues to make a block finalize on time.",
+            "specific_metrics": [
+                "For a machine with recommended hardware as per EIP-9270",
+                "Block flamegraph decomposition"
+            ]
         },
         {
             "id": "client-db-breaking-points",
             "title": "At Which State-Size Do Client-DBs Break?",
             "category": "database",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "It's important to know when and where client DB implementations will just break as they can't hold X[G/T]Bs of state. So that we see if things like e.g. sync or other things (OOM, etc) fail."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "It's important to know when and where client DB implementations will just break as they can't hold X[G/T]Bs of state. So that we see if things like e.g. sync or other things (OOM, etc) fail.",
+            "specific_metrics": []
         },
         {
-            "id": "block-creation-time-flamegraph",
-            "title": "Block Creation Time & Flamegraph Analysis",
-            "category": "execution",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Will be interesting to see how execution time spent on blockbuilding/execution changes with gas_limit increases. How does the flamegraph look like? (computation, io, swapping, etc)."
-        },
-        {
-            "id": "mpt-witness-multiproof-size",
-            "title": "Size of MPT Witness (Multiproof)",
+            "id": "mpt-bal-witness-size",
+            "title": "Size of MPT Witness & BAL vs State Size",
             "category": "witness",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Likely not going to be severely impacted within the MPT as 3x'ing the DB will imply an increase in depth of ~2 levels. Nevertheless, is interesting to see the impact that this will cause for state change and for deep-depth tree value."
-        }
-    ],
-    "additional_metrics": [
-        {
-            "id": "disk-ram-usage-gas-limit-day",
-            "title": "Disk Growth & RAM Usage per Gas Limit & Day",
-            "category": "resources",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Self-explainatory metrics tracking disk growth and RAM usage on average per gas_limit and per day respectively."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Size of an MPT witness & BAL wrt. state size and gas_limit",
+            "specific_metrics": []
         },
         {
             "id": "db-compaction-impact",
             "title": "DB Compaction Impact",
             "category": "database",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Interesting to see the impacts on DB compaction that state-growth will cause and when. Would be interesting to have a client constantly running compaction or at least monitor closely what's the impact."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Interesting to see the impacts on DB compaction that state-growth will cause and when. Would be interesting to have a client constantly running compaction or at least monitor closely.",
+            "specific_metrics": [
+                "Duration",
+                "Frequency",
+                "What happens if we reorg when ongoing (check for different reorg sizes)",
+                "Compaction count"
+            ]
         },
         {
-            "id": "sync-metrics-breaks-performance",
-            "title": "Sync Metrics (When Sync Breaks & Performance)",
+            "id": "sync-metrics",
+            "title": "Sync Metrics - Breaking Points & Performance",
             "category": "sync",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Test snap-sync with each client for every 100 GB?. Account for starting and final chain/DB size and speed of syncing as well as any issues. This should be performed WHILE the network is under heavy stress. To simulate real envs."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Test snap-sync with each client for every 50-100 GB. Account for starting and final chain/DB size and speed of syncing as well as any issues that happen on the meantime. This measurements should be taken under heavy network stress and under avg. workload.",
+            "specific_metrics": [
+                "Healing phase duration",
+                "Overall sync duration",
+                "Start-End DB size",
+                "GasLimit at which is performed",
+                "R/W performance for all ops"
+            ]
         },
         {
             "id": "cache-missing-rates",
             "title": "Cache Missing Rates",
             "category": "caching",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "It would be really interesting to get some data related to cache functioning wrt. state growth. Things like how cache poisoning affects next block execution are really valuable info on attack vectors that now seem unfeasible to perform."
-        },
-        {
-            "id": "node-operator-resource-usage",
-            "title": "Node Operator Resource Usage",
-            "category": "resources",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Comprehensive monitoring of disk I/O, network bandwidth, and computational requirements for running full nodes under increased load."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Cache missing rates wrt. Things like how cache poisoning affects next block execution are really valuable info on attack vectors that now seem unfeasible to perform.",
+            "specific_metrics": []
         },
         {
             "id": "transaction-confirmation-times",
             "title": "Transaction Confirmation Times",
             "category": "user-experience",
-            "requester_badges": [
-                "Stateless-Consensus",
-                "Geth"
-            ],
-            "description": "Real-world transaction processing speeds under various network loads. Important for maintaining user experience as throughput increases."
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "Real-world transaction processing speeds under various network loads. Important for maintaining user experience as throughput increases.",
+            "specific_metrics": []
         },
         {
-            "id": "reth-desired-metrics",
-            "title": "Reth's Desired Metrics",
+            "id": "read-write-tree-depth",
+            "title": "Read/Write Performance at Different Tree Depths",
+            "category": "performance",
+            "requester_badges": ["Stateless-Consensus"],
+            "description": "We want to understand this multidimensional tradeoff space of State size - Deepest leaf included - Read/Write performance. The idea is to go in increments of 100GB and force DB leaf inclusions at different tree depths and then measure read/write and state-root computation performance.",
+            "specific_metrics": []
+        }
+    ],
+    "additional_metrics": [
+        {
+            "id": "reth-io-metrics",
+            "title": "General I/O Metrics",
             "category": "reth",
-            "requester_badges": [
-                "Reth"
-            ],
-            "description": "Metrics requested by the Reth team are still to be defined. This section will be updated once they provide their specific requirements."
+            "requester_badges": ["Reth"],
+            "description": "General i/o metrics (for ex those from prometheus node_exporter), even better if it's possible to collect page cache metrics.",
+            "specific_metrics": []
         },
         {
-            "id": "erigon-database-access-sload-sstore",
+            "id": "erigon-database-access",
             "title": "Database Access Measurement (SLOAD/SSTORE)",
             "category": "erigon",
-            "requester_badges": [
-                "Erigon"
-            ],
-            "description": "Measure database Access (SLOAD/SSTORE) to understand how state operations impact performance and resource usage."
+            "requester_badges": ["Erigon"],
+            "description": "Measure database Access (SLOAD/SSTORE)",
+            "specific_metrics": []
         },
         {
-            "id": "erigon-state-root-computation-time",
+            "id": "erigon-state-root-computation",
             "title": "State Root Computation Time",
             "category": "erigon",
-            "requester_badges": [
-                "Erigon"
-            ],
-            "description": "Measure state root computation time to understand how this critical operation scales with state growth and affects overall performance."
+            "requester_badges": ["Erigon"],
+            "description": "Measure state root computation time",
+            "specific_metrics": []
         },
         {
-            "id": "nethermind-desired-metrics",
-            "title": "Nethermind's Desired Metrics",
-            "category": "nethermind",
-            "requester_badges": [
-                "Nethermind"
-            ],
-            "description": "Metrics requested by the Nethermind team are still to be defined. This section will be updated once they provide their specific requirements."
-        },
-        {
-            "id": "besu-state-access-percentage-sload",
+            "id": "besu-sload-percentage",
             "title": "Percentage of State Accesses (SLOAD) in Block Execution",
             "category": "besu",
-            "requester_badges": [
-                "Besu"
-            ],
-            "description": "This should be checked with different gas limits, and different state sizes and for similar blocks. Understanding how much of block execution time is spent on state accesses."
+            "requester_badges": ["Besu"],
+            "description": "This should be checked with different gas limits, and different state sizes and for similar blocks.",
+            "specific_metrics": []
         },
         {
-            "id": "besu-state-root-hash-calculation",
-            "title": "State Root Hash Calculation Performance",
+            "id": "besu-state-root-throughput",
+            "title": "State Root Hash Calculation Throughput",
             "category": "besu",
-            "requester_badges": [
-                "Besu"
-            ],
-            "description": "Do EL clients have the same throughput (mgas/s) with higher gas limit? And if no, is it only related to state growth?"
+            "requester_badges": ["Besu"],
+            "description": "Do EL clients have the same throughput (mgas/s) with higher gas limit? And if no, is it only related to state growth?",
+            "specific_metrics": []
         },
         {
-            "id": "besu-gas-limit-breaking-points-hardware",
-            "title": "Gas Limit Breaking Points on Predefined Hardware",
+            "id": "besu-hardware-breaking-points",
+            "title": "Gas Limit & State Size Breaking Points",
             "category": "besu",
-            "requester_badges": [
-                "Besu"
-            ],
-            "description": "What gas limit makes EL clients break on a predefined hardware, like a 32 GiB machine. Use Hardware and Bandwidth recommendations from EIP 9270 to see when different EL clients break due to state being too big."
+            "requester_badges": ["Besu"],
+            "description": "What gas_limit and at what state size do EL clients break on a predefined hardware, like a 32 GiB machine. Using Hardware and Bandwidth recommendations from EIP 9270 to see when different EL clients break due to state being too big and the gas_limit too high.",
+            "specific_metrics": [
+                "Test with increments of 50-100GiB state sizes",
+                "Stress-test with different attack scenarios",
+                "Adapt to various gas limits"
+            ]
+        },
+        {
+            "id": "geth-random-storage-access",
+            "title": "Random Storage Access Patterns",
+            "category": "geth",
+            "requester_badges": ["Geth"],
+            "description": "We are mainly concerned about blocks that have a similar access pattern as ZEN mining. We would like to see scenarios tested with a single large contract with a lot of random storage slots.",
+            "specific_metrics": [
+                "Reading a lot of random storage slots with SLOAD",
+                "Updating EXISTING storage slots to another non-zero number",
+                "Updating EXISTING storage slots to 0",
+                "Writing more random storage slots in the contract"
+            ]
+        },
+        {
+            "id": "geth-reorg-testing",
+            "title": "Reorg Testing",
+            "category": "geth",
+            "requester_badges": ["Geth"],
+            "description": "We would like to see larger reorgs of blocks that contain a lot of changes to the database.",
+            "specific_metrics": [
+                "Reorging the head block",
+                "Reorging the last 127 blocks",
+                "Reorging the last 128+ blocks (geth supports reorgs up to 8k)"
+            ]
+        },
+        {
+            "id": "geth-pathdb-archive-mode",
+            "title": "Testing PathDB in Archive Mode",
+            "category": "geth",
+            "requester_badges": ["Geth"],
+            "description": "We are working on shipping a new archive mode which would be nice to test on this network.",
+            "specific_metrics": []
+        },
+        {
+            "id": "geth-account-vs-storage-tree-depth",
+            "title": "Impact of Account Tree Depth vs Storage Tree Depth",
+            "category": "geth",
+            "requester_badges": ["Geth"],
+            "description": "During our state root computation, we calculate the storage tree's in parallel. The account tree is computed at the end. Thus an increase in the depth of the account trie probably has more impact on our state root computation than increase in the state tree.",
+            "specific_metrics": []
         }
     ],
     "categories": {
@@ -186,11 +264,6 @@
             "name": "Witness",
             "color": "#f59e0b",
             "icon": "📋"
-        },
-        "resources": {
-            "name": "Resources",
-            "color": "#ef4444",
-            "icon": "📊"
         },
         "sync": {
             "name": "Synchronization",
@@ -226,6 +299,11 @@
             "name": "Besu",
             "color": "#3b82f6",
             "icon": "☕"
+        },
+        "geth": {
+            "name": "Geth",
+            "color": "#627eea",
+            "icon": "⚙️"
         }
     },
     "requesters": {
@@ -236,7 +314,7 @@
         },
         "Geth": {
             "name": "Geth",
-            "color": "#1e40af",
+            "color": "#627eea",
             "url": "https://geth.ethereum.org/"
         },
         "Reth": {

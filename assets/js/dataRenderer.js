@@ -54,6 +54,43 @@ class DataRenderer {
             return;
         }
 
+        // Render general metrics
+        this.renderGeneralMetrics();
+
+        // Render client-specific metrics
+        this.renderClientMetrics();
+    }
+
+    renderGeneralMetrics() {
+        if (!this.data.metrics.general_metrics) {
+            console.error('No general metrics data available');
+            return;
+        }
+
+        const generalGrid = document.getElementById('general-metrics-grid');
+        if (!generalGrid) {
+            console.error('General metrics grid element not found');
+            return;
+        }
+
+        // Clear existing content
+        generalGrid.innerHTML = '';
+
+        // Render each general metric card
+        this.data.metrics.general_metrics.forEach((metric, index) => {
+            const card = this.createGeneralMetricCard(metric, index);
+            generalGrid.appendChild(card);
+        });
+
+        console.log(`Rendered ${this.data.metrics.general_metrics.length} general metric cards`);
+    }
+
+    renderClientMetrics() {
+        if (!this.data.metrics.initial_metrics) {
+            console.error('No client metrics data available');
+            return;
+        }
+
         const metricsGrid = document.getElementById('metrics-grid');
         if (!metricsGrid) return;
 
@@ -92,6 +129,20 @@ class DataRenderer {
         this.updateSeeMoreButton();
     }
 
+    createGeneralMetricCard(metric, index) {
+        const card = document.createElement('div');
+        card.className = 'general-metric-card';
+        card.style.setProperty('--card-index', index);
+
+        card.innerHTML = `
+            <span class="general-metric-icon">${metric.icon || '📊'}</span>
+            <h3 class="general-metric-title">${metric.title}</h3>
+            <p class="general-metric-description">${metric.description}</p>
+        `;
+
+        return card;
+    }
+
     // Update see more button visibility
     updateSeeMoreButton() {
         const seeMoreBtn = document.getElementById('see-more-btn');
@@ -128,12 +179,30 @@ class DataRenderer {
                 'Reth': '#92400e',                // matches CSS gradient start
                 'Erigon': '#f59e0b',              // matches CSS gradient start
                 'Nethermind': '#1ed79a',          // matches CSS gradient start
-                'Besu': '#8b5cf6'                 // matches CSS gradient start
+                'Besu': '#8b5cf6',                // matches CSS gradient start
+                'Geth': '#627eea'                  // matches CSS gradient start
             };
 
             if (badgeColorMap[primaryBadge]) {
                 borderColor = badgeColorMap[primaryBadge];
             }
+        }
+
+        // Build specific metrics section if available
+        let specificMetricsHtml = '';
+        if (metric.specific_metrics && metric.specific_metrics.length > 0) {
+            specificMetricsHtml = `
+                <div class="specific-metrics-section">
+                    <h4 class="specific-metrics-title">Specific Metrics</h4>
+                    <ul class="specific-metrics-list">
+                        ${metric.specific_metrics.map((item, index) => `
+                            <li class="specific-metric-item" style="--item-index: ${index}">
+                                ${item}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
         }
 
         card.innerHTML = `
@@ -150,6 +219,7 @@ class DataRenderer {
                 <p class="metric-description">
                     ${metric.description}
                 </p>
+                ${specificMetricsHtml}
             </div>
         `;
 

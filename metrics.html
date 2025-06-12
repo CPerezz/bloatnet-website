@@ -94,9 +94,21 @@
         </div>
     </section>
 
+    <!-- General Metrics Section -->
+    <section class="general-metrics-section">
+        <div class="container">
+            <h2 class="section-title">Metrics Always Collected</h2>
+            <p class="section-subtitle">Core performance indicators tracked across all tests</p>
+            <div class="general-metrics-grid" id="general-metrics-grid">
+                <!-- General metrics will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
     <!-- Metrics Grid -->
     <section class="metrics-section">
         <div class="container">
+            <h2 class="section-title">Client-Specific Metrics</h2>
             <div class="metrics-grid" id="metrics-grid">
                 <!-- Metrics will be dynamically loaded from data/data.json -->
             </div>
@@ -117,11 +129,14 @@
             <h3>Filter by Category</h3>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Metrics</button>
+                <button class="filter-btn" data-filter="performance">Performance</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="execution">Execution</button>
+                <button class="filter-btn" data-filter="sync">Synchronization</button>
                 <button class="filter-btn" data-filter="stateless-consensus">Stateless-Consensus</button>
                 <button class="filter-btn" data-filter="geth">Geth</button>
                 <button class="filter-btn" data-filter="reth">Reth</button>
                 <button class="filter-btn" data-filter="erigon">Erigon</button>
-                <button class="filter-btn" data-filter="nethermind">Nethermind</button>
                 <button class="filter-btn" data-filter="besu">Besu</button>
             </div>
         </div>
