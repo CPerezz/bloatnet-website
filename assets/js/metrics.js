@@ -15,10 +15,12 @@ function initMetricsPage() {
     initMetricsAnimations();
     initMetricCardDropdowns();
 
-    // Initialize collision system after shapes are loaded
-    setTimeout(() => {
-        initEthereumCollisionSystem();
-    }, 1000);
+    // Initialize collision system after shapes are loaded (only on desktop)
+    if (window.innerWidth > 768) {
+        setTimeout(() => {
+            initEthereumCollisionSystem();
+        }, 1000);
+    }
 }
 
 // Initialize DataRenderer and load metrics
@@ -422,6 +424,11 @@ function initMetricsAnimations() {
 }
 
 function initParallaxParticles() {
+    // Don't run parallax on mobile/tablet devices
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
     const particles = document.querySelectorAll('.particle');
 
     window.addEventListener('scroll', () => {
@@ -521,6 +528,11 @@ document.head.appendChild(dynamicStyles);
 
 // Ethereum Shape Collision Detection System
 function initEthereumCollisionSystem() {
+    // Don't run on mobile/tablet devices
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
     const shapes = document.querySelectorAll('.ethereum-shape');
     const collisionDistance = 120; // Distance threshold for collision
     const collisionCooldown = 2000; // Cooldown period in milliseconds

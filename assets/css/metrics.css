@@ -748,6 +748,7 @@
     transform: translateY(30px) scale(0.9);
     animation: generalMetricEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     animation-delay: calc(var(--card-index) * 0.1s);
+    animation-fill-mode: forwards;
 }
 
 @keyframes generalMetricEntrance {
@@ -1486,6 +1487,85 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Hide firework-like animations on mobile/tablet */
+    .ethereum-shape {
+        display: none !important;
+    }
+    
+    .header-particles {
+        display: none !important;
+    }
+    
+    /* Disable collision effects */
+    .collision-particle {
+        display: none !important;
+    }
+    
+    /* Remove animation-heavy backgrounds */
+    .metrics-header::before {
+        animation: none !important;
+    }
+    
+    .general-metrics-section::before {
+        animation: none !important;
+    }
+    
+    /* Simplified hover effects */
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .requester-badge:hover {
+        transform: scale(1.05);
+        box-shadow: none;
+    }
+    
+    /* Scrollable expanded metric cards */
+    .metric-card.expanded .metric-content {
+        max-height: 250px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: rgba(30, 215, 154, 0.5) rgba(30, 215, 154, 0.1);
+    }
+    
+    /* Custom scrollbar for webkit browsers */
+    .metric-card.expanded .metric-content::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .metric-card.expanded .metric-content::-webkit-scrollbar-track {
+        background: rgba(30, 215, 154, 0.1);
+        border-radius: 4px;
+    }
+    
+    .metric-card.expanded .metric-content::-webkit-scrollbar-thumb {
+        background: rgba(30, 215, 154, 0.5);
+        border-radius: 4px;
+        border: 1px solid rgba(30, 215, 154, 0.2);
+    }
+    
+    .metric-card.expanded .metric-content::-webkit-scrollbar-thumb:hover {
+        background: rgba(30, 215, 154, 0.7);
+    }
+    
+    /* Visual scroll indicator */
+    .metric-card.expanded .metric-content::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    
     .general-metrics-grid {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         gap: 15px;
@@ -1493,10 +1573,28 @@
 
     .general-metric-card {
         padding: 20px 15px;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+    
+    .general-metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     }
 
     .general-metric-icon {
         font-size: 2rem;
+        animation: none !important;
+        display: block !important;
+        margin-bottom: 8px;
+        line-height: 1.2;
+        /* Ensure emoji/icons are visible */
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        filter: none !important;
     }
 
     .general-metric-title {
@@ -1522,14 +1620,17 @@
 
     .metric-card {
         padding: 24px;
+        animation: none !important;
     }
 
     .animated-title {
         font-size: 2.5rem;
+        animation: titleEntrance 0.8s ease forwards !important;
     }
 
     .animated-subtitle {
         font-size: 1.1rem;
+        animation: subtitleEntrance 0.8s ease 0.3s forwards !important;
     }
 
     .collaboration-text {
@@ -1538,6 +1639,7 @@
 
     .collaboration-icon {
         font-size: 3rem;
+        animation: pulse 2s infinite !important;
     }
 
     .filter-buttons {
@@ -1547,6 +1649,10 @@
     .filter-btn {
         font-size: 0.9rem;
         padding: 10px 20px;
+    }
+    
+    .filter-btn::before {
+        display: none !important;
     }
 
     .request-form-container {
@@ -1561,9 +1667,51 @@
     .embedded-form-container iframe {
         height: 800px;
     }
+    
+    /* Disable flashy animations */
+    .see-more-btn {
+        animation: none !important;
+    }
+    
+    .see-more-btn:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(30, 215, 154, 0.3);
+    }
+    
+    /* Disable particle animations */
+    .particle {
+        display: none !important;
+    }
 }
 
 @media (max-width: 480px) {
+    /* Ensure all animations are disabled on small screens too */
+    .ethereum-shape,
+    .header-particles,
+    .collision-particle,
+    .particle {
+        display: none !important;
+    }
+    
+    /* Even smaller max-height for mobile screens */
+    .metric-card.expanded .metric-content {
+        max-height: 200px !important;
+    }
+    
+    /* Ensure general metric cards and icons are visible */
+    .general-metric-card {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+    
+    .general-metric-icon {
+        font-size: 1.8rem;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+    
     .metrics-header {
         padding: 100px 0 60px;
     }
