@@ -657,7 +657,7 @@ class DataRenderer {
 
     // Render persistent attacks table
     renderPersistentAttacks() {
-        if (!this.data.attacks || !this.data.attacks.attack_vectors) {
+        if (!this.data.attacks || !this.data.attacks.persistent_attacks) {
             return;
         }
 
@@ -668,8 +668,7 @@ class DataRenderer {
 
         tableBody.innerHTML = '';
 
-        // Use the attack_vectors array instead of persistent_attacks
-        this.data.attacks.attack_vectors.forEach((attack, index) => {
+        this.data.attacks.persistent_attacks.forEach((attack, index) => {
             // Main row
             const row = document.createElement('tr');
             row.className = 'persistent-attack-row';
@@ -677,10 +676,10 @@ class DataRenderer {
 
             row.innerHTML = `
                 <td class="attack-name-cell">
-                    <div class="attack-name">${attack.technique_name}</div>
+                    <div class="attack-name">${attack.attack}</div>
                 </td>
                 <td class="attack-description-cell">
-                    <div class="attack-description">${attack.technique_detail}</div>
+                    <div class="attack-description">${attack.description}</div>
                 </td>
                 <td class="expand-cell">
                     <span class="expand-icon">▼</span>
