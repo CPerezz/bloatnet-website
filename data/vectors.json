@@ -1,51 +1,35 @@
 {
     "attack_vectors": [
         {
-            "id": "warm-extcodesize-24kb",
+            "id": "dense-nibble-paths",
             "rank": 1,
             "rank_badge": "🥇",
-            "technique_name": "100 gas warm EXTCODESIZE probe on 24KiB contracts",
-            "technique_detail": "Warm EXTCODESIZE operation on large contracts",
-            "cost_per_transient_byte": "240 g/B",
-            "cost_calculation": "100 gas ÷ 24,576 B",
+            "technique_name": "Dense nibble-populated paths within the tree",
+            "technique_detail": "Requires DB manipulation",
+            "cost_per_transient_byte": "TBD",
+            "cost_calculation": "Under investigation",
             "details": {
-                "net_persistent_state": "0 B",
-                "bytes_read_written": "24 KiB read",
-                "intrinsic_gas": "100 gas per EXTCODESIZE",
-                "max_units_30m_gas": "300,000 calls → 300,000 × 24KiB = 6.72GiB bytes read",
-                "technical_notes": "EXTCODESIZE is priced really low, and requires the node to load the code even if storage is warm. As the node needs to count the bytes. That allows for an insane amount of data to be read while executing"
+                "net_persistent_state": "Variable",
+                "bytes_read_written": "Depends on tree depth and density",
+                "intrinsic_gas": "Variable based on path complexity",
+                "max_units_30m_gas": "Under analysis",
+                "technical_notes": "This attack creates densely populated nibble paths in the Merkle Patricia Trie, forcing the database to traverse and store many intermediate nodes. By carefully crafting addresses and storage keys that share common prefixes, attackers can create trie structures that maximize node creation and traversal costs, leading to database bloat and performance degradation."
             }
         },
         {
-            "id": "cold-extcodesize-24kb",
+            "id": "deep-leaf-inclusion",
             "rank": 2,
             "rank_badge": "🥈",
-            "technique_name": "2600 gas cold EXTCODESIZE probe on 24KiB contracts",
-            "technique_detail": "Cold EXTCODESIZE operation on large contracts",
-            "cost_per_transient_byte": "9.45 g/B",
-            "cost_calculation": "2,600 gas ÷ 24,576 B",
+            "technique_name": "Deep leaf inclusion behaviour",
+            "technique_detail": "Requires DB manipulation",
+            "cost_per_transient_byte": "TBD",
+            "cost_calculation": "Under investigation",
             "details": {
-                "net_persistent_state": "0 B",
-                "bytes_read_written": "24 KiB read",
-                "intrinsic_gas": "2,600 gas per EXTCODESIZE",
-                "max_units_30m_gas": "11,538 calls → 11,538 × 24KiB = 270.6MiB read",
-                "technical_notes": "EXTCODESIZE is priced really low, and since the node doesn't cache the size of the bytecode, it actually needs to copy the whole bytecode to memory, count bytes then return the value. If the accounts aren't cached, this has chances to be quite disruptive when tries are massive and this can be abused more with higher gas limits"
-            }
-        },
-        {
-            "id": "sstore-zero-to-nonzero-back",
-            "rank": 3,
-            "rank_badge": "🥉",
-            "technique_name": "SSTORE 0→x then x→0 in the same tx",
-            "technique_detail": "Storage manipulation with refund",
-            "cost_per_transient_byte": "475 g/B",
-            "cost_calculation": "(20,000 gas - 4,800 gas refund) ÷ 32 Bytes",
-            "details": {
-                "net_persistent_state": "0 B",
-                "bytes_read_written": "64 Bytes written & erased",
-                "intrinsic_gas": "20,000 gas - 4,800 gas refund = 15,200 gas net",
-                "max_units_30m_gas": "Variable based on refund calculations",
-                "technical_notes": "Refund now capped to 1⁄5 of gas used (EIP-3529) so attack lost ¾ of its edge"
+                "net_persistent_state": "Variable",
+                "bytes_read_written": "Depends on additional depth levels",
+                "intrinsic_gas": "Increases with path depth",
+                "max_units_30m_gas": "Particularly impactful with high gas limits",
+                "technical_notes": "This attack exploits the behavior when trie paths have 1 or 2 more levels than typical. By creating storage layouts that force deeper-than-normal trie structures, it significantly impacts read/write operations. The effect is amplified with higher gas limits, as more deep operations can be packed into a single block, potentially causing severe performance issues during state access and updates."
             }
         }
     ],
@@ -86,9 +70,9 @@
     ],
     "metadata": {
         "last_updated": "2024-12-19",
-        "total_vectors": 3,
+        "total_vectors": 2,
         "total_persistent_attacks": 3,
-        "ranking_criteria": "Gas cost per transient byte (lowest to highest cost)",
-        "note": "Lower cost is more efficient for attackers. Rankings focus on EXTCODESIZE exploits and storage manipulation attacks."
+        "ranking_criteria": "Attack complexity and database impact",
+        "note": "These attacks focus on database manipulation and trie structure exploitation, requiring deeper understanding of Ethereum's state storage implementation."
     }
 }

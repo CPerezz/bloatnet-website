@@ -47,6 +47,12 @@
             "title": "Heap Activity",
             "icon": "📊",
             "description": "Memory heap allocation activity"
+        },
+        {
+            "id": "bandwidth-consumption",
+            "title": "Bandwidth Consumption",
+            "icon": "📡",
+            "description": "Network bandwidth usage and throughput"
         }
     ],
     "initial_metrics": [
