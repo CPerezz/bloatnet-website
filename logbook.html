@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://docs.google.com; frame-src https://docs.google.com; img-src 'self' data: https:;">
+    <title>LogBook - Bloatnet Initiative</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/logbook.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="assets/js/dataRenderer.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/ethereum-eth-logo-animated.gif" alt="Ethereum" class="ethereum-logo-gif">
+                Bloatnet
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link">Bloating</a></li>
+                <li><a href="logbook.html" class="nav-link active">LogBook</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-menu-close" id="mobileMenuClose">&times;</button>
+            <ul class="mobile-menu-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="metrics.html" class="nav-link">Metrics</a></li>
+                <li><a href="attacks.html" class="nav-link">Attack Vectors</a></li>
+                <li><a href="bloating.html" class="nav-link">Bloating</a></li>
+                <li><a href="logbook.html" class="nav-link active">LogBook</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- LogBook Header -->
+    <section class="metrics-header">
+        <div class="header-content">
+            <h1>Project LogBook</h1>
+            <p class="header-subtitle">Track the progress and milestones of the Bloatnet Initiative</p>
+        </div>
+    </section>
+
+    <!-- LogBook Controls -->
+    <section class="logbook-controls">
+        <div class="container">
+            <div class="controls-wrapper">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search logs..." class="search-input">
+                </div>
+                <div class="filter-container">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="milestone">Milestone</option>
+                        <option value="feature">Feature</option>
+                        <option value="bugfix">Bug Fix</option>
+                        <option value="research">Research</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="documentation">Documentation</option>
+                    </select>
+                    <select id="sortOrder" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LogBook Timeline -->
+    <section class="logbook-timeline">
+        <div class="container">
+            <div id="logsContainer" class="logs-wrapper">
+                <!-- Logs will be dynamically loaded here -->
+            </div>
+            <div id="noResultsMessage" class="no-results" style="display: none;">
+                <p>No logs found matching your criteria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://ethereum.org" target="_blank" rel="noopener noreferrer">Ethereum.org</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Documentation</a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2024 Bloatnet Initiative. Building the future of Ethereum scaling.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/logbook.js"></script>
+</body>
+
+</html>

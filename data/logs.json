@@ -1,0 +1,352 @@
+{
+  "logs": [
+    {
+      "id": "log_001",
+      "timestamp": "2025-05-28T10:00:00Z",
+      "category": "milestone",
+      "title": "Bloatnet Initiative Planning Started",
+      "description": "Initial collaboration between Nethermind and Ethereum Foundation teams to explore artificial state growth and establish testing goals for 2x mainnet state.",
+      "details": [
+        "CPerezz, Kamil Chodoła, and Marcin scheduled initial meeting",
+        "Goal established: achieve artificial state growth of at least 2x mainnet",
+        "Partnership formed with EF DevOps and Geth teams"
+      ],
+      "tags": ["planning", "collaboration"],
+      "author": "Bloatnet Team"
+    },
+    {
+      "id": "log_002",
+      "timestamp": "2025-06-03T14:00:00Z",
+      "category": "infrastructure",
+      "title": "Geth Bloating Tool Development",
+      "description": "Guillaume (asqyzeron) developed specialized Geth fork capable of bloating state directly at block production, creating ~10k accounts per block with 15 million leaves.",
+      "details": [
+        "Introduced BloatNetTime parameter in genesis.json",
+        "Creates uniform accounts with max 30 leaves each",
+        "Tool available at gballet/go-ethereum:bloat-per-block branch",
+        "Override flag --override.bloat added by jsvisa"
+      ],
+      "tags": ["tooling", "geth"],
+      "author": "Guillaume (Geth Team)"
+    },
+    {
+      "id": "log_003",
+      "timestamp": "2025-06-04T02:00:00Z",
+      "category": "bugfix",
+      "title": "Critical Memory and RPC Issues Discovered",
+      "description": "Multiple critical issues discovered during bloating: extreme memory consumption, RPC bottlenecks at high gas limits, and network finality loss.",
+      "details": [
+        "Geth consuming 60GB+ memory due to 128 trie layers in memory",
+        "RPC unable to handle 20-50k pending transactions at 500M gas limit",
+        "Mempool issues causing 0-tx blocks despite thousands pending",
+        "Network lost finality multiple times during heavy bloating"
+      ],
+      "tags": ["performance", "discovery"],
+      "author": "jsvisa & CPerezz"
+    },
+    {
+      "id": "log_004",
+      "timestamp": "2025-06-05T10:00:00Z",
+      "category": "feature",
+      "title": "Spamoor Bloating Scenarios Deployed",
+      "description": "CPerezz deployed comprehensive state bloating scenarios via Spamoor, enabling systematic state growth through various attack vectors.",
+      "details": [
+        "Contract deployment scenario for bytecode bloating",
+        "SetCodeTx scenario with 7702 auth abuse",
+        "EXTCODESIZE attack scenario implementation",
+        "Storage slot bloating optimized for state growth"
+      ],
+      "tags": ["tooling", "spamoor"],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_005",
+      "timestamp": "2025-06-10T14:00:00Z",
+      "category": "milestone",
+      "title": "Perf-devnet-2 Network Launched",
+      "description": "Public Bloatnet network successfully launched at perf-devnet-2.ethpandaops.io with multi-client support and comprehensive monitoring.",
+      "details": [
+        "Dora block explorer deployed at dora.perf-devnet-2.ethpandaops.io",
+        "Grafana dashboards configured for all major clients",
+        "Support for Geth, Nethermind, Reth, Erigon, and Besu",
+        "Initial state size: 1.3TB (~1.5x mainnet)"
+      ],
+      "tags": ["network", "infrastructure"],
+      "author": "Pari (EthPandaOps)"
+    },
+    {
+      "id": "log_006",
+      "timestamp": "2025-07-12T10:30:00Z",
+      "category": "research",
+      "title": "First Sync Performance Baselines",
+      "description": "Completed comprehensive sync tests across multiple clients with bloated state, establishing critical performance baselines at 1.5x mainnet size.",
+      "details": [
+        "Nethermind: 36 minutes snap sync + 40 seconds healing phase",
+        "Erigon and Reth successfully synced to head",
+        "Peak DB reads: 600k ops/minute during sync",
+        "Peak DB writes: 400k ops/minute during sync"
+      ],
+      "tags": ["performance", "sync"],
+      "author": "Kamil Chodoła"
+    },
+    {
+      "id": "log_007",
+      "timestamp": "2025-07-14T15:00:00Z",
+      "category": "feature",
+      "title": "XEN Contract Bloating Scenario Added",
+      "description": "Philipp (pk910) implemented XEN contract replication scenario to create massive individual contract states for stress testing.",
+      "details": [
+        "Replicates mainnet XEN contract attack patterns",
+        "Creates extremely large individual contract states",
+        "Scenario distribution: 50% SSTORE, 25% EIP7702, 25% XEN",
+        "Targeting ~600M gas per block"
+      ],
+      "tags": ["tooling", "attacks"],
+      "author": "Philipp (pk910)"
+    },
+    {
+      "id": "log_008",
+      "timestamp": "2025-07-16T09:00:00Z",
+      "category": "bugfix",
+      "title": "Critical Healing Phase Bug Found",
+      "description": "Discovered critical issue where Nethermind's healing phase gets stuck indefinitely under heavy load, preventing successful sync completion.",
+      "details": [
+        "Node stuck in StateNodes sync phase for 12+ hours",
+        "Issue triggered at 800Mgas blocks with heavy state changes",
+        "Healing completed in 6 minutes after reducing load",
+        "Multiple DB corruptions observed on same machine"
+      ],
+      "tags": ["bug", "sync"],
+      "author": "Kamil Chodoła & Ben Adams"
+    },
+    {
+      "id": "log_009",
+      "timestamp": "2025-07-16T10:00:00Z",
+      "category": "research",
+      "title": "Block Building Timeout Issues Identified",
+      "description": "Multiple clients experiencing block building timeouts at high gas limits, with Lighthouse having 2s timeout causing missed proposals.",
+      "details": [
+        "Lighthouse 2s timeout too low for high gas blocks",
+        "Reth taking 2.1s+ for some blocks at 1000M gas",
+        "Besu producing empty blocks due to timeout issues",
+        "Spec requirement of 1s timeout proven unrealistic"
+      ],
+      "tags": ["performance", "spec"],
+      "author": "Pari & pk910"
+    },
+    {
+      "id": "log_010",
+      "timestamp": "2025-07-17T12:00:00Z",
+      "category": "milestone",
+      "title": "Reached 1.5x Mainnet State Size",
+      "description": "Successfully bloated state to 750GB total, achieving approximately 1.5x mainnet state size with balanced growth ratios.",
+      "details": [
+        "State composition: ~250GB storage, ~25GB accounts, ~30GB bytecode",
+        "Stable bloating achieved at 300M gas after reducing from 800M",
+        "Multiple stress points identified in various clients",
+        "Ready for comprehensive sync and performance testing"
+      ],
+      "tags": ["milestone", "state"],
+      "author": "CPerezz & Bloatnet Team"
+    },
+    {
+      "id": "log_011",
+      "timestamp": "2025-06-08T14:00:00Z",
+      "category": "documentation",
+      "title": "Bloatnet Website Preview Released",
+      "description": "CPerezz created and shared the official Bloatnet Initiative website preview for community feedback and traction.",
+      "details": [
+        "Website deployed at cperezz.github.io/bloatnet-website",
+        "Includes findings section for documenting discoveries",
+        "Features metrics dashboards and progress tracking",
+        "Designed to encourage collaboration and metric submissions"
+      ],
+      "tags": ["website", "documentation"],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_012",
+      "timestamp": "2025-07-16T12:00:00Z",
+      "category": "research",
+      "title": "Infinite Healing Bug Discovered",
+      "description": "Critical discovery that Nethermind's healing phase gets stuck indefinitely under heavy load, preventing successful sync completion.",
+      "details": [
+        "Node stuck in StateNodes sync phase for 12+ hours at 800Mgas blocks",
+        "Constantly switching between 'FastSync, StateNodes' and 'StateNodes'",
+        "Healing completed successfully in 6 minutes after reducing load",
+        "Confirms healing breaks when state changes between blocks are too numerous"
+      ],
+      "tags": ["bug", "healing"],
+      "author": "Kamil Chodoła & Ben Adams"
+    },
+    {
+      "id": "log_013",
+      "timestamp": "2025-07-18T11:00:00Z",
+      "category": "bugfix",
+      "title": "Major Consensus Split Event",
+      "description": "Network experienced two major forks: first between Besu and other clients due to ModExp gas pricing, then between Nethermind/Reth and Geth/Erigon.",
+      "details": [
+        "First split: Besu using 500 gas for ModExp instead of 200, causing 600 gas difference",
+        "Second split: CL-related issues causing Nethermind/Reth vs Geth/Erigon fork",
+        "Transaction 0xccc3f79... exposed the gas calculation discrepancy",
+        "Resolved by correcting Besu to use performance branch instead of performance-modexp"
+      ],
+      "tags": ["consensus", "fork"],
+      "author": "Pari, Matkt & Besu Team"
+    },
+    {
+      "id": "log_014",
+      "timestamp": "2025-07-17T14:00:00Z",
+      "category": "research",
+      "title": "Erigon Performance Degradation at 1.5x State",
+      "description": "Erigon experiencing severe performance issues at 1.5x mainnet state size, unable to maintain sync with chain head.",
+      "details": [
+        "Execution times exceeding 1 second per block",
+        "Node falling behind chain head consistently",
+        "Team investigating root cause, expected to take significant time to resolve",
+        "Highlights scalability challenges at increased state sizes"
+      ],
+      "tags": ["performance", "erigon"],
+      "author": "milen (Erigon Team)"
+    },
+    {
+      "id": "log_015",
+      "timestamp": "2025-07-16T14:00:00Z",
+      "category": "bugfix",
+      "title": "Empty Block Production Bug",
+      "description": "Besu producing empty blocks despite thousands of pending transactions in mempool, caused by block building timeouts.",
+      "details": [
+        "All-or-nothing behavior: either full blocks or completely empty",
+        "Timeout issues preventing transaction inclusion",
+        "Affects network throughput and bloating efficiency",
+        "Highlighted need for better timeout handling across clients"
+      ],
+      "tags": ["blocks", "timeout"],
+      "author": "ahamlat & Besu Team"
+    },
+    {
+      "id": "log_016",
+      "timestamp": "2025-07-17T15:00:00Z",
+      "category": "milestone",
+      "title": "Comprehensive Testing Strategy Defined",
+      "description": "Marius van der Wijden outlined the complete testing roadmap for Bloatnet, establishing clear priorities and targets.",
+      "details": [
+        "Priority 1: 100M gas limit at 2x mainnet state size",
+        "Create benchmarks/testcases on 2x fork for consistent metrics",
+        "Continue bloating to 4x, 6x, 8x, and 10x mainnet sizes",
+        "Investigate degenerated test cases (broad vs deep trie, accounts vs storage)",
+        "Focus on realistic scenarios: reorg + compaction + high gas blocks"
+      ],
+      "tags": ["planning", "goals"],
+      "author": "MariusVanDerWijden"
+    },
+    {
+      "id": "log_017",
+      "timestamp": "2025-06-03T14:00:00Z",
+      "category": "documentation",
+      "title": "Initial Metrics Requirements Document",
+      "description": "CPerezz published first comprehensive metrics requirements document for all EL clients to standardize data collection.",
+      "details": [
+        "Document at hackmd.io/ob66NuW9QBORHLz7emhSCw",
+        "Requested all client teams to contribute ideas",
+        "Established need for granular metrics collection",
+        "Focus on sync performance and database operations"
+      ],
+      "tags": ["metrics", "documentation"],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_018",
+      "timestamp": "2025-07-21T10:00:00Z",
+      "category": "milestone",
+      "title": "Sync and Compaction Metrics Agreement",
+      "description": "Teams reached consensus on standardized metrics collection following major reorg event, establishing unified measurement standards.",
+      "details": [
+        "Metrics document at hackmd.io/@CPerezz/SkzDZmngT",
+        "Agreement reached after 1600+ block reorg incident",
+        "Defined healing phase duration tracking",
+        "Established I/O performance measurement standards",
+        "Consensus on using node exporter for cross-client compatibility"
+      ],
+      "tags": ["metrics", "consensus"],
+      "author": "CPerezz & Client Teams"
+    },
+    {
+      "id": "log_019",
+      "timestamp": "2025-07-23T09:00:00Z",
+      "category": "documentation",
+      "title": "Client Implementation Deep-Dive Questionnaire",
+      "description": "Comprehensive questionnaire released to gather detailed implementation specifics from each client team for creating targeted test scenarios.",
+      "details": [
+        "Document at hackmd.io/@CPerezz/HkZlj_jIgg",
+        "Questions covering client-specific tradeoffs and optimizations",
+        "Designed to inform EELS test case creation",
+        "Geth and Besu completed questionnaires promptly",
+        "Pending responses from Nethermind, Erigon, and Reth"
+      ],
+      "tags": ["documentation", "testing"],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_020",
+      "timestamp": "2025-07-23T14:00:00Z",
+      "category": "feature",
+      "title": "Comprehensive Test Scenarios Catalog Released",
+      "description": "Published extensive catalog of all planned test scenarios for BloatNet, open for community review and contributions.",
+      "details": [
+        "Document at hackmd.io/@CPerezz/ryoMhzaLel",
+        "Includes state bloating scenarios",
+        "Attack vector test cases",
+        "Performance stress tests",
+        "Open for expert opinions and improvements from all teams"
+      ],
+      "tags": ["testing", "planning"],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_021",
+      "timestamp": "2025-07-20T16:00:00Z",
+      "category": "research",
+      "title": "First Round Sync Test Results & Critical Findings",
+      "description": "Completed first comprehensive sync test round across all clients at 1.5x mainnet state, revealing critical issues and performance bottlenecks requiring immediate fixes.",
+      "details": [
+        "Nethermind: Healing phase stuck indefinitely at 800Mgas blocks, required load reduction to 300Mgas for completion",
+        "Besu: Chain ID confusion causing mainnet peering instead of testnet, snap sync struggling significantly",
+        "Reth: Memory capacity errors during serialization, requiring investigation of state handling",
+        "Erigon: Severe performance degradation, unable to keep up with chain head at 1.5x state",
+        "Geth: Most stable performance but experiencing memory issues with 128 trie layers",
+        "Syncoor dashboard deployed at syncoor.perf-devnet-2.ethpandaops.io for monitoring",
+        "Critical finding: Healing phase breaks when state changes between blocks exceed client capacity",
+        "Action items: Reduce gas limit from 800M to 300M, implement better timeout handling, fix chainID issues"
+      ],
+      "tags": ["sync", "testing", "performance"],
+      "author": "Syncoor Team & Client Teams"
+    },
+    {
+      "id": "log_022",
+      "timestamp": "2025-08-12T14:00:00Z",
+      "category": "research",
+      "title": "2x Mainnet State Sync Testing - Critical Peering Issues Block Progress",
+      "description": "Reached 2x mainnet state size and attempted comprehensive sync testing, but severe peering issues prevented most clients from completing sync due to mainnet peer confusion on shadowfork network.",
+      "details": [
+        "State reached 2x mainnet size with balanced distribution across accounts, contracts, and storage",
+        "Perf-devnet-2 network deployed with syncoor dashboard at syncoor.perf-devnet-2.ethpandaops.io",
+        "Critical shadowfork peering issues discovered:",
+        "- All nodes filling up with mainnet peers due to identical forkID",
+        "- No available peer slots for sync test machines to connect",
+        "- Required manual admin API intervention to add peers",
+        "Sync test results at 2x state:",
+        "- Geth: Successfully synced after adding --eth.requiredblocks flag to filter mainnet peers",
+        "- Besu: Successfully synced after using --required-block flag for peer filtering",
+        "- Nethermind: Unable to complete sync tests, missing requiredblocks feature for peer filtering",
+        "- Reth: 0 EL peers, unable to sync without requiredblocks flag or constant peer management",
+        "- Erigon: Unable to sync, awaiting clarification on shadowfork.block env variable",
+        "Key finding: Shadowfork networks need unique forkID or salt to prevent mainnet peer confusion",
+        "Proposed solutions: Add requiredblocks flag to all clients or implement network ID salt",
+        "Decision to pause sync testing until peering issues resolved across all clients"
+      ],
+      "tags": ["sync", "2x-state", "peering", "shadowfork"],
+      "author": "Syncoor Team & DevOps"
+    }
+  ]
+}

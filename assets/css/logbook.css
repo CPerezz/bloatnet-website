@@ -1,0 +1,331 @@
+.logbook-controls {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.controls-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.filter-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-select {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.filter-select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.logbook-timeline {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    min-height: 500px;
+}
+
+.logs-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.logs-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.3) 0%, rgba(0, 212, 255, 0.1) 100%);
+}
+
+.log-entry {
+    position: relative;
+    padding: 2rem 0 2rem 80px;
+    animation: fadeInUp 0.6s ease;
+}
+
+.log-timeline-marker {
+    position: absolute;
+    left: 44px;
+    top: 2.5rem;
+    width: 12px;
+    height: 12px;
+    background: #00d4ff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    z-index: 2;
+}
+
+.log-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.log-content:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.log-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.log-date {
+    color: #00d4ff;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.log-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.log-category {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.category-milestone {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.category-feature {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    color: #fff;
+}
+
+.category-bugfix {
+    background: linear-gradient(135deg, #ff6b6b 0%, #cc5252 100%);
+    color: #fff;
+}
+
+.category-research {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: #fff;
+}
+
+.category-infrastructure {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: #fff;
+}
+
+.category-documentation {
+    background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+    color: #fff;
+}
+
+.log-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.log-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.log-details {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+}
+
+.log-details li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+.log-details li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #00d4ff;
+}
+
+.log-details a {
+    color: #00d4ff;
+    text-decoration: none;
+    border-bottom: 1px dotted #00d4ff;
+    transition: all 0.3s ease;
+}
+
+.log-details a:hover {
+    color: #66e5ff;
+    border-bottom-style: solid;
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+.log-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.log-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 4px;
+    color: #00d4ff;
+    font-size: 0.85rem;
+}
+
+.log-author {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.no-results p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+}
+
+.error-message {
+    text-align: center;
+    color: #ff6b6b;
+    padding: 2rem;
+    font-size: 1.1rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .controls-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        width: 100%;
+    }
+    
+    .filter-container {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .filter-select {
+        width: 100%;
+    }
+    
+    .logs-wrapper::before {
+        left: 30px;
+    }
+    
+    .log-timeline-marker {
+        left: 24px;
+    }
+    
+    .log-entry {
+        padding-left: 60px;
+    }
+    
+    .log-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .log-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
