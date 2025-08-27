@@ -347,6 +347,38 @@
       ],
       "tags": ["sync", "2x-state", "peering", "shadowfork"],
       "author": "Syncoor Team & DevOps"
+    },
+    {
+      "id": "log_023",
+      "timestamp": "2025-08-27T10:00:00Z",
+      "category": "feature",
+      "title": "EEST Stubbed Contracts Support for Stateful Testing",
+      "description": "Mario Vega (marioevz) from EELS team implemented stubbed contracts support in EEST, enabling stateful tests to query existing contracts in state for benchmarking scenarios like XEN tests.",
+      "details": [
+        "PR merged: https://github.com/ethereum/execution-spec-tests/pull/2073",
+        "Enables implementation of XEN tests and other stateful scenarios",
+        "Reviewed by CPerezz and Felipe who identified JSON string input parsing error",
+        "PR merged after fixing the identified parsing issue",
+        "Critical feature for creating realistic state-dependent benchmarks"
+      ],
+      "tags": ["testing", "EEST", "tooling"],
+      "author": "Mario Vega (EELS Team)"
+    },
+    {
+      "id": "log_024",
+      "timestamp": "2025-08-27T10:00:00Z",
+      "category": "feature",
+      "title": "Single-Opcode State Access Tests for Bloatnet",
+      "description": "Guillaume Ballet from Stateless & Geth teams submitted first PR implementing single-opcode tests for state access operations, starting with SSTORE and SLOAD support.",
+      "details": [
+        "PR submitted: https://github.com/ethereum/execution-spec-tests/pull/2040",
+        "Initial implementation covers SSTORE and SLOAD opcodes",
+        "Part of comprehensive opcode-level testing strategy for Bloatnet",
+        "Enables granular performance analysis of state access operations",
+        "Foundation for expanded opcode coverage in future PRs"
+      ],
+      "tags": ["testing", "opcodes", "performance"],
+      "author": "gballet (Stateless & Geth Teams)"
     }
   ]
 }
