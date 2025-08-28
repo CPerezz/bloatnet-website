@@ -379,6 +379,40 @@
       ],
       "tags": ["testing", "opcodes", "performance"],
       "author": "gballet (Stateless & Geth Teams)"
+    },
+    {
+      "id": "log_025",
+      "timestamp": "2025-08-28T10:00:00Z",
+      "category": "feature",
+      "title": "Cold BALANCE + Warm EXTCODESIZE Scenario for Spamoor",
+      "description": "Han submitted PR implementing Cold BALANCE + Warm EXTCODESIZE attack scenario for spamoor, targeting specific gas cost vulnerabilities in state access patterns.",
+      "details": [
+        "PR submitted for review: https://github.com/ethpandaops/spamoor/pull/124",
+        "Implements cold BALANCE opcode calls combined with warm EXTCODESIZE operations",
+        "Targets gas cost asymmetries in state access patterns",
+        "Awaiting review from CPerezz before merge",
+        "Adds to comprehensive suite of state bloating attack vectors"
+      ],
+      "tags": ["spamoor", "attacks", "tooling"],
+      "author": "Han"
+    },
+    {
+      "id": "log_026",
+      "timestamp": "2025-08-28T11:00:00Z",
+      "category": "bugfix",
+      "title": "Erigon Implementing Shadowfork Peering Fix",
+      "description": "Erigon team (milen) committed to implementing --eth.requiredblock flag to resolve shadowfork peering issues after understanding mempool bridge architecture eliminates need for mainnet p2p connections.",
+      "details": [
+        "Initial concern: shadowforks need mainnet peers for transaction forwarding",
+        "Pari clarified mempool bridge tool handles mainnet tx rebroadcasting without p2p peering",
+        "Key insight: chainId in transaction RLP and signatures prevents simple network separation",
+        "Alternative would require client forks without signature verification",
+        "Milen confirmed will add --eth.requiredblock support to Erigon",
+        "Implementation expected within a few days after completing current tasks",
+        "This unblocks Erigon sync testing at 2x mainnet state"
+      ],
+      "tags": ["peering", "shadowfork", "erigon", "sync"],
+      "author": "milen (Erigon Team)"
     }
   ]
 }
