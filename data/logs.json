@@ -400,19 +400,20 @@
       "id": "log_026",
       "timestamp": "2025-08-28T11:00:00Z",
       "category": "bugfix",
-      "title": "Erigon Implementing Shadowfork Peering Fix",
-      "description": "Erigon team (milen) committed to implementing --eth.requiredblock flag to resolve shadowfork peering issues after understanding mempool bridge architecture eliminates need for mainnet p2p connections.",
+      "title": "Multiple Clients Implementing Shadowfork Peering Fix",
+      "description": "Erigon and Reth teams actively implementing --eth.requiredblock flag to resolve shadowfork peering issues, while Nethermind has opened tracking issue awaiting implementer assignment.",
       "details": [
         "Initial concern: shadowforks need mainnet peers for transaction forwarding",
         "Pari clarified mempool bridge tool handles mainnet tx rebroadcasting without p2p peering",
         "Key insight: chainId in transaction RLP and signatures prevents simple network separation",
-        "Alternative would require client forks without signature verification",
-        "Milen confirmed will add --eth.requiredblock support to Erigon",
-        "Implementation expected within a few days after completing current tasks",
-        "This unblocks Erigon sync testing at 2x mainnet state"
+        "Erigon: Milen confirmed implementation, expected within days after current tasks",
+        "Reth: Active implementation in progress - https://github.com/paradigmxyz/reth/issues/18062",
+        "Nethermind: Issue opened, awaiting implementer - https://github.com/NethermindEth/nethermind/issues/9204",
+        "Geth and Besu already have this functionality",
+        "This will unblock sync testing for all clients at 2x mainnet state"
       ],
-      "tags": ["peering", "shadowfork", "erigon", "sync"],
-      "author": "milen (Erigon Team)"
+      "tags": ["peering", "shadowfork", "erigon", "reth", "nethermind", "sync"],
+      "author": "Erigon, Reth & Nethermind Teams"
     }
   ]
 }
