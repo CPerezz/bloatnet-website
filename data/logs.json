@@ -414,6 +414,28 @@
       ],
       "tags": ["peering", "shadowfork", "erigon", "reth", "nethermind", "sync"],
       "author": "Erigon, Reth & Nethermind Teams"
+    },
+    {
+      "id": "log_027",
+      "timestamp": "2025-08-29T10:00:00Z",
+      "category": "research",
+      "title": "Nethermind Sync Testing with Pivot Flags Solution",
+      "description": "Nethermind team successfully initiated sync testing at 2x mainnet state using specific pivot flags, discovering that --eth.requiredblock flag is no longer required for shadowfork sync.",
+      "details": [
+        "Initial sync attempts failed after 68+ hours without proper peer discovery",
+        "Kamil Chodoła and Łukasz Rozmej provided solution with pivot flags:",
+        "- Added specific pivot hash and number for sync targeting",
+        "- Set Sync.PivotHash=0x77811bb477a5d40cc40b694fa7e6a3482772f2d045a91f725fe40b9215ef51b2",
+        "- Set Sync.PivotNumber=23142646 and Sync.PivotTotalDifficulty=58750003716598352816469",
+        "- Enabled discovery and removed static peer restrictions",
+        "Initial slow progress (0.01%) improved to 5% in 10 minutes after connecting to more peers",
+        "Successfully connected to both Besu and Geth nodes for snap sync",
+        "Key finding: --eth.requiredblock flag is no longer required for Nethermind",
+        "Pivot flags provide sufficient targeting for shadowfork sync without mainnet peer confusion",
+        "GitHub Actions run: https://github.com/ethpandaops/perf-devnets/actions/runs/17321647521"
+      ],
+      "tags": ["sync", "nethermind", "workaround", "testing"],
+      "author": "Kamil Chodoła & Nethermind Team"
     }
   ]
 }
