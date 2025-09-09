@@ -11,7 +11,10 @@
         "Goal established: achieve artificial state growth of at least 2x mainnet",
         "Partnership formed with EF DevOps and Geth teams"
       ],
-      "tags": ["planning", "collaboration"],
+      "tags": [
+        "planning",
+        "collaboration"
+      ],
       "author": "Bloatnet Team"
     },
     {
@@ -26,7 +29,10 @@
         "Tool available at gballet/go-ethereum:bloat-per-block branch",
         "Override flag --override.bloat added by jsvisa"
       ],
-      "tags": ["tooling", "geth"],
+      "tags": [
+        "tooling",
+        "geth"
+      ],
       "author": "Guillaume (Geth Team)"
     },
     {
@@ -41,7 +47,10 @@
         "Mempool issues causing 0-tx blocks despite thousands pending",
         "Network lost finality multiple times during heavy bloating"
       ],
-      "tags": ["performance", "discovery"],
+      "tags": [
+        "performance",
+        "discovery"
+      ],
       "author": "jsvisa & CPerezz"
     },
     {
@@ -56,7 +65,10 @@
         "EXTCODESIZE attack scenario implementation",
         "Storage slot bloating optimized for state growth"
       ],
-      "tags": ["tooling", "spamoor"],
+      "tags": [
+        "tooling",
+        "spamoor"
+      ],
       "author": "CPerezz"
     },
     {
@@ -71,7 +83,10 @@
         "Support for Geth, Nethermind, Reth, Erigon, and Besu",
         "Initial state size: 1.3TB (~1.5x mainnet)"
       ],
-      "tags": ["network", "infrastructure"],
+      "tags": [
+        "network",
+        "infrastructure"
+      ],
       "author": "Pari (EthPandaOps)"
     },
     {
@@ -86,7 +101,10 @@
         "Peak DB reads: 600k ops/minute during sync",
         "Peak DB writes: 400k ops/minute during sync"
       ],
-      "tags": ["performance", "sync"],
+      "tags": [
+        "performance",
+        "sync"
+      ],
       "author": "Kamil Chodoła"
     },
     {
@@ -101,7 +119,10 @@
         "Scenario distribution: 50% SSTORE, 25% EIP7702, 25% XEN",
         "Targeting ~600M gas per block"
       ],
-      "tags": ["tooling", "attacks"],
+      "tags": [
+        "tooling",
+        "attacks"
+      ],
       "author": "Philipp (pk910)"
     },
     {
@@ -116,7 +137,10 @@
         "Healing completed in 6 minutes after reducing load",
         "Multiple DB corruptions observed on same machine"
       ],
-      "tags": ["bug", "sync"],
+      "tags": [
+        "bug",
+        "sync"
+      ],
       "author": "Kamil Chodoła & Ben Adams"
     },
     {
@@ -131,7 +155,10 @@
         "Besu producing empty blocks due to timeout issues",
         "Spec requirement of 1s timeout proven unrealistic"
       ],
-      "tags": ["performance", "spec"],
+      "tags": [
+        "performance",
+        "spec"
+      ],
       "author": "Pari & pk910"
     },
     {
@@ -146,7 +173,10 @@
         "Multiple stress points identified in various clients",
         "Ready for comprehensive sync and performance testing"
       ],
-      "tags": ["milestone", "state"],
+      "tags": [
+        "milestone",
+        "state"
+      ],
       "author": "CPerezz & Bloatnet Team"
     },
     {
@@ -161,7 +191,10 @@
         "Features metrics dashboards and progress tracking",
         "Designed to encourage collaboration and metric submissions"
       ],
-      "tags": ["website", "documentation"],
+      "tags": [
+        "website",
+        "documentation"
+      ],
       "author": "CPerezz"
     },
     {
@@ -176,7 +209,10 @@
         "Healing completed successfully in 6 minutes after reducing load",
         "Confirms healing breaks when state changes between blocks are too numerous"
       ],
-      "tags": ["bug", "healing"],
+      "tags": [
+        "bug",
+        "healing"
+      ],
       "author": "Kamil Chodoła & Ben Adams"
     },
     {
@@ -191,7 +227,10 @@
         "Transaction 0xccc3f79... exposed the gas calculation discrepancy",
         "Resolved by correcting Besu to use performance branch instead of performance-modexp"
       ],
-      "tags": ["consensus", "fork"],
+      "tags": [
+        "consensus",
+        "fork"
+      ],
       "author": "Pari, Matkt & Besu Team"
     },
     {
@@ -206,7 +245,10 @@
         "Team investigating root cause, expected to take significant time to resolve",
         "Highlights scalability challenges at increased state sizes"
       ],
-      "tags": ["performance", "erigon"],
+      "tags": [
+        "performance",
+        "erigon"
+      ],
       "author": "milen (Erigon Team)"
     },
     {
@@ -221,7 +263,10 @@
         "Affects network throughput and bloating efficiency",
         "Highlighted need for better timeout handling across clients"
       ],
-      "tags": ["blocks", "timeout"],
+      "tags": [
+        "blocks",
+        "timeout"
+      ],
       "author": "ahamlat & Besu Team"
     },
     {
@@ -237,7 +282,10 @@
         "Investigate degenerated test cases (broad vs deep trie, accounts vs storage)",
         "Focus on realistic scenarios: reorg + compaction + high gas blocks"
       ],
-      "tags": ["planning", "goals"],
+      "tags": [
+        "planning",
+        "goals"
+      ],
       "author": "MariusVanDerWijden"
     },
     {
@@ -252,7 +300,10 @@
         "Established need for granular metrics collection",
         "Focus on sync performance and database operations"
       ],
-      "tags": ["metrics", "documentation"],
+      "tags": [
+        "metrics",
+        "documentation"
+      ],
       "author": "CPerezz"
     },
     {
@@ -268,7 +319,10 @@
         "Established I/O performance measurement standards",
         "Consensus on using node exporter for cross-client compatibility"
       ],
-      "tags": ["metrics", "consensus"],
+      "tags": [
+        "metrics",
+        "consensus"
+      ],
       "author": "CPerezz & Client Teams"
     },
     {
@@ -284,7 +338,10 @@
         "Geth and Besu completed questionnaires promptly",
         "Pending responses from Nethermind, Erigon, and Reth"
       ],
-      "tags": ["documentation", "testing"],
+      "tags": [
+        "documentation",
+        "testing"
+      ],
       "author": "CPerezz"
     },
     {
@@ -300,7 +357,10 @@
         "Performance stress tests",
         "Open for expert opinions and improvements from all teams"
       ],
-      "tags": ["testing", "planning"],
+      "tags": [
+        "testing",
+        "planning"
+      ],
       "author": "CPerezz"
     },
     {
@@ -319,7 +379,11 @@
         "Critical finding: Healing phase breaks when state changes between blocks exceed client capacity",
         "Action items: Reduce gas limit from 800M to 300M, implement better timeout handling, fix chainID issues"
       ],
-      "tags": ["sync", "testing", "performance"],
+      "tags": [
+        "sync",
+        "testing",
+        "performance"
+      ],
       "author": "Syncoor Team & Client Teams"
     },
     {
@@ -345,7 +409,12 @@
         "Proposed solutions: Add requiredblocks flag to all clients or implement network ID salt",
         "Decision to pause sync testing until peering issues resolved across all clients"
       ],
-      "tags": ["sync", "2x-state", "peering", "shadowfork"],
+      "tags": [
+        "sync",
+        "2x-state",
+        "peering",
+        "shadowfork"
+      ],
       "author": "Syncoor Team & DevOps"
     },
     {
@@ -361,7 +430,11 @@
         "PR merged after fixing the identified parsing issue",
         "Critical feature for creating realistic state-dependent benchmarks"
       ],
-      "tags": ["testing", "EEST", "tooling"],
+      "tags": [
+        "testing",
+        "EEST",
+        "tooling"
+      ],
       "author": "Mario Vega (EELS Team)"
     },
     {
@@ -377,7 +450,11 @@
         "Enables granular performance analysis of state access operations",
         "Foundation for expanded opcode coverage in future PRs"
       ],
-      "tags": ["testing", "opcodes", "performance"],
+      "tags": [
+        "testing",
+        "opcodes",
+        "performance"
+      ],
       "author": "gballet (Stateless & Geth Teams)"
     },
     {
@@ -393,7 +470,11 @@
         "Awaiting review from CPerezz before merge",
         "Adds to comprehensive suite of state bloating attack vectors"
       ],
-      "tags": ["spamoor", "attacks", "tooling"],
+      "tags": [
+        "spamoor",
+        "attacks",
+        "tooling"
+      ],
       "author": "Han"
     },
     {
@@ -412,7 +493,14 @@
         "Geth and Besu already have this functionality",
         "This will unblock sync testing for all clients at 2x mainnet state"
       ],
-      "tags": ["peering", "shadowfork", "erigon", "reth", "nethermind", "sync"],
+      "tags": [
+        "peering",
+        "shadowfork",
+        "erigon",
+        "reth",
+        "nethermind",
+        "sync"
+      ],
       "author": "Erigon, Reth & Nethermind Teams"
     },
     {
@@ -434,8 +522,39 @@
         "Pivot flags provide sufficient targeting for shadowfork sync without mainnet peer confusion",
         "GitHub Actions run: https://github.com/ethpandaops/perf-devnets/actions/runs/17321647521"
       ],
-      "tags": ["sync", "nethermind", "workaround", "testing"],
+      "tags": [
+        "sync",
+        "nethermind",
+        "workaround",
+        "testing"
+      ],
       "author": "Kamil Chodoła & Nethermind Team"
+    },
+    {
+      "id": "log_028",
+      "timestamp": "2025-09-09T14:00:00Z",
+      "category": "research",
+      "title": "Not All State Is Equal - Critical State Growth Analysis",
+      "description": "Han's article 'Not All State Is Equal' reveals crucial insights about state access patterns and potential attack vectors, prompting new bloating scenario development for targeting non-existent addresses.",
+      "details": [
+        "Article published at: https://notes.ethereum.org/@weiihann/not-all-state-is-equal",
+        "Key finding: State access to non-existent addresses significantly cheaper than existing ones",
+        "Guillaume (Geth team) identified potential attack: deploying contracts at addresses that don't exist yet",
+        "Attack vector: Could amortize the 21000 gas transaction cost by creating factory contracts",
+        "Discussion on bloom filter implementation to mitigate, but size requirements unclear",
+        "Impact on MPT vs unified tree structures: Works for MPT but not for unified trees with code grouped with account",
+        "gballet identified new bloatnet scenario: Contract sending 1 wei to many non-existing addresses",
+        "Guillaume's concern: Could incentivize cheaper account creation via factories, leading to state bloat",
+        "Alternative attack vector suggested: Sending 1 wei to many contracts for cheaper state manipulation",
+        "Critical insight: Current gas pricing may not properly reflect actual computational costs for different state access patterns"
+      ],
+      "tags": [
+        "research",
+        "state",
+        "attacks",
+        "gas-pricing"
+      ],
+      "author": "Han, Guillaume (Geth Team) & CPerezz"
     }
   ]
 }
