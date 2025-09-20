@@ -11,7 +11,7 @@
                 "performance_metrics": [
                     {
                         "label": "Intrinsic Gas",
-                        "value": "32,000 CREATE + 20,000 new-acct + 200 × 24,576 code deposit = <strong>4,967,200 gas</strong>"
+                        "value": "32,000 CREATE + 25,000 new-acct + 200 × 24,576 code deposit = <strong>4,972,200 gas</strong>"
                     },
                     {
                         "label": "Max Units per Block",
@@ -55,7 +55,7 @@
                 "performance_metrics": [
                     {
                         "label": "Intrinsic Gas",
-                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 7,823 refund = <strong>~31,300 gas</strong>"
+                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 12,500 refund = <strong>~26,616 gas</strong>"
                     },
                     {
                         "label": "Max Units per Block",
@@ -99,7 +99,7 @@
                 "performance_metrics": [
                     {
                         "label": "Intrinsic Gas",
-                        "value": "21,000 tx + 9,000 value-transfer = <strong>30,000 gas</strong>"
+                        "value": "21,000 tx + 25,000 new-account = <strong>46,000 gas</strong>"
                     },
                     {
                         "label": "Max Units per Block",
@@ -229,7 +229,7 @@
                     },
                     {
                         "label": "Intrinsic Gas",
-                        "value": "20,000 gas/slot = <strong>20,000 gas</strong>"
+                        "value": "20,000 base + 2,100 cold access = <strong>22,100 gas/slot</strong>"
                     },
                     {
                         "label": "Storage Mechanism",
