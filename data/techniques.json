@@ -11,7 +11,7 @@
                 "performance_metrics": [
                     {
                         "label": "Intrinsic Gas",
-                        "value": "32,000 CREATE + 25,000 new-acct + 200 × 24,576 code deposit = <strong>4,972,200 gas</strong>"
+                        "value": "21,000 tx + 32,000 CREATE + 25,000 new-acct + 200 × 24,576 code deposit = <strong>4,993,200 gas</strong>"
                     },
                     {
                         "label": "Max Units per Block",
@@ -55,7 +55,7 @@
                 "performance_metrics": [
                     {
                         "label": "Intrinsic Gas",
-                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 12,500 refund = <strong>~26,616 gas</strong>"
+                        "value": "21,000 tx + 25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata - 12,500 refund = <strong>~47,616 gas</strong>"
                     },
                     {
                         "label": "Max Units per Block",
@@ -147,7 +147,7 @@
                     },
                     {
                         "label": "Intrinsic Gas",
-                        "value": "25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata = <strong>39,116 gas</strong>"
+                        "value": "21,000 tx + 25,000 PER_EMPTY_ACCOUNT + 12,500 PER_AUTH_BASE + 1,616 calldata = <strong>60,116 gas</strong>"
                     },
                     {
                         "label": "Target Address",
@@ -177,47 +177,6 @@
             "id": 5,
             "rank": 5,
             "rank_badge": "5",
-            "technique_name": "Deploy Minimal Proxy Contract (~60 B)",
-            "technique_detail": "Small contract deployment",
-            "gas_per_byte": "~401 gas",
-            "details": {
-                "flat_details": [
-                    {
-                        "label": "What is Written",
-                        "value": "Updated account + code trie"
-                    },
-                    {
-                        "label": "Intrinsic Gas",
-                        "value": "32,000 CREATE + 25,000 new account + 12,000 code deposit = <strong>69,000 gas</strong>"
-                    },
-                    {
-                        "label": "Contract Type",
-                        "value": "Minimal proxy pattern (~60 bytes)"
-                    },
-                    {
-                        "label": "Storage Components",
-                        "value": "Account creation + contract code storage"
-                    },
-                    {
-                        "label": "Bytes → State",
-                        "value": "~172 B"
-                    },
-                    {
-                        "label": "Max Units per Block",
-                        "value": "~434 deployments"
-                    },
-                    {
-                        "label": "Technical Notes",
-                        "value": "Smaller contracts are less efficient per byte than maximum-size contracts due to fixed deployment overhead",
-                        "className": "notes"
-                    }
-                ]
-            }
-        },
-        {
-            "id": 6,
-            "rank": 6,
-            "rank_badge": "6",
             "technique_name": "Fill new storage slots (SSTORE 0→x)",
             "technique_detail": "Storage slot creation",
             "gas_per_byte": "625 gas",
@@ -229,7 +188,7 @@
                     },
                     {
                         "label": "Intrinsic Gas",
-                        "value": "20,000 base + 2,100 cold access = <strong>22,100 gas/slot</strong>"
+                        "value": "21,000 tx + 20,000 base + 2,100 cold access = <strong>43,100 gas/slot</strong>"
                     },
                     {
                         "label": "Storage Mechanism",
@@ -258,7 +217,7 @@
     ],
     "metadata": {
         "last_updated": "2024-12-19",
-        "total_techniques": 6,
+        "total_techniques": 5,
         "ranking_criteria": "Gas cost per byte stored (lowest to highest cost)",
         "note": "Lower cost is more efficient for data storage"
     }
