@@ -607,6 +607,34 @@
         "debugging"
       ],
       "author": "Reth Team (Matthias, YK) & EthPandaOps"
+    },
+    {
+      "id": "log_031",
+      "timestamp": "2025-09-29T12:00:00Z",
+      "category": "development",
+      "title": "EEST Gas Validation for Benchmark Tests Implementation",
+      "description": "CPerezz implemented critical gas validation functionality in EEST execute mode, enabling accurate benchmark testing and unblocking the first EEST benchmarks for Bloatnet.",
+      "details": [
+        "PR #2219 submitted to ethereum/execution-spec-tests repository",
+        "Addresses critical gap where transaction gas consumption wasn't validated in execute mode",
+        "Added expected_benchmark_gas_used field to TransactionPost for gas expectation validation",
+        "Added skip_gas_used_validation field for selective validation control",
+        "Implemented eth_getTransactionReceipt RPC method to fetch actual gas usage from receipts",
+        "Gas validation logic compares actual vs expected gas consumption in benchmark tests",
+        "Prevents false positives in performance testing by failing tests with incorrect gas usage",
+        "Enables gas validation parameters to be passed from both StateTest and BlockchainTest",
+        "Critical for accurate Bloatnet benchmark testing with complex multi-opcode scenarios",
+        "Builds on previous multi-opcode extension work from PR #2186",
+        "Required infrastructure for first EEST benchmarks Bloatnet PR to proceed",
+        "Ensures benchmark tests fail appropriately when gas consumption deviates from expectations"
+      ],
+      "tags": [
+        "eest",
+        "benchmarking",
+        "gas-validation",
+        "testing"
+      ],
+      "author": "CPerezz"
     }
   ]
 }
