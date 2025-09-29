@@ -555,6 +555,58 @@
         "gas-pricing"
       ],
       "author": "Han, Guillaume (Geth Team) & CPerezz"
+    },
+    {
+      "id": "log_029",
+      "timestamp": "2025-09-23T16:00:00Z",
+      "category": "development",
+      "title": "EEST Multi-Opcode Testing Support Enabled",
+      "description": "CPerezz fixed a critical bug in execution-spec-tests that was blocking multi-opcode testing for Bloatnet, enabling the first multi-opcode PR to be merged.",
+      "details": [
+        "PR #2193 merged to ethereum/execution-spec-tests repository",
+        "Fixed missing return statement in deploy_contract() method for stub contracts",
+        "Prevented assertion errors when using stub contracts with predefined addresses",
+        "Enables factory contract deployment patterns critical for Bloatnet testing",
+        "Example use case: factory_address = pre.deploy_contract(code=Bytecode(), stub=\"bloatnet_factory\")",
+        "Unblocks multi-opcode testing scenarios required for comprehensive state bloat analysis"
+      ],
+      "tags": [
+        "testing",
+        "eest",
+        "development",
+        "multi-opcode"
+      ],
+      "author": "CPerezz"
+    },
+    {
+      "id": "log_030",
+      "timestamp": "2025-09-29T10:00:00Z",
+      "category": "bugfix",
+      "title": "Reth Syncing Issues Investigation - Peering and Disconnect Problems",
+      "description": "Extended investigation into Reth client's inability to sync with the Bloatnet network revealed critical peering issues, aggressive reconnection timeouts, and disconnect problems preventing successful synchronization.",
+      "details": [
+        "Reth unable to maintain stable connections to trusted peers, constantly disconnecting",
+        "Only able to connect to Geth archive node but syncs headers only to block 15555201 before disconnect",
+        "Identified aggressive reconnection timeouts causing IP throttling on remote peers",
+        "Required-block chicken-and-egg problem: needs peers to download blocks, but peers reject without required block",
+        "Geth using --eth.requiredblocks flag while Nethermind, Besu, and Reth lack this feature initially",
+        "Empty header responses from peers when required block not present causing sync failures",
+        "Matthias Seitz (Reth team) identified reconnection timeout issues as potential root cause",
+        "YK from Paradigm team requested access to node logs to debug disconnect reasons",
+        "Consistent disconnect after downloading block 15555201 suggests possible archive node limitation",
+        "Reth team using Kurtosis setup for local debugging: github.com/ethpandaops/perf-devnets/tree/master/docs/debug/reth-syncing",
+        "No ETA on fix, Bloatnet sync benchmarks proceeding without Reth temporarily",
+        "Georgios Konstantopoulos raised concerns about fragility of forkid/networkid mechanism",
+        "Rafael Matias confirmed clean runs with new node keys ruling out peer ID banning",
+        "Team granted SSH access to Paradigm engineers for direct VM debugging"
+      ],
+      "tags": [
+        "reth",
+        "sync",
+        "peering",
+        "debugging"
+      ],
+      "author": "Reth Team (Matthias, YK) & EthPandaOps"
     }
   ]
 }
