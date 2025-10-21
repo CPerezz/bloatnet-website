@@ -635,6 +635,33 @@
         "testing"
       ],
       "author": "CPerezz"
+    },
+    {
+      "id": "log_032",
+      "timestamp": "2025-10-21T10:00:00Z",
+      "category": "research",
+      "title": "Gas Repricing Benchmark Requirements Planning",
+      "description": "Team meeting between Jochem Brouwer, Maria Silva, and CPerezz to establish comprehensive benchmarking strategy for EIP gas repricing, focusing on SSTORE operations and account access across varying contract sizes and state configurations.",
+      "details": [
+        "Agreed on contract size testing range: zero to Zen size, including 1.5x and 2x Zen for warm SSTORE benchmarks",
+        "Established clean benchmark approach: few iterations for cold access using difference between cold/warm to estimate overhead",
+        "All zero/non-zero configurations required: 0→non-0, non-0→0, non-0→non-0 for both cold and warm access",
+        "Account access benchmarking: both reads and writes at mainnet size, 2x mainnet (from Blobnet), and smaller (older snapshot)",
+        "Contract implementation: direct vector writes to avoid extra call overhead, unique values per storage slot to prevent client optimizations",
+        "Cold access testing strategy: small number of loops (1-5 sstores) due to massive database requirements for comprehensive testing",
+        "Mass cold access attacks deemed impractical in production, allowing focus on realistic scenarios",
+        "Empty reads (non-existing keys) benchmarking agreed for worst-case analysis with clean setup",
+        "Jochem's test requirements: ERC20 contract with large storage, initialize via balance changes, attack using approve() to minimize overhead",
+        "CPerezz to provide contracts within days depending on bloating process, will share Solidity code for approval before deployment"
+      ],
+      "tags": [
+        "gas-repricing",
+        "benchmarking",
+        "planning",
+        "sstore",
+        "account-access"
+      ],
+      "author": "Jochem Brouwer, Maria Silva & CPerezz"
     }
   ]
 }
